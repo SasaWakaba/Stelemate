@@ -1,0 +1,6 @@
+﻿  main.cpp
+model.obj : error LNK2019: 未解決の外部シンボル aiImportFile が関数 "public: void __cdecl CModel::Load(void)" (?Load@CModel@@QEAAXXZ) で参照されました。
+model.obj : error LNK2019: 未解決の外部シンボル aiGetMaterialColor が関数 "private: void __cdecl CModel::LoadModel(struct aiScene const *,struct aiNode const *,struct VERTEX_3D *,unsigned short *)" (?LoadModel@CModel@@AEAAXPEBUaiScene@@PEBUaiNode@@PEAUVERTEX_3D@@PEAG@Z) で参照されました。
+model.obj : error LNK2019: 未解決の外部シンボル aiGetMaterialTexture が関数 "public: enum aiReturn __cdecl aiMaterial::GetTexture(enum aiTextureType,unsigned int,struct aiString *,enum aiTextureMapping *,unsigned int *,float *,enum aiTextureOp *,enum aiTextureMapMode *)const " (?GetTexture@aiMaterial@@QEBA?AW4aiReturn@@W4aiTextureType@@IPEAUaiString@@PEAW4aiTextureMapping@@PEAIPEAMPEAW4aiTextureOp@@PEAW4aiTextureMapMode@@@Z) で参照されました。
+C:\Program Files\Assimp\lib\x86\assimp.lib : warning LNK4272: ライブラリのコンピューターの種類 'x86' がターゲットのコンピューターの種類' x64' と競合しています
+C:\Users\nayup\Documents\VisualStudio2017\Project_Base\x64\Debug\Project_Base.exe : fatal error LNK1120: 3 件の未解決の外部参照

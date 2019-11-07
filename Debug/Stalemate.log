@@ -1,0 +1,7 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: 中間ディレクトリ (Debug\) に別のプロジェクト (Project_Base.vcxproj) と共有されているファイルが含まれています。これにより、クリーンしてリビルド動作が適切に行われない可能性があります。
+  CSystemMain.cpp
+c:\users\nayup\documents\visualstudio2017\project_base\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\visualstudio2017\project_base\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\visualstudio2017\project_base\gamesystem\arrowsline.h(37): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\visualstudio2017\project_base\gamesystem\cenemyai.h(39): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  Stalemate.vcxproj -> C:\Users\nayup\Documents\VisualStudio2017\Project_Base\Debug\Stalemate.exe

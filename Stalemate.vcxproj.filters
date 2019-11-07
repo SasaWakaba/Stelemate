@@ -1,0 +1,454 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\common">
+      <UniqueIdentifier>{850e97e9-d415-42a0-8ebf-c553a3020474}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\common">
+      <UniqueIdentifier>{6c2e541c-c41a-45b8-87ac-c60aa8e02435}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Stage">
+      <UniqueIdentifier>{60cd8c05-e4cd-432d-8d72-4077c3fa95da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game">
+      <UniqueIdentifier>{43ac7b5e-002a-4e67-a695-8aac59fa93fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game">
+      <UniqueIdentifier>{4713af58-af6f-4653-b571-50ae99ffd162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Result">
+      <UniqueIdentifier>{acd5cff2-5cb0-4b63-b95b-8330fa3a090b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Result">
+      <UniqueIdentifier>{10c13dfa-d751-43ea-9ab9-68cf63e77612}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Title">
+      <UniqueIdentifier>{d141118a-b799-44b4-9227-ca415cd29b55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\GamaSystem">
+      <UniqueIdentifier>{4cb2f365-5954-4e48-b774-3823909b905a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\common\Mesh">
+      <UniqueIdentifier>{faf8541c-9d23-4486-9b22-d0ce9f076598}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\common\Debug">
+      <UniqueIdentifier>{8402af09-3784-467f-97c2-b783a51f696f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Charcter">
+      <UniqueIdentifier>{86de8236-0ede-41dd-9875-7dc4d3a84621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Stage">
+      <UniqueIdentifier>{7a2cbaa2-532b-4b49-bdc1-b66df8a2eea0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\common\Debug">
+      <UniqueIdentifier>{b56369e7-9e3e-4134-8a98-3e885d00ff80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\common\Debug\imgui">
+      <UniqueIdentifier>{52c2f85e-0ab8-497b-90f7-b69de04c4fe1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\common\mesh">
+      <UniqueIdentifier>{735d69a3-09bb-432d-911f-811bb27c5e83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Title">
+      <UniqueIdentifier>{04b431b3-08a6-4b94-bf28-ef6ba93cbbff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\GameSystem">
+      <UniqueIdentifier>{450fe2b6-9a45-43d3-a74c-276b3de2f4b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Charcter">
+      <UniqueIdentifier>{7cca6e77-414b-4acd-973e-74d64908f4ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\UI">
+      <UniqueIdentifier>{c46509db-f8b3-4275-b8e0-567e2215b957}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\UI">
+      <UniqueIdentifier>{0570e670-a645-4912-9f2f-cddfa7448fc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Title\UI">
+      <UniqueIdentifier>{ed7635d4-d38a-4d66-b420-7115efefb460}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Title\UI">
+      <UniqueIdentifier>{2d4a9bf7-efeb-42b7-b2ad-465fa6f40a09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\GamaSystem\Enemy">
+      <UniqueIdentifier>{fe8546c2-4c32-42f7-970a-c2c88f2f700f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\GameSystem\Enemy">
+      <UniqueIdentifier>{f55542f1-4831-4ee6-8198-ef03016b3700}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\common\AI_Base">
+      <UniqueIdentifier>{40763121-8333-434c-a8f9-f69f9a684f5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\common\AI_Base">
+      <UniqueIdentifier>{0110e220-7ba0-4a07-b6f1-737cf8c39d2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\common\model">
+      <UniqueIdentifier>{8bad9fb2-935f-4648-8fc2-ced19c8d35f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\common\model">
+      <UniqueIdentifier>{e4ce37a6-6d25-4ac0-ba23-01d6e1133c30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\common\base">
+      <UniqueIdentifier>{e962dc37-921b-4ab0-9a50-d476bbd7c3b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\common\base">
+      <UniqueIdentifier>{f66cc06f-7f19-4cb1-bc27-43e393bbb4ee}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="imgui\imgui.cpp">
+      <Filter>ソース ファイル\common\Debug\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_draw.cpp">
+      <Filter>ソース ファイル\common\Debug\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_dx11.cpp">
+      <Filter>ソース ファイル\common\Debug\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_sdl.cpp">
+      <Filter>ソース ファイル\common\Debug\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_win32.cpp">
+      <Filter>ソース ファイル\common\Debug\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_widgets.cpp">
+      <Filter>ソース ファイル\common\Debug\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugUi\DebugUi.cpp">
+      <Filter>ソース ファイル\common\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage\CStage.cpp">
+      <Filter>ソース ファイル\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage\CCube.cpp">
+      <Filter>ソース ファイル\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage\CStagePanel.cpp">
+      <Filter>ソース ファイル\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage\CStageManager.cpp">
+      <Filter>ソース ファイル\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh\ModelLoader.cpp">
+      <Filter>ソース ファイル\common\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio\audio_clip.cpp">
+      <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\CCursor.cpp">
+      <Filter>ソース ファイル\Game\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\C3DPolygon.cpp">
+      <Filter>ソース ファイル\Game\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\CSystemBattle.cpp">
+      <Filter>ソース ファイル\Game\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\ArrowsLine.cpp">
+      <Filter>ソース ファイル\Game\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\GameMenu_UI.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\CMoveSearch.cpp">
+      <Filter>ソース ファイル\Game\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\CAttackSearch.cpp">
+      <Filter>ソース ファイル\Game\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\TitleMenu_UI.cpp">
+      <Filter>ソース ファイル\Title\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\PanelState_UI.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\CEnemyAI.cpp">
+      <Filter>ソース ファイル\Game\GameSystem\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\CSystemMain.cpp">
+      <Filter>ソース ファイル\Game\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\TurnChange_UI.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\BattleSimu_UI.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\CPreparation.cpp">
+      <Filter>ソース ファイル\Game\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="common\Billboard.cpp">
+      <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\camera.cpp">
+      <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\CSkyBox.cpp">
+      <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\input.cpp">
+      <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\main.cpp">
+      <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\manager.cpp">
+      <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\renderer.cpp">
+      <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\texture.cpp">
+      <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\CGame.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="common\CResult.cpp">
+      <Filter>ソース ファイル\Result</Filter>
+    </ClCompile>
+    <ClCompile Include="common\CTitle.cpp">
+      <Filter>ソース ファイル\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="common\Cfade.cpp">
+      <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
+    <ClCompile Include="Charcter\CCharacterData.cpp">
+      <Filter>ソース ファイル\Game\Charcter</Filter>
+    </ClCompile>
+    <ClCompile Include="common\model.cpp">
+      <Filter>ソース ファイル\common\model</Filter>
+    </ClCompile>
+    <ClCompile Include="common\ModelAnimation.cpp">
+      <Filter>ソース ファイル\common\model</Filter>
+    </ClCompile>
+    <ClCompile Include="common\Field.cpp">
+      <Filter>ソース ファイル\common\base</Filter>
+    </ClCompile>
+    <ClCompile Include="common\MeshField.cpp">
+      <Filter>ソース ファイル\common\base</Filter>
+    </ClCompile>
+    <ClCompile Include="common\polygon.cpp">
+      <Filter>ソース ファイル\common\base</Filter>
+    </ClCompile>
+    <ClCompile Include="common\Wall.cpp">
+      <Filter>ソース ファイル\common\base</Filter>
+    </ClCompile>
+    <ClCompile Include="common\CScore.cpp">
+      <Filter>ソース ファイル\common\base</Filter>
+    </ClCompile>
+    <ClCompile Include="common\number.cpp">
+      <Filter>ソース ファイル\common\base</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DebugUi\DebugUI.h">
+      <Filter>ヘッダー ファイル\common\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imconfig.h">
+      <Filter>ソース ファイル\common\Debug\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui.h">
+      <Filter>ソース ファイル\common\Debug\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_dx11.h">
+      <Filter>ソース ファイル\common\Debug\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_sdl.h">
+      <Filter>ソース ファイル\common\Debug\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_win32.h">
+      <Filter>ソース ファイル\common\Debug\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_internal.h">
+      <Filter>ソース ファイル\common\Debug\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_rectpack.h">
+      <Filter>ソース ファイル\common\Debug\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_textedit.h">
+      <Filter>ソース ファイル\common\Debug\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_truetype.h">
+      <Filter>ソース ファイル\common\Debug\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Charcter\CCharcterBase.h">
+      <Filter>ヘッダー ファイル\Game\Charcter</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage\CStage.h">
+      <Filter>ヘッダー ファイル\Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage\CStageManager.h">
+      <Filter>ヘッダー ファイル\Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage\CStagePanel.h">
+      <Filter>ヘッダー ファイル\Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage\CCube.h">
+      <Filter>ヘッダー ファイル\Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh\mesh.h">
+      <Filter>ヘッダー ファイル\common\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh\ModelLoader.h">
+      <Filter>ヘッダー ファイル\common\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Charcter\CJob.h">
+      <Filter>ヘッダー ファイル\Game\Charcter</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\CSystemMain.h">
+      <Filter>ヘッダー ファイル\Game\GamaSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\CSystemBattle.h">
+      <Filter>ヘッダー ファイル\Game\GamaSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio\audio_clip.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\CCursor.h">
+      <Filter>ヘッダー ファイル\Game\GamaSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\C3DPolygon.h">
+      <Filter>ヘッダー ファイル\Game\GamaSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\ArrowsLine.h">
+      <Filter>ヘッダー ファイル\Game\GamaSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\GameMenu_UI.h">
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\CMoveSearch.h">
+      <Filter>ヘッダー ファイル\Game\GamaSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\CAttackSearch.h">
+      <Filter>ヘッダー ファイル\Game\GamaSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\TitleMenu_UI.h">
+      <Filter>ヘッダー ファイル\Title\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\PanelState_UI.h">
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\CEnemyAI.h">
+      <Filter>ヘッダー ファイル\Game\GamaSystem\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\TurnChange_UI.h">
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\BattleSimu_UI.h">
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\CPreparation.h">
+      <Filter>ヘッダー ファイル\Game\GamaSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Billboard.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\camera.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\CSkyBox.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Game_Object.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\input.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\main.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\manager.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\renderer.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Scene.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\texture.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\CResult.h">
+      <Filter>ヘッダー ファイル\Result</Filter>
+    </ClInclude>
+    <ClInclude Include="common\CGame.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="common\CTitle.h">
+      <Filter>ヘッダー ファイル\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="common\CFade.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\AI_Base\CAI_Base.h">
+      <Filter>ヘッダー ファイル\common\AI_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="common\AI_Base\CDecorator.h">
+      <Filter>ヘッダー ファイル\common\AI_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="common\AI_Base\CBlackBoard.h">
+      <Filter>ヘッダー ファイル\common\AI_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="common\AI_Base\CTask.h">
+      <Filter>ヘッダー ファイル\common\AI_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="common\AI_Base\CComposite.h">
+      <Filter>ヘッダー ファイル\common\AI_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Charcter\CCharacterData.h">
+      <Filter>ヘッダー ファイル\Game\Charcter</Filter>
+    </ClInclude>
+    <ClInclude Include="common\model.h">
+      <Filter>ヘッダー ファイル\common\model</Filter>
+    </ClInclude>
+    <ClInclude Include="common\ModelAnimation.h">
+      <Filter>ヘッダー ファイル\common\model</Filter>
+    </ClInclude>
+    <ClInclude Include="common\CScore.h">
+      <Filter>ヘッダー ファイル\common\base</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Field.h">
+      <Filter>ヘッダー ファイル\common\base</Filter>
+    </ClInclude>
+    <ClInclude Include="common\MeshField.h">
+      <Filter>ヘッダー ファイル\common\base</Filter>
+    </ClInclude>
+    <ClInclude Include="common\polygon.h">
+      <Filter>ヘッダー ファイル\common\base</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Wall.h">
+      <Filter>ヘッダー ファイル\common\base</Filter>
+    </ClInclude>
+    <ClInclude Include="common\number.h">
+      <Filter>ヘッダー ファイル\common\base</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="imgui\imgui.natvis">
+      <Filter>ソース ファイル\common\Debug\imgui</Filter>
+    </Natvis>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="pixelShader.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="vertexShader.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>

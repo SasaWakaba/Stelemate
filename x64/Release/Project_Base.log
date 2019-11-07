@@ -1,0 +1,72 @@
+﻿  compilation object save succeeded; see C:\Users\nayup\Documents\VisualStudio2017\Project_Base\x64\Release\pixelShader.cso
+  compilation object save succeeded; see C:\Users\nayup\Documents\VisualStudio2017\Project_Base\x64\Release\vertexShader.cso
+  Billboard.cpp
+  camera.cpp
+  CBullet.cpp
+c:\program files\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  CSkyBox.cpp
+c:\program files\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  Enemy.cpp
+c:\program files\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  Field.cpp
+  input.cpp
+  main.cpp
+  manager.cpp
+c:\program files\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  MeshField.cpp
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(24): warning C4244: '初期化中': 'float' から 'size_t' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(27): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(34): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(50): warning C4244: '=': 'float' から 'UINT' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(65): warning C4244: '初期化中': 'float' から 'size_t' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(71): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(75): warning C4244: '=': 'float' から 'WORD' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(85): warning C4244: '=': 'float' から 'WORD' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(93): warning C4244: '=': 'float' から 'UINT' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(140): warning C4244: '引数': 'float' から 'UINT' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(159): warning C4244: '初期化中': 'float' から 'size_t' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(162): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(169): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(185): warning C4244: '=': 'float' から 'UINT' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(200): warning C4244: '初期化中': 'float' から 'size_t' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(206): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(210): warning C4244: '=': 'float' から 'WORD' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(220): warning C4244: '=': 'float' から 'WORD' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\visualstudio2017\project_base\meshfield.cpp(228): warning C4244: '=': 'float' から 'UINT' への変換です。データが失われる可能性があります。
+  model.cpp
+c:\program files\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\users\nayup\documents\visualstudio2017\project_base\model.cpp(498): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\visualstudio2017\project_base\model.cpp(501): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\visualstudio2017\project_base\model.cpp(565): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\visualstudio2017\project_base\model.cpp(578): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\visualstudio2017\project_base\model.cpp(581): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\visualstudio2017\project_base\model.cpp(599): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  Player.cpp
+c:\program files\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\users\nayup\documents\visualstudio2017\project_base\player.cpp(65): warning C4101: 'vec': ローカル変数は 1 度も使われていません。
+  polygon.cpp
+  renderer.cpp
+  texture.cpp
+  Wall.cpp
+model.obj : error LNK2001: 外部シンボル "aiGetMaterialColor" は未解決です。
+model.obj : error LNK2001: 外部シンボル "aiImportFile" は未解決です。
+model.obj : error LNK2001: 外部シンボル "aiGetMaterialTexture" は未解決です。
+C:\Users\nayup\Documents\VisualStudio2017\Project_Base\x64\Release\Project_Base.exe : fatal error LNK1120: 3 件の未解決の外部参照
