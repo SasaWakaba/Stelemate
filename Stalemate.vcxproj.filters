@@ -144,9 +144,6 @@
     <ClCompile Include="mesh\ModelLoader.cpp">
       <Filter>ソース ファイル\common\mesh</Filter>
     </ClCompile>
-    <ClCompile Include="Audio\audio_clip.cpp">
-      <Filter>ソース ファイル\common</Filter>
-    </ClCompile>
     <ClCompile Include="GameSystem\CCursor.cpp">
       <Filter>ソース ファイル\Game\GameSystem</Filter>
     </ClCompile>
@@ -252,6 +249,12 @@
     <ClCompile Include="common\number.cpp">
       <Filter>ソース ファイル\common\base</Filter>
     </ClCompile>
+    <ClCompile Include="Audio\audio_clip.cpp">
+      <Filter>ソース ファイル\common\base</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\CBattleCalculation.cpp">
+      <Filter>ソース ファイル\Game\GameSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugUi\DebugUI.h">
@@ -313,9 +316,6 @@
     </ClInclude>
     <ClInclude Include="GameSystem\CSystemBattle.h">
       <Filter>ヘッダー ファイル\Game\GamaSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Audio\audio_clip.h">
-      <Filter>ヘッダー ファイル\common</Filter>
     </ClInclude>
     <ClInclude Include="GameSystem\CCursor.h">
       <Filter>ヘッダー ファイル\Game\GamaSystem</Filter>
@@ -436,6 +436,12 @@
     </ClInclude>
     <ClInclude Include="common\number.h">
       <Filter>ヘッダー ファイル\common\base</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio\audio_clip.h">
+      <Filter>ヘッダー ファイル\common\base</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\CBattleCalculation.h">
+      <Filter>ヘッダー ファイル\Game\GamaSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

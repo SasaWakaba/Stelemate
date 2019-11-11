@@ -45,6 +45,7 @@
     <ClCompile Include="GameSystem\ArrowsLine.cpp" />
     <ClCompile Include="GameSystem\C3DPolygon.cpp" />
     <ClCompile Include="GameSystem\CAttackSearch.cpp" />
+    <ClCompile Include="GameSystem\CBattleCalculation.cpp" />
     <ClCompile Include="GameSystem\CCursor.cpp" />
     <ClCompile Include="GameSystem\CEnemyAI.cpp" />
     <ClCompile Include="GameSystem\CMoveSearch.cpp" />
@@ -104,6 +105,7 @@
     <ClInclude Include="GameSystem\ArrowsLine.h" />
     <ClInclude Include="GameSystem\C3DPolygon.h" />
     <ClInclude Include="GameSystem\CAttackSearch.h" />
+    <ClInclude Include="GameSystem\CBattleCalculation.h" />
     <ClInclude Include="GameSystem\CCursor.h" />
     <ClInclude Include="GameSystem\CEnemyAI.h" />
     <ClInclude Include="GameSystem\CMoveSearch.h" />
@@ -219,6 +221,9 @@
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
+    <FxCompile>
+      <ObjectFileOutput>$(SolutionDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -251,6 +256,9 @@
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
+    <FxCompile>
+      <ObjectFileOutput>$(SolutionDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

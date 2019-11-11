@@ -1,5 +1,7 @@
 #include "../common/main.h"
+#include "../common/Game_Object.h"
 #include "../Charcter/CCharcterBase.h"
+#include "../common/polygon.h"
 
 #include "CSystemBattle.h"
 

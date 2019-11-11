@@ -1,14 +1,12 @@
 #ifndef CSYSTEM_BATTLE_H_
 #define CSYSTEM_BATTLE_H_
 
-#include "../common/Game_Object.h"
-#include "../Charcter/CCharcterBase.h"
-#include "../common/polygon.h"
 
 #define BATTLE_TEXTURE_WIDTH (960)
 #define BATTLE_TEXTURE_HEIGHT (420)
 
-
+class CCharcterBase;
+class CPolygon;
 
 class CSystemBattle:public CGameObject
 {
