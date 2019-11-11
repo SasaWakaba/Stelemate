@@ -255,6 +255,9 @@
     <ClCompile Include="GameSystem\CBattleCalculation.cpp">
       <Filter>ソース ファイル\Game\GameSystem</Filter>
     </ClCompile>
+    <ClCompile Include="Charcter\CWeaponData.cpp">
+      <Filter>ソース ファイル\Game\Charcter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugUi\DebugUI.h">
@@ -442,6 +445,12 @@
     </ClInclude>
     <ClInclude Include="GameSystem\CBattleCalculation.h">
       <Filter>ヘッダー ファイル\Game\GamaSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Charcter\CWeaponData.h">
+      <Filter>ヘッダー ファイル\Game\Charcter</Filter>
+    </ClInclude>
+    <ClInclude Include="Charcter\CDataManager.h">
+      <Filter>ヘッダー ファイル\Game\Charcter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

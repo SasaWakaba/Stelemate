@@ -34,6 +34,7 @@ void CStageManager::Initialize()
 	man = new CSwordsman();
 	man->SetAlly(true);
 	cat = new CSwordsman();
+	cat->SetAlly(false);
 	stage1[0].bChar = true;
 	stage1[0].Charcter = man;
 

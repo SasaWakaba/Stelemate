@@ -1,4 +1,4 @@
-ХЇОн,HP,Attack,Speed,Defense,MagicDefense,MovePoint,Weapontype
-Swordsman,5,5,5,0,0,2,0
-,,,,,,,
-,,,,,,,
+ХЇОн,HP,Attack,Speed,Defense,MagicDefense,Dexterity,Luck,MovePoint,Weapontype
+Swordsman,5,5,5,0,0,5,4,2,0
+,,,,,,,,,
+,,,,,,,,,

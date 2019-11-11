@@ -1,35 +1,5 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: 中間ディレクトリ (Debug\) に別のプロジェクト (Project_Base.vcxproj) と共有されているファイルが含まれています。これにより、クリーンしてリビルド動作が適切に行われない可能性があります。
-  audio_clip.cpp
-  CGame.cpp
-c:\program files\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-c:\program files\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-c:\program files\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-c:\program files\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  main.cpp
 c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
 c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-c:\users\nayup\documents\stelemate\common\scene.h(70): warning C4316: 'CCamera': ヒープで割り当てられたオブジェクトが 16 にアラインメントされていない可能性があります
-  c:\users\nayup\documents\stelemate\common\cgame.cpp(50): note: コンパイル対象の関数 テンプレート インスタンス化 'T *CScene::AddGameObject<CCamera>(int)' のリファレンスを確認してください
-          with
-          [
-              T=CCamera
-          ]
-  CResult.cpp
-c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-c:\users\nayup\documents\stelemate\common\scene.h(70): warning C4316: 'CCamera': ヒープで割り当てられたオブジェクトが 16 にアラインメントされていない可能性があります
-  c:\users\nayup\documents\stelemate\common\cresult.cpp(34): note: コンパイル対象の関数 テンプレート インスタンス化 'T *CScene::AddGameObject<CCamera>(int)' のリファレンスを確認してください
-          with
-          [
-              T=CCamera
-          ]
-  texture.cpp
-c:\users\nayup\documents\stelemate\common\texture.cpp(122): warning C4101: 'texture': ローカル変数は 1 度も使われていません。
-c:\users\nayup\documents\stelemate\common\texture.cpp(174): warning C4101: 'texture': ローカル変数は 1 度も使われていません。
-  CSystemBattle.cpp
-  CSystemMain.cpp
-c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-c:\users\nayup\documents\stelemate\gamesystem\arrowsline.h(37): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-c:\users\nayup\documents\stelemate\gamesystem\cenemyai.h(39): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  コードを生成中...
   Stalemate.vcxproj -> C:\Users\nayup\Documents\Stelemate\Debug\Stalemate.exe

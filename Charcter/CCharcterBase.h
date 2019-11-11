@@ -2,25 +2,8 @@
 #define CCHARCTER_BASE_H_
 
 #include "../common/main.h"
+#include "CCharacterData.h"
 
-typedef enum
-{
-	Sword = 0,
-	Magic,
-	Wand,
-}Weapontype;
-
-typedef struct
-{
-	int HP;
-	int Attack;
-	int Speed;
-	int Defense;
-	int MagicDefense;
-
-	int MovePoint;
-	Weapontype type;
-}STATUS;
 
 class CCharcterBase
 {
@@ -43,7 +26,8 @@ protected:
 
 	bool			bMoveLocation = false;
 public:
-	CCharcterBase() {}
+	JOBCLASS		m_JobClass;
+	CCharcterBase(JOBCLASS job):m_JobClass(job){}
 	virtual ~CCharcterBase() {}
 
 	virtual void Initialize() {}

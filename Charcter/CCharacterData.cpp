@@ -25,7 +25,6 @@ void CCharacterData::Initialize()
 		std::stringstream data(str);
 		std::string name = "";
 		std::string tmp = "";
-		STATUS status;
 		int num[MAX_STATUS];
 
 		getline(data, name, ',');
@@ -41,8 +40,10 @@ void CCharacterData::Initialize()
 		m_CharData[name].Speed = num[2];
 		m_CharData[name].Defense = num[3];
 		m_CharData[name].MagicDefense = num[4];
-		m_CharData[name].MovePoint = num[5];
-		m_CharData[name].type = (Weapontype)num[6];	
+		m_CharData[name].Dexterity = num[5];
+		m_CharData[name].Luck = num[6];
+		m_CharData[name].MovePoint = num[7];
+		m_CharData[name].type = (Weapontype)num[8];	
 	}
 }
 

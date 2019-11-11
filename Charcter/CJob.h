@@ -13,6 +13,8 @@ private:
 	XMFLOAT3 m_LocationOld;
 	CModelAnimation* m_Model[2];
 public:
+	CSwordsman():CCharcterBase(Swordman){}
+	~CSwordsman(){}
 	void Initialize()
 	{
 		m_Model[0] = new CModelAnimation();

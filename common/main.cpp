@@ -11,7 +11,7 @@
 #include "../imgui/imgui_impl_dx11.h"
 
 #include "../DebugUi/DebugUI.h"
-#include "../Charcter/CCharacterData.h"
+#include "../Charcter/CDataManager.h"
 
 
 const char* CLASS_NAME = "DX11AppClass";
@@ -68,7 +68,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	// 初期化処理(ウィンドウを作成してから行う)
 	CManager::Init();
-	CCharacterData::Initialize();
+	CDataManager::Load();
 
 
 	// ウインドウの表示(初期化処理の後に行う)
@@ -134,7 +134,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	// ウィンドウクラスの登録を解除
 	UnregisterClass(CLASS_NAME, wcex.hInstance);
 
-	CCharacterData::Finalize();
+	CDataManager::Unload();
 	// 終了処理
 	CDebugUI::Finalize();
 
