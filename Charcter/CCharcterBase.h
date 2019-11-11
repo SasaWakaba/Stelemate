@@ -3,6 +3,7 @@
 
 #include "../common/main.h"
 #include "CCharacterData.h"
+#include "CWeaponData.h"
 
 
 class CCharcterBase
@@ -15,6 +16,8 @@ protected:
 	XMFLOAT3		m_MoveLocation;
 
 	STATUS			m_Status;
+
+	WeaponStatus*	m_Weapon = nullptr;
 
 	int				cnt;
 
@@ -95,6 +98,12 @@ public:
 			return false;
 		}
 	}
+
+	//•Šíİ’è
+	void SetWeapon(WeaponStatus* weapon) { m_Weapon = weapon; }
+
+	//•Šíæ“¾
+	WeaponStatus* GetWeapon() { return m_Weapon; }
 };
 
 

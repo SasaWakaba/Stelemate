@@ -5,6 +5,16 @@
 #include "CBattleCalculation.h"
 #include <random>
 
+//命中と必殺の判定乱数
+int Random()
+{
+	std::mt19937 mtRand(0);
+	std::uniform_int_distribution<uint32_t> get_rand(0, 100);
+
+	return get_rand(mtRand);
+}
+
+//総ステータス
 int CBattleCalculation::AllPower(STATUS status)
 {
 	int Power;
@@ -14,27 +24,81 @@ int CBattleCalculation::AllPower(STATUS status)
 
 int CBattleCalculation::Damage(CCharcterBase* atk, CCharcterBase* def)
 {
-	int hitnum = Hit(atk->GetStatus()->Dexterity, atk->GetStatus()->Luck, 1) - Avoidance(def->GetStatus()->Speed, def->GetStatus()->Luck);
+	STATUS* atkStatus = atk->GetStatus();
+	STATUS* defStatus = def->GetStatus();
+	//命中率
+	int hitnum = Hit(atkStatus->Dexterity, atkStatus->Luck, atk->GetWeapon()->Hit) - Avoidance(defStatus->Speed, defStatus->Luck);
+
+	//0以下ならミス
 	if (hitnum <= 0)
 	{
 		return -1;
 	}
-	else if (hitnum < 100)
+	else if (hitnum < 100)//100以下なら判定
 	{
-		std::mt19937 mtRand(0);
-		std::uniform_int_distribution<uint32_t> get_rand(0, 100);
-
-
+		if (Random() > hitnum)//判定失敗したらミス
+		{
+			return -1;
+		}
 	}
 
-	int damage = atk->GetStatus()->Attack + (/*ここに武器攻撃力**/Advantage(atk->m_JobClass, def->m_JobClass)) - def->GetStatus()->Defense;
+	
+	int attacknum = 1;
+	//連撃判定
+	if (AttackSpeed(atkStatus->Speed, atkStatus->Attack, atk->GetWeapon()->Weight) 
+		- AttackSpeed(defStatus->Speed, defStatus->Attack, def->GetWeapon()->Weight) >= 4)
+	{
+		attacknum = 2;
+	}
+
+	int damage = 0;
+	for (int i = 0; i < attacknum; i++)
+	{
+		int dam = atkStatus->Attack + (atk->GetWeapon()->Attack * Advantage(atk->m_JobClass, def->m_JobClass)) - defStatus->Defense;
+		if (Critical(atkStatus->Dexterity, atkStatus->Luck, atk->GetWeapon()->Cri) - defStatus->Luck > Random())
+		{
+			dam *= 2;
+		}
+		damage += dam;
+	}
 
 	return damage;
 }
 
 int CBattleCalculation::DamageMagic(CCharcterBase* atk, CCharcterBase* def)
 {
+	STATUS* atkStatus = atk->GetStatus();
+	STATUS* defStatus = def->GetStatus();
+	int hitnum = Hit(atkStatus->Dexterity, atkStatus->Luck, atk->GetWeapon()->Hit) - Avoidance(defStatus->Speed, defStatus->Luck);
+	if (hitnum <= 0)
+	{
+		return -1;
+	}
+	else if (hitnum < 100)
+	{
+		if (Random() > hitnum)
+		{
+			return -1;
+		}
+	}
+
+	int attacknum = 1;
+	if (AttackSpeed(atkStatus->Speed, atkStatus->Attack, atk->GetWeapon()->Weight)
+		- AttackSpeed(defStatus->Speed, defStatus->Attack, def->GetWeapon()->Weight) >= 4)
+	{
+		attacknum = 2;
+	}
+
 	int damage = 0;
+	for (int i = 0; i < attacknum; i++)
+	{
+		int dam = atkStatus->Attack + (atk->GetWeapon()->Attack * Advantage(atk->m_JobClass, def->m_JobClass)) - defStatus->MagicDefense;
+		if (Critical(atkStatus->Dexterity, atkStatus->Luck, atk->GetWeapon()->Cri) - defStatus->Luck > Random())
+		{
+			dam *= 2;
+		}
+		damage += dam;
+	}
 
 	return damage;
 }

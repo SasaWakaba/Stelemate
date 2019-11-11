@@ -1,5 +1,91 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: 中間ディレクトリ (Debug\) に別のプロジェクト (Project_Base.vcxproj) と共有されているファイルが含まれています。これにより、クリーンしてリビルド動作が適切に行われない可能性があります。
+  CCharacterData.cpp
+  DebugUi.cpp
+c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\program files\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  CAttackSearch.cpp
+c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  CBattleCalculation.cpp
+c:\users\nayup\documents\stelemate\gamesystem\cbattlecalculation.h(5): warning C4091: 'typedef ': 変数が何も宣言されていないときは、'STATUS' の左辺を無視します。
+c:\users\nayup\documents\stelemate\gamesystem\cbattlecalculation.h(18): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\gamesystem\cbattlecalculation.h(21): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\gamesystem\cbattlecalculation.cpp(50): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\gamesystem\cbattlecalculation.cpp(88): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+  CEnemyAI.cpp
+c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\gamesystem\cenemyai.h(39): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  CMoveSearch.cpp
+c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  CSystemBattle.cpp
+  CSystemMain.cpp
+c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\gamesystem\arrowsline.h(37): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\gamesystem\cenemyai.h(39): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  CStage.cpp
+  CStageManager.cpp
+c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\program files\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  TitleMenu_UI.cpp
+c:\program files\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  CGame.cpp
+c:\program files\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\common\scene.h(70): warning C4316: 'CCamera': ヒープで割り当てられたオブジェクトが 16 にアラインメントされていない可能性があります
+  c:\users\nayup\documents\stelemate\common\cgame.cpp(50): note: コンパイル対象の関数 テンプレート インスタンス化 'T *CScene::AddGameObject<CCamera>(int)' のリファレンスを確認してください
+          with
+          [
+              T=CCamera
+          ]
+  CResult.cpp
+c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\common\scene.h(70): warning C4316: 'CCamera': ヒープで割り当てられたオブジェクトが 16 にアラインメントされていない可能性があります
+  c:\users\nayup\documents\stelemate\common\cresult.cpp(34): note: コンパイル対象の関数 テンプレート インスタンス化 'T *CScene::AddGameObject<CCamera>(int)' のリファレンスを確認してください
+          with
+          [
+              T=CCamera
+          ]
+  CSkyBox.cpp
+c:\program files\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  CTitle.cpp
+c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\common\scene.h(70): warning C4316: 'CCamera': ヒープで割り当てられたオブジェクトが 16 にアラインメントされていない可能性があります
+  c:\users\nayup\documents\stelemate\common\ctitle.cpp(30): note: コンパイル対象の関数 テンプレート インスタンス化 'T *CScene::AddGameObject<CCamera>(int)' のリファレンスを確認してください
+          with
+          [
+              T=CCamera
+          ]
   main.cpp
 c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
 c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  manager.cpp
+c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  コードを生成中...
+c:\users\nayup\documents\stelemate\gamesystem\cbattlecalculation.cpp(177): warning C4715: 'CBattleCalculation::Advantage': 値を返さないコントロール パスがあります。
   Stalemate.vcxproj -> C:\Users\nayup\Documents\Stelemate\Debug\Stalemate.exe
