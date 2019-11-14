@@ -24,15 +24,16 @@ bool CTitle::bChange;
 void CTitle::Init()
 {
 	bChange = false;
-	/*CPolygon* title = AddGameObject<CPolygon>(0);
-	title->Load("asset/texture/fe-logo.png");
-	title->SetPosition(225.0f, 50.0f, 500.0f, 375.0f);*/
+
 	AddGameObject<CCamera>(0)->SetAt(XMFLOAT3(0.0f, 0.0f, 0.0f));
 	AddGameObject<CSkyBox>(0)->SetNight(true);
 
 	AddGameObject<CTitleMenu>(1);
 
 	CFade::EndFade();
+
+	// ÉÅÉÇÉäÉäÅ[ÉNåüèo
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 }
 
 void CTitle::UnInit()

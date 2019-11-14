@@ -19,7 +19,7 @@
 #include "../UI/PanelState_UI.h"
 #include "../UI/TurnChange_UI.h"
 #include "../UI/BattleSimu_UI.h"
-
+#include "../UI/CharacterState.h"
 
 
 #include "../Audio/audio_clip.h"
@@ -57,6 +57,7 @@ void CGame::Init()
 	AddGameObject<CStageManager>(0)->SetStageNum(0);
 
 	AddGameObject<CPanelState>(3);
+	AddGameObject<CCharacterState>(3);
 
 	AddGameObject<CGameMenu_UI>(4);
 

@@ -6,12 +6,14 @@
 #define SCORE_HEIGHT (50)
 
 
-void CScore::Initialize(int digit)
+void CScore::Initialize(int digit, int w, int h)
 {
 	m_Num = new CNumber();
 	m_Num->Initialize();
 
 	m_Digit = digit;
+	m_Wight = w;
+	m_Height = h;
 
 	m_CounterStopValue = 1;
 	for (int i = 0; i < digit; i++)
@@ -27,7 +29,7 @@ void CScore::Finalize(void)
 	delete m_Num;
 }
 
-void CScore::Draw(float x, float y, int score, bool bZero, bool bLeft)
+void CScore::Draw(float x, float y, int score)
 {
 	//ƒJƒ“ƒXƒgˆ—
 	if (score > m_CounterStopValue)
@@ -36,7 +38,7 @@ void CScore::Draw(float x, float y, int score, bool bZero, bool bLeft)
 	}
 	for (int i = m_Digit - 1; i >= 0; i--)
 	{
-		m_Num->Draw(x + SCORE_WIDTH * i, y, SCORE_WIDTH, SCORE_HEIGHT, score % 10);
+		m_Num->Draw(x + (m_Wight / 3 * 2) * i, y, m_Wight, m_Height, score % 10);
 		score /= 10;
 	}
 }

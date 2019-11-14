@@ -11,6 +11,7 @@
 void CNumber::Initialize(void)
 {
 	m_Polygon = new CPolygon();
+	m_Polygon->Initialize();
 	m_Polygon->Load("asset/texture/number.png");
 }
 

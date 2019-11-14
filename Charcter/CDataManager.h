@@ -3,6 +3,7 @@
 
 #include "CCharacterData.h"
 #include "CWeaponData.h"
+#include "../common/CDrawText.h"
 
 class CDataManager
 {
@@ -11,11 +12,13 @@ public:
 	{
 		CCharacterData::Initialize();
 		CWeaponData::Initialize();
+		CDrawText::Initialize();
 	}
 	static void Unload()
 	{
 		CCharacterData::Finalize();
 		CWeaponData::Finalize();
+		CDrawText::Finalize();
 	}
 };
 

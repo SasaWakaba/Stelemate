@@ -258,6 +258,12 @@
     <ClCompile Include="Charcter\CWeaponData.cpp">
       <Filter>ソース ファイル\Game\Charcter</Filter>
     </ClCompile>
+    <ClCompile Include="UI\CharacterState.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="common\CDrawText.cpp">
+      <Filter>ソース ファイル\common\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugUi\DebugUI.h">
@@ -451,6 +457,12 @@
     </ClInclude>
     <ClInclude Include="Charcter\CDataManager.h">
       <Filter>ヘッダー ファイル\Game\Charcter</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\CharacterState.h">
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="common\CDrawText.h">
+      <Filter>ヘッダー ファイル\common\base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

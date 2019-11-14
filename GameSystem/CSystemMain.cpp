@@ -20,6 +20,7 @@
 #include "CAttackSearch.h"
 #include "CSystemBattle.h"
 #include "../UI/PanelState_UI.h"
+#include "../UI/CharacterState.h"
 #include "CEnemyAI.h"
 
 #include "../UI/TurnChange_UI.h"
@@ -105,6 +106,7 @@ void CSystemMain::Update()
 	m_CursorOld = m_CursorLocation;
 
 	CPanelState::SetPanel(m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].PanelPattarn);
+	CCharacterState::SetPanel(&m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x]);
 
 	CScene* sceneC;
 	sceneC = CManager::GetScene();

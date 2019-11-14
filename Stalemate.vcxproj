@@ -24,6 +24,7 @@
     <ClCompile Include="Charcter\CWeaponData.cpp" />
     <ClCompile Include="common\Billboard.cpp" />
     <ClCompile Include="common\camera.cpp" />
+    <ClCompile Include="common\CDrawText.cpp" />
     <ClCompile Include="common\Cfade.cpp" />
     <ClCompile Include="common\CGame.cpp" />
     <ClCompile Include="common\CResult.cpp" />
@@ -65,6 +66,7 @@
     <ClCompile Include="Stage\CStageManager.cpp" />
     <ClCompile Include="Stage\CStagePanel.cpp" />
     <ClCompile Include="UI\BattleSimu_UI.cpp" />
+    <ClCompile Include="UI\CharacterState.cpp" />
     <ClCompile Include="UI\GameMenu_UI.cpp" />
     <ClCompile Include="UI\PanelState_UI.cpp" />
     <ClCompile Include="UI\TitleMenu_UI.cpp" />
@@ -84,6 +86,7 @@
     <ClInclude Include="common\AI_Base\CTask.h" />
     <ClInclude Include="common\Billboard.h" />
     <ClInclude Include="common\camera.h" />
+    <ClInclude Include="common\CDrawText.h" />
     <ClInclude Include="common\CFade.h" />
     <ClInclude Include="common\CGame.h" />
     <ClInclude Include="common\CResult.h" />
@@ -131,6 +134,7 @@
     <ClInclude Include="Stage\CStageManager.h" />
     <ClInclude Include="Stage\CStagePanel.h" />
     <ClInclude Include="UI\BattleSimu_UI.h" />
+    <ClInclude Include="UI\CharacterState.h" />
     <ClInclude Include="UI\GameMenu_UI.h" />
     <ClInclude Include="UI\PanelState_UI.h" />
     <ClInclude Include="UI\TitleMenu_UI.h" />

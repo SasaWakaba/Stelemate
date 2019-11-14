@@ -30,6 +30,9 @@ protected:
 	bool			bMoveLocation = false;
 public:
 	JOBCLASS		m_JobClass;
+	int				MaxHP = 0;
+
+
 	CCharcterBase(JOBCLASS job):m_JobClass(job){}
 	virtual ~CCharcterBase() {}
 

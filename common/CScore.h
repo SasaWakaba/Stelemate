@@ -9,10 +9,12 @@ private:
 	CNumber* m_Num;
 	int m_Digit;
 	int m_CounterStopValue;
+	int m_Wight;
+	int m_Height;
 public:
-	void Initialize(int digit);
+	void Initialize(int digit, int w, int h);
 	void Finalize(void);
-	void Draw(float x, float y, int score, bool bZero, bool bLeft);
+	void Draw(float x, float y, int score);
 };
 
 

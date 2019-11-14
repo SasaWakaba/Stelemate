@@ -2,6 +2,8 @@
 #include "../common/Game_Object.h"
 #include "../Charcter/CCharcterBase.h"
 #include "../common/polygon.h"
+#include "../Charcter/CCharacterData.h"
+#include "CBattleCalculation.h"
 
 #include "CSystemBattle.h"
 
@@ -101,10 +103,19 @@ void CSystemBattle::Damage()
 {
 	if (m_Char_B->GetStatus()->HP > 0)
 	{
-		int Damage_A = m_Char_A->GetStatus()->Attack - m_Char_B->GetStatus()->Defense;
-		if (m_Char_A->GetStatus()->Speed >= m_Char_B->GetStatus()->Speed * 2)
+		int Damage_A = 0;
+		switch (m_Char_A->GetStatus()->type)
 		{
-			Damage_A *= 2;
+		case Sword:
+		case Lance:
+		case Bow:
+			Damage_A = CBattleCalculation::Damage(m_Char_A, m_Char_B);
+			break;
+
+		case Magic:
+		case Wand:
+			Damage_A = CBattleCalculation::DamageMagic(m_Char_A, m_Char_B);
+			break;
 		}
 
 		if (Damage_A <= 0)
@@ -113,14 +124,23 @@ void CSystemBattle::Damage()
 		}
 
 		m_Char_B->GetStatus()->HP -= Damage_A;
+
 		if (m_Char_B->GetStatus()->HP > 0)
 		{
-			int Damage_B = m_Char_B->GetStatus()->Attack - m_Char_A->GetStatus()->Defense;
-			if (m_Char_B->GetStatus()->Speed >= m_Char_A->GetStatus()->Speed * 2)
+			int Damage_B = 0;
+			switch (m_Char_B->GetStatus()->type)
 			{
-				Damage_B *= 2;
-			}
+			case Sword:
+			case Lance:
+			case Bow:
+				Damage_B = CBattleCalculation::Damage(m_Char_B, m_Char_A);
+				break;
 
+			case Magic:
+			case Wand:
+				Damage_B = CBattleCalculation::DamageMagic(m_Char_B, m_Char_A);
+				break;
+			}
 			if (Damage_B <= 0)
 			{
 				Damage_B = 0;

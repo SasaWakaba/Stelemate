@@ -6,6 +6,7 @@
 #include "../common/model.h"
 #include "../common/ModelAnimation.h"
 #include "CCharacterData.h"
+#include "CWeaponData.h"
 
 class CSwordsman :public CCharcterBase
 {
@@ -23,6 +24,9 @@ public:
 		m_Model[1]->Load("asset/model/Rook_B/RookB.obj");
 
 		m_Status = CCharacterData::m_CharData["Swordsman"];
+		MaxHP = m_Status.HP;
+		
+		m_Weapon = &CWeaponData::m_WeaponData["“S‚ÌŒ•"];
 	}
 	void Finalize() 
 	{
