@@ -12,10 +12,12 @@
 #include "CMoveSearch.h"
 
 #include "CEnemyAI.h"
+#include "CEnemyAIMother.h"
 
 
 void CEnemyAI::Initialize(int numX, int numZ, PanelState* Map)
 {
+	CEnemyAIMother::initialize(numX, numZ, Map);
 	m_X = numX;
 	m_Z = numZ;
 
@@ -62,28 +64,12 @@ std::vector<Vector2_3D> CEnemyAI::Move(Vector2_3D pos, int Move)
 		}
 	}
 	
-	Vector2_3D Near = NearLocation(PL, pos);;
+	Vector2_3D Near = NearLocation(PL, pos);
 	int length_near = abs((pos.x - Near.x)) + abs((pos.z - Near.z));
 
 	PL.clear();
 
-	/*for (Vector2_3D plPos : PL)
-	{
-		if (length_near != -1)
-		{
-			int length = abs((pos.x - plPos.x)) + abs((pos.z - plPos.z));
-			if (length_near > length)
-			{
-				Near = plPos;
-				length_near = length;
-			}
-		}
-		else
-		{
-			Near = plPos;
-			length_near = abs((pos.x - plPos.x)) + abs((pos.z - plPos.z));
-		}
-	}*/
+
 
 	if (length_near != 1)
 	{

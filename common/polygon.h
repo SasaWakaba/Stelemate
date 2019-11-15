@@ -20,6 +20,7 @@ public:
 	void Draw();
 
 	void Load(const char* filename);
+	void Load(CTexture* tex) { m_Texture = tex; }
 	void SetPosition(float x, float y, float width, float height){ X = x; Y = y; Width = width; Height = height; }
 
 	void Draw(float dx, float dy, float tx, float ty, float tw, float th, float w, float h);

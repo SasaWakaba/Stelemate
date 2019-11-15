@@ -40,14 +40,20 @@ typedef struct {
 	XMFLOAT4 a, b, c, d;
 }VertexColor_4;
 
-typedef struct
+struct Vector2_3D
 {
 	int x, z;
-	//bool operator==(const Vector2_3D& syc)const
-	//{
-	//	return (x == syc.x && z == syc.z);
-	//}
-}Vector2_3D;
+
+	bool operator==(const Vector2_3D& syc)
+	{
+		return x == syc.x && z == syc.z;
+	}
+
+	bool operator!=(const Vector2_3D& syc)
+	{
+		return x != syc.x || z != syc.z;
+	}
+};
 
 typedef struct
 {

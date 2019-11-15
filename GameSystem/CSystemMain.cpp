@@ -29,44 +29,50 @@
 
 void CSystemMain::Initialize(int x, int z, PanelState* Map)
 {
+	//フィールドのX最大数
 	m_X = x;
+	//フィールドのZ最大数
 	m_Z = z;
 
+	//カーソル(地面)の初期化
 	m_Cursor = new C3DPolygon();
 	m_Cursor->Initialize();
-
+	//カーソル位置の初期化
 	m_CursorLocation.x = 0;
 	m_CursorLocation.z = 0;
-
+	//ステージの保存
 	m_StageMap = Map;
 
+	//選択フラグ初期化
 	m_bSelect = false;
-
+	//メニュー表示フラグ初期化
 	m_bMenu = false;
-
+	//バトル中フラグ初期化
 	m_bBattle = false;
-
+	//カーソル(矢印)の初期化
 	m_Yazirushi = new CBillboard();
 	m_Yazirushi->Initialize();
 	
 	m_Yazirushi->Load("asset/texture/tns.png");
 
+	//移動矢印初期化
 	m_Arrow = new CArrowsLine();
 	m_Arrow->Initialize();
 
+	//移動範囲計測の初期化
 	m_MoveSerch = new CMoveSearch();
 	m_MoveSerch->Initialize(m_X, m_Z, m_StageMap);
-
+	//攻撃範囲計測の初期化
 	m_AttackSearch = new CAttackSearch();
 	m_AttackSearch->Initialize(m_X, m_Z, m_StageMap);
-
+	//カメラ位置初期化
 	CCamera::SetAt(XMFLOAT3((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 0.5f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
-
-	turn = 0;
-
+	//ターン初期化
+	turn = Player;
+	//エネミーのAI初期化
 	m_Enemy = new CEnemyAI();
 	m_Enemy->Initialize(m_X, m_Z, m_StageMap);
-
+	//フレーム
 	m_Frame = 0;
 	m_FrameEnemy = 0;
 }
@@ -105,13 +111,14 @@ void CSystemMain::Update()
 	//前のカーソル位置の保存
 	m_CursorOld = m_CursorLocation;
 
+	//ステージパネルの情報UIの更新
 	CPanelState::SetPanel(m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].PanelPattarn);
 	CCharacterState::SetPanel(&m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x]);
 
-	CScene* sceneC;
-	sceneC = CManager::GetScene();
+	CScene* scene;
+	scene = CManager::GetScene();
 
-	CTurnChangeUI* ChangeUI = sceneC->GetGameObject<CTurnChangeUI>(4);
+	CTurnChangeUI* ChangeUI = scene->GetGameObject<CTurnChangeUI>(4);
 
 	switch (turn)
 	{
@@ -189,6 +196,7 @@ void CSystemMain::Update()
 		break;
 	}
 
+	//敵が全滅したらクリア============================================
 	int eneCnt = 0;
 	for (int z = 0; z < m_Z; z++)
 	{
@@ -209,7 +217,7 @@ void CSystemMain::Update()
 	{
 		CGame::Change();
 	}
-
+	//============================================================
 
 	m_Frame++;
 }
@@ -242,8 +250,6 @@ void CSystemMain::Draw()
 
 void CSystemMain::TurnPlayer()
 {
-
-
 	//選択カーソル移動
 	{
 		//上入力
@@ -425,12 +431,11 @@ void CSystemMain::TurnPlayer()
 		}
 		else if (m_bSelect)
 		{
-			if (!m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar)
+			if (!m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar || m_SelectLocation == m_CursorLocation)
 			{
 				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar = true;
 				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter = m_SelectChar;
 				m_SelectChar->MoveLocation(XMFLOAT3((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 1.0f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
-
 
 				CScene* scene;
 				scene = CManager::GetScene();
@@ -439,9 +444,11 @@ void CSystemMain::TurnPlayer()
 
 				m_AtkArea = m_AttackSearch->Search(m_CursorLocation, m_SelectChar->GetStatus()->type);
 
-
-				m_SelectPanel->bChar = false;
-				m_SelectPanel->Charcter = nullptr;
+				if (m_SelectLocation != m_CursorLocation)
+				{
+					m_SelectPanel->bChar = false;
+					m_SelectPanel->Charcter = nullptr;
+				}
 				m_SelectPanel = nullptr;
 
 				bool attack = false;
@@ -640,6 +647,7 @@ void CSystemMain::TurnEnemy()
 		
 	}
 
+	//行動していないキャラがいるか
 	int notMove = 0;
 	for (int z = 0; z < m_Z; z++)
 	{
@@ -657,7 +665,7 @@ void CSystemMain::TurnEnemy()
 			}
 		}
 	}
-
+	//全員行動済みになったらターン終了
 	if (notMove == 0)
 	{
 		static int cnt = 0;

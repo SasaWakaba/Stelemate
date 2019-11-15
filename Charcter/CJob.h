@@ -24,7 +24,7 @@ public:
 		m_Model[1]->Load("asset/model/Rook_B/RookB.obj");
 
 		m_Status = CCharacterData::m_CharData["Swordsman"];
-		MaxHP = m_Status.HP;
+		nowHP = m_Status.HP;
 		
 		m_Weapon = &CWeaponData::m_WeaponData["“S‚ÌŒ•"];
 	}

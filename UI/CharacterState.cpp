@@ -65,8 +65,8 @@ void CCharacterState::Draw()
 			m_CharacterState[0]->Draw(x, y, 0, 0, STATUS_WINDOW_WIDTH, STATUS_WINDOW_HEIGHT, STATUS_WINDOW_WIDTH, STATUS_WINDOW_HEIGHT);
 
 			m_StateNum->Draw(-STATUS_WINDOW_WIDTH / 4 + x, -10 + y, m_PanelState->Charcter->GetStatus()->HP);
-			m_StateNum->Draw(x, -10 + y, m_PanelState->Charcter->GetStatus()->HP);
-			m_StateNum->Draw(STATUS_WINDOW_WIDTH / 5 - 15 + x, -10 + y, m_PanelState->Charcter->MaxHP);
+			m_StateNum->Draw(x, -10 + y, m_PanelState->Charcter->nowHP);
+			m_StateNum->Draw(STATUS_WINDOW_WIDTH / 5 - 15 + x, -10 + y, m_PanelState->Charcter->GetStatus()->HP);
 
 			CDrawText::Draw(-STATUS_WINDOW_WIDTH / 3.5 + x, y - 5, 30, m_PanelState->Charcter->GetWeapon()->name);
 		}

@@ -264,6 +264,9 @@
     <ClCompile Include="common\CDrawText.cpp">
       <Filter>ソース ファイル\common\base</Filter>
     </ClCompile>
+    <ClCompile Include="GameSystem\CEnemyAIMother.cpp">
+      <Filter>ソース ファイル\Game\GameSystem\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugUi\DebugUI.h">
@@ -463,6 +466,9 @@
     </ClInclude>
     <ClInclude Include="common\CDrawText.h">
       <Filter>ヘッダー ファイル\common\base</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\CEnemyAIMother.h">
+      <Filter>ヘッダー ファイル\Game\GamaSystem\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

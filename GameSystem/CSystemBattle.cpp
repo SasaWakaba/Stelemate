@@ -101,7 +101,7 @@ void CSystemBattle::Draw()
 
 void CSystemBattle::Damage()
 {
-	if (m_Char_B->GetStatus()->HP > 0)
+	if (m_Char_B->nowHP > 0)
 	{
 		int Damage_A = 0;
 		switch (m_Char_A->GetStatus()->type)
@@ -123,9 +123,9 @@ void CSystemBattle::Damage()
 			Damage_A = 0;
 		}
 
-		m_Char_B->GetStatus()->HP -= Damage_A;
+		m_Char_B->nowHP -= Damage_A;
 
-		if (m_Char_B->GetStatus()->HP > 0)
+		if (m_Char_B->nowHP > 0)
 		{
 			int Damage_B = 0;
 			switch (m_Char_B->GetStatus()->type)
@@ -146,9 +146,9 @@ void CSystemBattle::Damage()
 				Damage_B = 0;
 			}
 
-			m_Char_A->GetStatus()->HP -= Damage_B;
+			m_Char_A->nowHP -= Damage_B;
 
-			if (m_Char_A->GetStatus()->HP <= 0)
+			if (m_Char_A->nowHP <= 0)
 			{
 				m_Char_A->SetDestroy();
 			}

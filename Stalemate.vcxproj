@@ -50,6 +50,7 @@
     <ClCompile Include="GameSystem\CBattleCalculation.cpp" />
     <ClCompile Include="GameSystem\CCursor.cpp" />
     <ClCompile Include="GameSystem\CEnemyAI.cpp" />
+    <ClCompile Include="GameSystem\CEnemyAIMother.cpp" />
     <ClCompile Include="GameSystem\CMoveSearch.cpp" />
     <ClCompile Include="GameSystem\CPreparation.cpp" />
     <ClCompile Include="GameSystem\CSystemBattle.cpp" />
@@ -114,6 +115,7 @@
     <ClInclude Include="GameSystem\CBattleCalculation.h" />
     <ClInclude Include="GameSystem\CCursor.h" />
     <ClInclude Include="GameSystem\CEnemyAI.h" />
+    <ClInclude Include="GameSystem\CEnemyAIMother.h" />
     <ClInclude Include="GameSystem\CMoveSearch.h" />
     <ClInclude Include="GameSystem\CPreparation.h" />
     <ClInclude Include="GameSystem\CSystemBattle.h" />

@@ -220,3 +220,37 @@ void CTexture::LoatTextureFromMemory(const unsigned char* file, unsigned int w)
 
 	stbi_image_free(pixels);
 }
+
+void CTexture::SetData(const TCHAR* name, ID3D11Texture2D* tex2D)
+{
+	HRESULT hr;
+
+	//StrCpy(this->name, name);
+	m_Texture = tex2D;
+
+	// テクスチャ情報を取得する
+	D3D11_TEXTURE2D_DESC texDesc;
+	tex2D->GetDesc(&texDesc);
+
+	// ShaderResourceViewの情報を作成する
+	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+	ZeroMemory(&srvDesc, sizeof(srvDesc));
+	srvDesc.Format = texDesc.Format;
+	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	srvDesc.Texture2D.MostDetailedMip = 0;
+	srvDesc.Texture2D.MipLevels = texDesc.MipLevels;
+
+	// ShaderResourceViewを作成する
+	hr = CRenderer::GetDevice()->CreateShaderResourceView(tex2D, &srvDesc, &m_ShaderResourceView);
+
+	// シェーダ用にサンプラを作成する
+	//D3D11_SAMPLER_DESC samDesc;
+	//ZeroMemory(&samDesc, sizeof(samDesc));
+	//samDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	//samDesc.AddressU = samDesc.AddressV = samDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	//samDesc.MaxAnisotropy = 1;
+	//samDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+	//samDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	//hr = CRenderer::GetDevice()->CreateSamplerState(&samDesc, &samplerState);
+}

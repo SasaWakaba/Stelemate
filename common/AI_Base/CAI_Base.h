@@ -10,12 +10,10 @@ protected:
 	CBlackBoard*	m_BlackBoard;
 	CTask*			m_Root;
 public:
-	CAiBase(CBlackBoard* blackboard):m_BlackBoard(blackboard){}
+	CAiBase(CBlackBoard* blackboard, CTask* root):m_BlackBoard(blackboard), m_Root(root){}
 	virtual ~CAiBase(){}
 
-	virtual void Initialize() = 0;
-	virtual void Finalize() = 0;
-	virtual void Update() = 0;
+	virtual void Play() = 0;
 };
 
 #endif // CAI_BASE_H_

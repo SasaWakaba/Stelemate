@@ -19,6 +19,8 @@ public:
 	void LoadTex(const char *FileName);
 	void LoatTextureFromMemory(const unsigned char* file, unsigned int w);
 
+	void SetData(const TCHAR* name, ID3D11Texture2D* tex2D);
+
 private:
 
 	ID3D11Texture2D*			m_Texture;
