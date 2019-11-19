@@ -10,6 +10,7 @@
 #include "C3DPolygon.h"
 
 #include "../Charcter/CCharcterBase.h"
+#include "../common/math.h"
 
 class CMoveSearch;
 class CAttackSearch;
@@ -95,7 +96,7 @@ public:
 
 	std::vector<Vector2_3D> Move(Vector2_3D pos, int Move);
 
-	bool Select(Vector2_3D pos, Weapontype Atk);
+	EnemyMove Select(Vector2_3D pos, Weapontype Atk);
 
 	void Reset() { m_SearchArea.clear(); }
 

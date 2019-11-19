@@ -34,10 +34,11 @@ void C3DPolygon::Initialize()
 	//=======================================================
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
-	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.Usage = D3D11_USAGE_DYNAMIC;
 	bd.ByteWidth = sizeof(VERTEX_3D) * 4;
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	bd.CPUAccessFlags = 0;
+	bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	bd.MiscFlags = 0;
 
 	D3D11_SUBRESOURCE_DATA sd;
 	ZeroMemory(&sd, sizeof(sd));
@@ -107,20 +108,10 @@ void C3DPolygon::Draw(CTexture* tex, XMMATRIX world, VertexColor_4 color)
 	vertex[3].Diffuse = XMFLOAT4(color.d.x, color.d.y, color.d.z, color.d.w);
 	vertex[3].TexCoord = XMFLOAT2(1.0f, 1.0f);
 
-	//=======================================================
-	//頂点バッファ生成
-	//=======================================================
-	D3D11_BUFFER_DESC bd;
-	ZeroMemory(&bd, sizeof(bd));
-	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof(VERTEX_3D) * 4;
-	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	bd.CPUAccessFlags = 0;
-
-	D3D11_SUBRESOURCE_DATA sd;
-	ZeroMemory(&sd, sizeof(sd));
-	sd.pSysMem = vertex;
-	CRenderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
+	D3D11_MAPPED_SUBRESOURCE msr;
+	CRenderer::GetDeviceContext()->Map(m_VertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
+	memcpy(msr.pData, vertex, sizeof(VERTEX_3D) * 4); // 
+	CRenderer::GetDeviceContext()->Unmap(m_VertexBuffer, 0);
 
 	UINT stride = sizeof(VERTEX_3D);
 	UINT offset = 0;

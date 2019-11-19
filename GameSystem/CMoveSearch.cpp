@@ -51,6 +51,7 @@ void CMoveSearch::Draw()
 
 std::vector<Vector2_3D> CMoveSearch::Search(Vector2_3D pos, int Move)
 {
+	Add(pos);
 	ReSearch(pos, Move, pos);
 	return m_MoveArea;
 }

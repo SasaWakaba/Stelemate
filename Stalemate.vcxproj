@@ -99,6 +99,7 @@
     <ClInclude Include="common\input.h" />
     <ClInclude Include="common\main.h" />
     <ClInclude Include="common\manager.h" />
+    <ClInclude Include="common\math.h" />
     <ClInclude Include="common\MeshField.h" />
     <ClInclude Include="common\model.h" />
     <ClInclude Include="common\ModelAnimation.h" />

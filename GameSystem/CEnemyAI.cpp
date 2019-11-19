@@ -13,6 +13,7 @@
 
 #include "CEnemyAI.h"
 #include "CEnemyAIMother.h"
+#include "../common/math.h"
 
 
 void CEnemyAI::Initialize(int numX, int numZ, PanelState* Map)
@@ -44,7 +45,7 @@ void CEnemyAI::Finalize()
 std::vector<Vector2_3D> CEnemyAI::Move(Vector2_3D pos, int Move)
 {
 	Reset();
-
+	m_MoveSearch->Reset();
 	std::vector<Vector2_3D> Area;
 	Area = m_MoveSearch->Search(pos, Move);
 
@@ -143,8 +144,51 @@ std::vector<Vector2_3D> CEnemyAI::Move(Vector2_3D pos, int Move)
 	
 
 
-
-
+	
+	//m_MoveSearch->Reset();
 	return m_SearchArea;
 }
 
+
+EnemyMove CEnemyAI::Select(Vector2_3D pos, Weapontype Atk)
+{
+	//m_AtkSearch->Reset();
+	switch (Atk)
+	{
+	case Sword:
+	case Lance:
+	case Bow:
+	case Magic:
+		for (Vector2_3D pl : m_AtkSearch->Search(pos, Atk))
+		{
+			PanelState panel = m_StageMap[pl.z * m_Z + pl.x];
+			if (panel.bChar)
+			{
+				if (panel.Charcter->GetAlly())
+				{
+					return attack;
+					break;
+				}
+			}
+		}
+	case Wand:
+		for (Vector2_3D pl : m_AtkSearch->Search(pos, Atk))
+		{
+			PanelState panel = m_StageMap[pl.z * m_Z + pl.x];
+			if (panel.bChar)
+			{
+				if (!panel.Charcter->GetAlly())
+				{
+					if(panel.Charcter->nowHP < panel.Charcter->GetStatus()->HP)
+					return heal;
+					break;
+				}
+			}
+		}
+		break;
+	default:
+		break;
+	}
+
+	return end;
+}

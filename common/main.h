@@ -38,6 +38,10 @@ HWND GetWindow();
 
 typedef struct {
 	XMFLOAT4 a, b, c, d;
+	void setAll(XMFLOAT4 color)
+	{
+		a = b = c = d = color;
+	}
 }VertexColor_4;
 
 struct Vector2_3D

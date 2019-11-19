@@ -470,6 +470,9 @@
     <ClInclude Include="GameSystem\CEnemyAIMother.h">
       <Filter>ヘッダー ファイル\Game\GamaSystem\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="common\math.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="imgui\imgui.natvis">

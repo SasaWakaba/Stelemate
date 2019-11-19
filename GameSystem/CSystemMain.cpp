@@ -11,7 +11,7 @@
 #include "../common/CGame.h"
 #include "../common/manager.h"
 #include "../common/camera.h"
-
+#include "../common/math.h"
 #include "CCursor.h"
 #include "CSystemMain.h"
 #include "C3DPolygon.h"
@@ -75,6 +75,11 @@ void CSystemMain::Initialize(int x, int z, PanelState* Map)
 	//フレーム
 	m_Frame = 0;
 	m_FrameEnemy = 0;
+
+	m_EnemyMoving = wait;
+
+	CCharcterBase* SelectEnemy = nullptr;
+	Vector2_3D SelectEnemyPos = {0, 0};
 }
 
 void CSystemMain::Finalize()
@@ -250,6 +255,37 @@ void CSystemMain::Draw()
 
 void CSystemMain::TurnPlayer()
 {
+	//行動終了判定
+	{
+		int notMove = 0;
+		for (int z = 0; z < m_Z; z++)
+		{
+			for (int x = 0; x < m_X; x++)
+			{
+				if (m_StageMap[z * m_X + x].bChar)
+				{
+					if (m_StageMap[z * m_X + x].Charcter->GetAlly())
+					{
+						if (!m_StageMap[z * m_X + x].Charcter->GetTurnMove())
+						{
+							notMove++;
+						}
+					}
+				}
+			}
+		}
+
+		if (notMove == 0)
+		{
+			CScene* sceneC;
+			sceneC = CManager::GetScene();
+
+			CTurnChangeUI* ChangeUI = sceneC->GetGameObject<CTurnChangeUI>(4);
+			ChangeUI->ChangeEnemy();
+			turn = TurnChangeEnemy;
+		}
+	}
+
 	//選択カーソル移動
 	{
 		//上入力
@@ -569,84 +605,11 @@ void CSystemMain::TurnPlayer()
 			turn = TurnChangeEnemy;
 		}
 	}
-
-
-	int notMove = 0;
-	for (int z = 0; z < m_Z; z++)
-	{
-		for (int x = 0; x < m_X; x++)
-		{
-			if (m_StageMap[z * m_X + x].bChar)
-			{
-				if (m_StageMap[z * m_X + x].Charcter->GetAlly())
-				{
-					if (!m_StageMap[z * m_X + x].Charcter->GetTurnMove())
-					{
-						notMove++;
-					}
-				}
-			}
-		}
-	}
-
-	if (notMove == 0)
-	{
-		CScene* sceneC;
-		sceneC = CManager::GetScene();
-
-		CTurnChangeUI* ChangeUI = sceneC->GetGameObject<CTurnChangeUI>(4);
-		ChangeUI->ChangeEnemy();
-		turn = TurnChangeEnemy;
-	}
 }
 
 
 void CSystemMain::TurnEnemy()
 {
-	int age = m_Frame - m_FrameEnemy;
-	if (age % 30 == 0)
-	{
-		CCharcterBase* enemy = nullptr;
-		Vector2_3D pos;
-		for (int z = 0; z < m_Z; z++)
-		{
-			for (int x = 0; x < m_X; x++)
-			{
-				if (m_StageMap[z * m_X + x].bChar)
-				{
-					if (!m_StageMap[z * m_X + x].Charcter->GetAlly())
-					{
-						if (!m_StageMap[z * m_X + x].Charcter->GetTurnMove())
-						{
-							enemy = m_StageMap[z * m_X + x].Charcter;
-							m_StageMap[z * m_X + x].bChar = false;
-							m_StageMap[z * m_X + x].Charcter = nullptr;
-							pos = { x, z };
-							break;
-						}
-					}
-				}
-			}
-		}
-
-		if (enemy != nullptr)
-		{
-			for (Vector2_3D ene : m_Enemy->Move(pos, enemy->GetStatus()->MovePoint))
-			{
-				m_CursorLocation = ene;
-			}
-
-			m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar = true;
-			m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter = enemy;
-			enemy->MoveLocation(XMFLOAT3((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 1.0f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
-			enemy->SetTurnMove(true);
-		}
-
-
-
-		
-	}
-
 	//行動していないキャラがいるか
 	int notMove = 0;
 	for (int z = 0; z < m_Z; z++)
@@ -681,5 +644,94 @@ void CSystemMain::TurnEnemy()
 		}
 		cnt++;
 	}
+
+	int age = m_Frame - m_FrameEnemy;
+	if (age % 30 == 0)
+	{
+		switch (m_EnemyMoving)
+		{
+		case wait:
+			for (int z = 0; z < m_Z; z++)
+			{
+				for (int x = 0; x < m_X; x++)
+				{
+					if (m_StageMap[z * m_X + x].bChar)
+					{
+						if (!m_StageMap[z * m_X + x].Charcter->GetAlly())
+						{
+							if (!m_StageMap[z * m_X + x].Charcter->GetTurnMove())
+							{
+								SelectEnemy = m_StageMap[z * m_X + x].Charcter;
+								SelectEnemyPos = { x, z };
+								m_EnemyMoving = move;
+								break;
+							}
+						}
+					}
+				}
+			}
+			break;
+		case move:
+			if (SelectEnemy != nullptr)
+			{
+				m_CursorLocation = m_Enemy->Move(SelectEnemyPos, SelectEnemy->GetStatus()->MovePoint).back();
+				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar = true;
+				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter = SelectEnemy;
+				SelectEnemy->MoveLocation(XMFLOAT3((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 1.0f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
+
+				m_StageMap[SelectEnemyPos.z * m_X + SelectEnemyPos.x].bChar = false;
+				m_StageMap[SelectEnemyPos.z * m_X + SelectEnemyPos.x].Charcter = nullptr;
+			}
+			m_EnemyMoving = m_Enemy->Select(m_CursorLocation, SelectEnemy->GetWeapon()->WeaponType);
+			break;
+		case attack:
+			for (Vector2_3D pos : m_AttackSearch->Search(m_CursorLocation, SelectEnemy->GetWeapon()->WeaponType))
+			{
+				if (m_StageMap[pos.z * m_X + pos.x].bChar)
+				{
+					if (m_StageMap[pos.z * m_X + pos.x].Charcter->GetAlly())
+					{
+						CSystemBattle::Battle(SelectEnemy, m_StageMap[pos.z * m_X + pos.x].Charcter);
+						m_bBattle = true;
+						break;
+					}
+				}
+			}
+
+			if (m_bBattle)
+			{
+				if (!CSystemBattle::BattleEnd())
+				{
+					m_EnemyMoving = end;
+				}
+			}
+			else
+			{
+				m_EnemyMoving = end;
+			}
+			break;
+		case heal:
+			for (Vector2_3D pos : m_AttackSearch->Search(m_CursorLocation, SelectEnemy->GetWeapon()->WeaponType))
+			{
+				if (m_StageMap[pos.z * m_X + pos.x].bChar)
+				{
+					if (!m_StageMap[pos.z * m_X + pos.x].Charcter->GetAlly())
+					{
+						CSystemBattle::Battle(SelectEnemy, m_StageMap[pos.z * m_X + pos.x].Charcter);
+						break;
+					}
+				}
+			}
+			break;
+		case end:
+			SelectEnemy->SetTurnMove(true);
+			SelectEnemy = nullptr;
+			m_EnemyMoving = wait;
+			break;
+		default:
+			break;
+		}
+	}
+
 
 }
