@@ -248,43 +248,14 @@ void CSystemMain::Draw()
 	}
 
 	//カーソルの描画
-	world = XMMatrixTranslation((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 3.0f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2));
+	world = XMMatrixTranslation((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 3.5f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2));
 	m_Yazirushi->Draw(world);
 }
 
 
 void CSystemMain::TurnPlayer()
 {
-	//行動終了判定
-	{
-		int notMove = 0;
-		for (int z = 0; z < m_Z; z++)
-		{
-			for (int x = 0; x < m_X; x++)
-			{
-				if (m_StageMap[z * m_X + x].bChar)
-				{
-					if (m_StageMap[z * m_X + x].Charcter->GetAlly())
-					{
-						if (!m_StageMap[z * m_X + x].Charcter->GetTurnMove())
-						{
-							notMove++;
-						}
-					}
-				}
-			}
-		}
-
-		if (notMove == 0)
-		{
-			CScene* sceneC;
-			sceneC = CManager::GetScene();
-
-			CTurnChangeUI* ChangeUI = sceneC->GetGameObject<CTurnChangeUI>(4);
-			ChangeUI->ChangeEnemy();
-			turn = TurnChangeEnemy;
-		}
-	}
+	
 
 	//選択カーソル移動
 	{
@@ -605,46 +576,80 @@ void CSystemMain::TurnPlayer()
 			turn = TurnChangeEnemy;
 		}
 	}
-}
 
-
-void CSystemMain::TurnEnemy()
-{
-	//行動していないキャラがいるか
-	int notMove = 0;
-	for (int z = 0; z < m_Z; z++)
+	//行動終了判定
 	{
-		for (int x = 0; x < m_X; x++)
+		int notMove = 0;
+		for (int z = 0; z < m_Z; z++)
 		{
-			if (m_StageMap[z * m_X + x].bChar)
+			for (int x = 0; x < m_X; x++)
 			{
-				if (!m_StageMap[z * m_X + x].Charcter->GetAlly())
+				if (m_StageMap[z * m_X + x].bChar)
 				{
-					if (!m_StageMap[z * m_X + x].Charcter->GetTurnMove())
+					if (m_StageMap[z * m_X + x].Charcter->GetAlly())
 					{
-						notMove++;
+						if (!m_StageMap[z * m_X + x].Charcter->GetTurnMove())
+						{
+							notMove++;
+						}
 					}
 				}
 			}
 		}
-	}
-	//全員行動済みになったらターン終了
-	if (notMove == 0)
-	{
-		static int cnt = 0;
-		if (cnt == 30)
+
+		if (notMove == 0)
 		{
 			CScene* sceneC;
 			sceneC = CManager::GetScene();
 
 			CTurnChangeUI* ChangeUI = sceneC->GetGameObject<CTurnChangeUI>(4);
-			ChangeUI->ChangePlayer();
-			turn = TurnChangePlayer;
-			cnt = 0;
+			ChangeUI->ChangeEnemy();
+			turn = TurnChangeEnemy;
+			m_MoveSerch->SetDraw(false);
+			m_MoveSerch->Reset();
 		}
-		cnt++;
 	}
+}
 
+
+void CSystemMain::TurnEnemy()
+{
+	{
+		//行動していないキャラがいるか
+		int notMove = 0;
+		for (int z = 0; z < m_Z; z++)
+		{
+			for (int x = 0; x < m_X; x++)
+			{
+				if (m_StageMap[z * m_X + x].bChar)
+				{
+					if (!m_StageMap[z * m_X + x].Charcter->GetAlly())
+					{
+						if (!m_StageMap[z * m_X + x].Charcter->GetTurnMove())
+						{
+							notMove++;
+						}
+					}
+				}
+			}
+		}
+		//全員行動済みになったらターン終了
+		if (notMove == 0)
+		{
+			static int cnt = 0;
+			if (cnt == 30)
+			{
+				CScene* sceneC;
+				sceneC = CManager::GetScene();
+
+				CTurnChangeUI* ChangeUI = sceneC->GetGameObject<CTurnChangeUI>(4);
+				ChangeUI->ChangePlayer();
+				turn = TurnChangePlayer;
+				cnt = 0;
+			}
+			cnt++;
+		}
+	}
 	int age = m_Frame - m_FrameEnemy;
 	if (age % 30 == 0)
 	{

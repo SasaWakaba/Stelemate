@@ -121,6 +121,7 @@
     <ClInclude Include="GameSystem\CPreparation.h" />
     <ClInclude Include="GameSystem\CSystemBattle.h" />
     <ClInclude Include="GameSystem\CSystemMain.h" />
+    <ClInclude Include="GameSystem\WorldManager.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_dx11.h" />

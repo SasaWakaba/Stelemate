@@ -18,7 +18,7 @@ void CCamera::Initialize()
 	m_Position = XMFLOAT3( 5.0f, 5.0f, -10.0f );
 	m_Rotation = XMFLOAT3( 0.5f, -0.6f, 0.0f );
 
-	m_Length = 5.0f;
+	m_Length = 10.0f;
 
 	m_Viewport.left = 0;
 	m_Viewport.top = 0;
@@ -87,41 +87,6 @@ void CCamera::Update()
 	}
 
 	m_Position = m_at;
-
-
-	//if (CInput::GetKeyPress(VK_LEFT))
-	//{
-	//	m_Position.x -= 0.1f;
-	//}
-	//if (CInput::GetKeyPress(VK_RIGHT))
-	//{
-	//	m_Position.x += 0.1f;
-	//}
-	//if (CInput::GetKeyPress(VK_UP))
-	//{
-	//	m_Position.z += 0.1f;
-	//}
-	//if (CInput::GetKeyPress(VK_DOWN))
-	//{
-	//	m_Position.z -= 0.1f;
-	//}
-	//if (CInput::GetKeyPress('1'))
-	//{
-	//	m_Rotation.y -= 0.1f;
-	//}
-	//if (CInput::GetKeyPress('2'))
-	//{
-	//	m_Rotation.y += 0.1f;
-	//}
-	//if (CInput::GetKeyPress('3'))
-	//{
-	//	m_Rotation.x -= 0.1f;
-	//}
-	//if (CInput::GetKeyPress('4'))
-	//{
-	//	m_Rotation.x += 0.1f;
-	//}
-
 }
 
 
@@ -148,11 +113,6 @@ void CCamera::Draw()
 
 
 	// ビューマトリクス設定
-	//m_InvViewMatrix = XMMatrixRotationRollPitchYaw(m_Rotation.x, m_Rotation.y, m_Rotation.z);
-	//m_InvViewMatrix *= XMMatrixTranslation(m_Position.x, m_Position.y, m_Position.z);
-
-	//XMVECTOR det;
-	//m_ViewMatrix = XMMatrixInverse(&det, m_InvViewMatrix);
 
 	m_ViewMatrix = XMMatrixLookAtLH(XMLoadFloat3(&m_Eye), XMLoadFloat3(&m_at), XMLoadFloat3(&m_CameraUp));
 

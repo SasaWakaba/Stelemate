@@ -23,9 +23,9 @@ public:
 		m_Model[1] = new CModelAnimation();
 		m_Model[1]->Load("asset/model/Rook_B/RookB.obj");
 
-		m_Status = CCharacterData::m_CharData["Swordsman"];
+		m_Status = CCharacterData::m_CharData["Œ•Žm"];
 		nowHP = m_Status.HP;
-		
+		Level = 1;
 		m_Weapon = &CWeaponData::m_WeaponData["“S‚ÌŒ•"];
 	}
 	void Finalize() 

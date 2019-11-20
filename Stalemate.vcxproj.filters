@@ -473,6 +473,9 @@
     <ClInclude Include="common\math.h">
       <Filter>ヘッダー ファイル\common</Filter>
     </ClInclude>
+    <ClInclude Include="GameSystem\WorldManager.h">
+      <Filter>ヘッダー ファイル\Game\GamaSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="imgui\imgui.natvis">

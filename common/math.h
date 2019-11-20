@@ -2,6 +2,7 @@
 #define MYMATH_H_
 
 #include "main.h"
+#define MAX_LEVEL (40)
 
 enum EnemyMove
 {

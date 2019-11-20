@@ -21,6 +21,7 @@ protected:
 
 	int				cnt;
 
+
 	bool			bDead = false;
 
 	bool			bTurnMove = false;
@@ -31,6 +32,7 @@ protected:
 public:
 	JOBCLASS		m_JobClass;
 	int				nowHP = 0;
+	int				Level;
 
 
 	CCharcterBase(JOBCLASS job):m_JobClass(job){}

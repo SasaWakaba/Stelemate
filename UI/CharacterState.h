@@ -11,6 +11,7 @@
 class CTexture;
 class CPolygon;
 class CScore;
+class CDrawText;
 
 class CCharacterState :public CGameObject
 {
@@ -18,6 +19,8 @@ private:
 	CPolygon* m_CharacterState[STATE_TEX_NUM];
 
 	CScore*	m_StateNum;
+
+	CDrawText* m_Text[1];
 
 	static PanelState* m_PanelState;
 public:
