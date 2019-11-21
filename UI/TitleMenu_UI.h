@@ -10,6 +10,7 @@
 #define TITLELOGO_HEIGHT (512.0f)
 
 class CModelLoader;
+class CGameModeSelect;
 
 class CTitleMenu:public CGameObject
 {
@@ -23,6 +24,13 @@ private:
 		Menu_1,
 		Menu_2,
 		Menu_3,
+	};
+
+	enum TitleSelect
+	{
+		Title = 0,
+		Select,
+		Mode,
 	};
 
 	CModelLoader*	m_Model;
@@ -39,9 +47,9 @@ private:
 
 	bool PressWait;
 
-	bool bPressSpace;
-
 	int m_Count;
+
+	TitleSelect select;
 	//=============
 
 	//SELECT=======
@@ -53,7 +61,7 @@ private:
 	//=============
 	int Frame;
 
-
+	CGameModeSelect* ModeSelect;
 
 
 public:

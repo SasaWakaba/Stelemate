@@ -11,6 +11,7 @@ typedef struct
 {
 	CCharcterBase*	m_Character;
 	int				m_Exp;
+	int				m_NextExp;
 }PlayerData;
 
 enum GameMode
@@ -41,16 +42,12 @@ private:
 	static int ClearTurnAll;
 
 public:
+	static void SetGameMode(GameMode mode);
 
-
-	static void StageStart(int stageNum) 
-	{ 
-		NowStage = stageNum; 
-		ClearTurn = 0;
-	}
+	static void StageStart(int stageNum);
 
 	//É^Å[Éìåoâﬂ
-	static void AddTurn() { ClearTurn++; }
+	static void AddTurn();
 };
 
 #endif // !WORLD_MANAGER_H_

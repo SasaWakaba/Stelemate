@@ -9,6 +9,8 @@
 #include "../common/Scene.h"
 #include "../common/CTitle.h"
 
+#include "GameModeSelect.h"
+
 #include "TitleMenu_UI.h"
 
 static bool g_tu;
@@ -43,7 +45,7 @@ void CTitleMenu::Initialize()
 	//m_Model = new CModelLoader();
 	//m_Model->Load("asset/model/Tree.obj");
 
-
+	select = Title;
 	//PRESS=============================
 	PressAlpha = 1.0f;
 	TitleAlpha = 0.0f;
@@ -55,7 +57,6 @@ void CTitleMenu::Initialize()
 	m_PosTitle.x = SCREEN_WIDTH / 2;
 	m_PosTitle.y = 0.0f;
 	PressWait = false;
-	bPressSpace = false;
 	//==================================
 
 	SelectEffect = 0.0f;
@@ -70,6 +71,7 @@ void CTitleMenu::Initialize()
 	m_PosSelect[2].y = SCREEN_HEIGHT / 2 + 140.0f;
 	m_PosSelect[2].x = SCREEN_WIDTH - 75.0f;
 
+	ModeSelect = new CGameModeSelect();
 
 	////////////////////
 	g_tu = false;
@@ -119,52 +121,51 @@ void CTitleMenu::Update()
 
 	if (bDown)
 	{
-		if (!bPressSpace)
+		switch (select)
 		{
-			if (!PressWait)
+		case CTitleMenu::Title:
 			{
-				if (PressAlpha > 0.0f)
+				if (!PressWait)
 				{
-					PressAlpha -= 1.0f / 30.0f;
+					if (PressAlpha > 0.0f)
+					{
+						PressAlpha -= 1.0f / 30.0f;
+					}
+					else
+					{
+						PressWait = true;
+					}
 				}
 				else
 				{
-					PressWait = true;
+					if (PressAlpha < 1.0f)
+					{
+						PressAlpha += 1.0f / 30.0f;
+					}
+					else
+					{
+						PressWait = false;
+					}
 				}
 			}
-			else
+			if (CInput::GetKeyTrigger(VK_SPACE))
 			{
-				if (PressAlpha < 1.0f)
-				{
-					PressAlpha += 1.0f / 30.0f;
-				}
-				else
-				{
-					PressWait = false;
-				}
+				select = Select;
 			}
-		}
-		else
-		{
-			SelectEffect += 1.0f;
-		}
+			break;
 
-		if (CInput::GetKeyTrigger(VK_SPACE))
-		{
-			if (!bPressSpace)
-			{
-				bPressSpace = true;
-			}
-			else
+		case CTitleMenu::Select:
+			if (CInput::GetKeyTrigger(VK_SPACE))
 			{
 				switch (SelectNum)
 				{
 				case 0:
-					CTitle::Change();
+					//CTitle::Change();
+					select = Mode;
 					break;
 
 				case 1:
-					if (!g_tu) 
+					if (!g_tu)
 					{
 						g_tu = true;
 					}
@@ -179,9 +180,6 @@ void CTitleMenu::Update()
 					break;
 				}
 			}
-		}
-		if (bPressSpace)
-		{
 			if (CInput::GetKeyTrigger('W'))
 			{
 				if (SelectNum > 0)
@@ -231,6 +229,18 @@ void CTitleMenu::Update()
 				m_PosSelect[2].x = SCREEN_WIDTH - 150.0f;
 				break;
 			}
+			SelectEffect += 1.0f;
+			break;
+
+		case CTitleMenu::Mode:
+			ModeSelect->Update();
+			if (CInput::GetKeyTrigger('Q'))
+			{
+				select = Select;
+			}
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -239,49 +249,41 @@ void CTitleMenu::Update()
 
 void CTitleMenu::Draw()
 {
-
-	if (!bPressSpace)
+	switch (select)
 	{
-		VertexColor_4 colorLogo{
-			XMFLOAT4(1.0f,1.0f,1.0f,TitleAlpha),
-			XMFLOAT4(1.0f,1.0f,1.0f,TitleAlpha),
-			XMFLOAT4(1.0f,1.0f,1.0f,TitleAlpha),
-			XMFLOAT4(1.0f,1.0f,1.0f,TitleAlpha)
-		};
+	case CTitleMenu::Title:
+		VertexColor_4 colorLogo;
+		colorLogo.setAll(XMFLOAT4(1.0f, 1.0f, 1.0f, TitleAlpha));
 
 		m_Polygon[Title_Logo]->Draw(m_PosTitle.x, m_PosTitle.y, 0.0f, 0.0f, TITLELOGO_WIDTH, TITLELOGO_HEIGHT, TITLELOGO_WIDTH, TITLELOGO_HEIGHT, colorLogo);
 
 		if (bDown)
 		{
-			VertexColor_4 colorPress{
-			XMFLOAT4(1.0f,1.0f,1.0f,PressAlpha),
-			XMFLOAT4(1.0f,1.0f,1.0f,PressAlpha),
-			XMFLOAT4(1.0f,1.0f,1.0f,PressAlpha),
-			XMFLOAT4(1.0f,1.0f,1.0f,PressAlpha)
-			};
+			VertexColor_4 colorPress;
+			colorPress.setAll(XMFLOAT4(1.0f, 1.0f, 1.0f, PressAlpha));
 			m_Polygon[PressSpace]->Draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5 * 4, 0.0f, 0.0f, 600.0f, 70.0f, 600.0f, 70.0f, colorPress);
 		}
-	}
-	else
-	{
-		VertexColor_4 colorSelect{
-		XMFLOAT4(1.0f,1.0f,1.0f,0.0f),
-		XMFLOAT4(1.0f,1.0f,1.0f,1.0f),
-		XMFLOAT4(1.0f,1.0f,1.0f,0.0f),
-		XMFLOAT4(1.0f,1.0f,1.0f,1.0f)
-		};
+
+		break;
+
+	case CTitleMenu::Select:
+		VertexColor_4 colorSelect;
+		colorSelect.a = colorSelect.c = XMFLOAT4(1.0f, 1.0f, 1.0f, 0.0f);
+		colorSelect.b = colorSelect.d = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+
 		m_Polygon[Menu_3]->Draw(SCREEN_WIDTH - 150.0f, SCREEN_HEIGHT / 2, 0.0f + SelectEffect, 0.0f, 300.0f, 35.0f, 300.0f, 35.0f, colorSelect);
 
-		VertexColor_4 colorMenu{
-		XMFLOAT4(1.0f,1.0f,1.0f,1.0f),
-		XMFLOAT4(1.0f,1.0f,1.0f,1.0f),
-		XMFLOAT4(1.0f,1.0f,1.0f,1.0f),
-		XMFLOAT4(1.0f,1.0f,1.0f,1.0f)
-		};
+		VertexColor_4 colorMenu;
+		colorMenu.setAll(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 		m_Polygon[Menu_0]->Draw(m_PosSelect[0].x, m_PosSelect[0].y, 0.0f, 0.0f, 200.0f, 35.0f, 200.0f, 35.0f);
 		m_Polygon[Menu_1]->Draw(m_PosSelect[1].x, m_PosSelect[1].y, 0.0f, 0.0f, 100.0f, 35.0f, 100.0f, 35.0f);
 		m_Polygon[Menu_2]->Draw(m_PosSelect[2].x, m_PosSelect[2].y, 0.0f, 0.0f, 150.0f, 35.0f, 150.0f, 35.0f);
 
+		break;
+
+	case CTitleMenu::Mode:
+		ModeSelect->Draw();
+		break;
 	}
 
 	if (g_tu)

@@ -55,6 +55,7 @@
     <ClCompile Include="GameSystem\CPreparation.cpp" />
     <ClCompile Include="GameSystem\CSystemBattle.cpp" />
     <ClCompile Include="GameSystem\CSystemMain.cpp" />
+    <ClCompile Include="GameSystem\WorldManager.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui_impl_dx11.cpp" />
@@ -69,6 +70,7 @@
     <ClCompile Include="UI\BattleSimu_UI.cpp" />
     <ClCompile Include="UI\CharacterState.cpp" />
     <ClCompile Include="UI\GameMenu_UI.cpp" />
+    <ClCompile Include="UI\GameModeSelect.cpp" />
     <ClCompile Include="UI\PanelState_UI.cpp" />
     <ClCompile Include="UI\TitleMenu_UI.cpp" />
     <ClCompile Include="UI\TurnChange_UI.cpp" />
@@ -140,6 +142,7 @@
     <ClInclude Include="UI\BattleSimu_UI.h" />
     <ClInclude Include="UI\CharacterState.h" />
     <ClInclude Include="UI\GameMenu_UI.h" />
+    <ClInclude Include="UI\GameModeSelect.h" />
     <ClInclude Include="UI\PanelState_UI.h" />
     <ClInclude Include="UI\TitleMenu_UI.h" />
     <ClInclude Include="UI\TurnChange_UI.h" />

@@ -267,6 +267,12 @@
     <ClCompile Include="GameSystem\CEnemyAIMother.cpp">
       <Filter>ソース ファイル\Game\GameSystem\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="UI\GameModeSelect.cpp">
+      <Filter>ソース ファイル\Title\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\WorldManager.cpp">
+      <Filter>ソース ファイル\Game\GameSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugUi\DebugUI.h">
@@ -475,6 +481,9 @@
     </ClInclude>
     <ClInclude Include="GameSystem\WorldManager.h">
       <Filter>ヘッダー ファイル\Game\GamaSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\GameModeSelect.h">
+      <Filter>ヘッダー ファイル\Title\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
