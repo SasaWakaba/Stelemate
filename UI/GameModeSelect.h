@@ -9,7 +9,7 @@ class CDrawText;
 class CGameModeSelect
 {
 private:
-	CPolygon*	m_Texture[4];
+	CPolygon*	m_Texture[5];
 	CDrawText*	m_Text[2];
 
 	GameMode m_select;

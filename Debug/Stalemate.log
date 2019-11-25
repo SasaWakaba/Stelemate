@@ -1,4 +1,1 @@
-﻿  GameModeSelect.cpp
-c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  Stalemate.vcxproj -> C:\Users\nayup\Documents\Stelemate\Debug\Stalemate.exe
+﻿  Stalemate.vcxproj -> C:\Users\nayup\Documents\Stelemate\Debug\Stalemate.exe

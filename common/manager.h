@@ -40,7 +40,7 @@ public:
 	{
 		if (typeid(*m_scene) == typeid(CGame))
 		{
-				return "Game";
+			return "Game";
 		}
 		if (typeid(*m_scene) == typeid(CResult))
 		{
