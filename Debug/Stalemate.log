@@ -1,1 +1,19 @@
-﻿  Stalemate.vcxproj -> C:\Users\nayup\Documents\Stelemate\Debug\Stalemate.exe
+﻿  Preparation_UI.cpp
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(96): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(99): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(102): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(105): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(110): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(111): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(112): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(113): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(116): warning C4244: '初期化中': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(120): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(122): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(124): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(126): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(135): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(138): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(141): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(144): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+  Stalemate.vcxproj -> C:\Users\nayup\Documents\Stelemate\Debug\Stalemate.exe

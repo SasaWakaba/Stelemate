@@ -9,6 +9,7 @@
 #include "manager.h"
 #include "CResult.h"
 #include "CGame.h"
+#include "../GameSystem/CPreparation.h"
 #include "CTitle.h"
 
 #include "polygon.h"
@@ -49,8 +50,8 @@ void CTitle::Update()
 		if (CFade::startFin())
 		{
 
-			CManager::SetScene<CGame>();
-			
+			//CManager::SetScene<CGame>();
+			CManager::SetScene<CPreparation>();
 		}
 	}
 

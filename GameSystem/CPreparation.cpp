@@ -4,6 +4,7 @@
 #include "../common/CFade.h"
 #include "../common/Scene.h"
 #include "CPreparation.h"
+#include "../UI/Preparation_UI.h"
 
 
 //CRI ADX2
@@ -17,6 +18,8 @@ void CPreparation::Init()
 	m_BGM = new CAudioClip();
 	m_BGM->Load("asset/audio/tw040.wav");
 	m_BGM->Play(true);
+
+	AddGameObject<CPreparationUI>(1);
 
 	CFade::EndFade();
 }

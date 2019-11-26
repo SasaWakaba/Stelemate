@@ -157,7 +157,7 @@ void CDrawText::UnSet()
 {
 	tex2D->Release();
 	m_Texture->Unload();
-	//m_VertexBuffer->Release();
+	m_VertexBuffer->Release();
 	delete m_Texture;
 	//delete m_VertexBuffer;
 }
@@ -236,20 +236,8 @@ void CDrawText::Draw1text(int dx, int dy, int h, int w, TCHAR* c, VertexColor_4 
 	// デバイスコンテキストとフォントハンドルの開放
 	SelectObject(hdc, oldFont);
 	DeleteObject(hFont);
-	ReleaseDC(NULL, hdc);
 
-	// テクスチャ作成
-	D3D11_TEXTURE2D_DESC desc;
-	memset(&desc, 0, sizeof(desc));
-	desc.Width = GM.gmCellIncX;
-	desc.Height = TM.tmHeight;
-	desc.MipLevels = 1;
-	desc.ArraySize = 1;
-	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;	// RGBA(255,255,255,255)タイプ
-	desc.SampleDesc.Count = 1;
-	desc.Usage = D3D11_USAGE_DYNAMIC;			// 動的（書き込みするための必須条件）
-	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;	// シェーダリソースとして使う
-	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;	// CPUからアクセスして書き込みOK
+	ReleaseDC(NULL, hdc);
 
 
 	D3D11_MAPPED_SUBRESOURCE hMappedResource;

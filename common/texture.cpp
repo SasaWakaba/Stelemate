@@ -223,6 +223,10 @@ void CTexture::LoatTextureFromMemory(const unsigned char* file, unsigned int w)
 
 void CTexture::SetData(const TCHAR* name, ID3D11Texture2D* tex2D)
 {
+	if (m_ShaderResourceView != nullptr)
+	{
+		m_ShaderResourceView->Release();
+	}
 	HRESULT hr;
 
 	//StrCpy(this->name, name);

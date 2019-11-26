@@ -106,6 +106,12 @@
     <Filter Include="ヘッダー ファイル\common\base">
       <UniqueIdentifier>{f66cc06f-7f19-4cb1-bc27-43e393bbb4ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\GameSystem\Preparate">
+      <UniqueIdentifier>{5aafef23-2f65-457a-b2fd-956f6ba96067}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\GamaSystem\Preparate">
+      <UniqueIdentifier>{7b0fa224-085a-4dcd-a285-40dd21934802}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -182,9 +188,6 @@
     </ClCompile>
     <ClCompile Include="UI\BattleSimu_UI.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="GameSystem\CPreparation.cpp">
-      <Filter>ソース ファイル\Game\GameSystem</Filter>
     </ClCompile>
     <ClCompile Include="common\Billboard.cpp">
       <Filter>ソース ファイル\common</Filter>
@@ -272,6 +275,15 @@
     </ClCompile>
     <ClCompile Include="GameSystem\WorldManager.cpp">
       <Filter>ソース ファイル\Game\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\CPreparation.cpp">
+      <Filter>ソース ファイル\Game\GameSystem\Preparate</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\CSubCamera.cpp">
+      <Filter>ソース ファイル\Game\GameSystem\Preparate</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Preparation_UI.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -367,9 +379,6 @@
     </ClInclude>
     <ClInclude Include="UI\BattleSimu_UI.h">
       <Filter>ヘッダー ファイル\Game\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSystem\CPreparation.h">
-      <Filter>ヘッダー ファイル\Game\GamaSystem</Filter>
     </ClInclude>
     <ClInclude Include="common\Billboard.h">
       <Filter>ヘッダー ファイル\common</Filter>
@@ -484,6 +493,15 @@
     </ClInclude>
     <ClInclude Include="UI\GameModeSelect.h">
       <Filter>ヘッダー ファイル\Title\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\CPreparation.h">
+      <Filter>ヘッダー ファイル\Game\GamaSystem\Preparate</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\CSubCamera.h">
+      <Filter>ヘッダー ファイル\Game\GamaSystem\Preparate</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Preparation_UI.h">
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

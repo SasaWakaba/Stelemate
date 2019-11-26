@@ -53,6 +53,7 @@
     <ClCompile Include="GameSystem\CEnemyAIMother.cpp" />
     <ClCompile Include="GameSystem\CMoveSearch.cpp" />
     <ClCompile Include="GameSystem\CPreparation.cpp" />
+    <ClCompile Include="GameSystem\CSubCamera.cpp" />
     <ClCompile Include="GameSystem\CSystemBattle.cpp" />
     <ClCompile Include="GameSystem\CSystemMain.cpp" />
     <ClCompile Include="GameSystem\WorldManager.cpp" />
@@ -72,6 +73,7 @@
     <ClCompile Include="UI\GameMenu_UI.cpp" />
     <ClCompile Include="UI\GameModeSelect.cpp" />
     <ClCompile Include="UI\PanelState_UI.cpp" />
+    <ClCompile Include="UI\Preparation_UI.cpp" />
     <ClCompile Include="UI\TitleMenu_UI.cpp" />
     <ClCompile Include="UI\TurnChange_UI.cpp" />
   </ItemGroup>
@@ -121,6 +123,7 @@
     <ClInclude Include="GameSystem\CEnemyAIMother.h" />
     <ClInclude Include="GameSystem\CMoveSearch.h" />
     <ClInclude Include="GameSystem\CPreparation.h" />
+    <ClInclude Include="GameSystem\CSubCamera.h" />
     <ClInclude Include="GameSystem\CSystemBattle.h" />
     <ClInclude Include="GameSystem\CSystemMain.h" />
     <ClInclude Include="GameSystem\WorldManager.h" />
@@ -144,6 +147,7 @@
     <ClInclude Include="UI\GameMenu_UI.h" />
     <ClInclude Include="UI\GameModeSelect.h" />
     <ClInclude Include="UI\PanelState_UI.h" />
+    <ClInclude Include="UI\Preparation_UI.h" />
     <ClInclude Include="UI\TitleMenu_UI.h" />
     <ClInclude Include="UI\TurnChange_UI.h" />
   </ItemGroup>
