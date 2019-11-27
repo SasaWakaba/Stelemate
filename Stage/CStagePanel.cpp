@@ -1,10 +1,11 @@
 #include "../common/main.h"
+#include "../common/renderer.h"
 #include "../common/texture.h"
 #include "CCube.h"
 #include "CStagePanel.h"
 
 #include "../common/model.h"
-#include "../mesh/ModelLoader.h"
+#include "../common/ModelAnimation.h"
 
 void CStagePanel::Initialize()
 {
@@ -18,8 +19,8 @@ void CStagePanel::Initialize()
 		m_Texture = new CTexture();
 		m_Texture->LoadTex("asset/texture/forest.jpg");
 
-		m_Model = new CModelLoader();
-		m_Model->Load("asset/model/forest.obj");
+		m_Model = new CModelAnimation();
+		m_Model->Load("asset/model/forest/treeplan1.fbx");
 		break;
 	}
 	
@@ -36,7 +37,7 @@ void CStagePanel::Finalize()
 
 	if (m_Model != nullptr)
 	{
-		m_Model->Close();
+		m_Model->UnLoad();
 		delete m_Model;
 	}
 }
@@ -51,9 +52,11 @@ void CStagePanel::Draw()
 
 	if (m_PanelPattarn == 2)
 	{
-		world = XMMatrixScaling(0.5f, 0.5f, 0.5f);
-		world *= XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f);
+		CRenderer::SetAlphaTestEnable(true);
+		world = XMMatrixScaling(0.03f, 0.03f, 0.03f);
+		world *= XMMatrixRotationRollPitchYaw(90.0f, 0.0f, 0.0f);
 		world *= XMMatrixTranslation(m_Position.x, m_Position.y + 0.5f, m_Position.z);
-		//m_Model->Draw(&world);
+		m_Model->Draw(world);
+		CRenderer::SetAlphaTestEnable(false);
 	}
 }

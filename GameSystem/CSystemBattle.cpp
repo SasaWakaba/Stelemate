@@ -20,6 +20,7 @@ bool CSystemBattle::Battle(CCharcterBase* pA, CCharcterBase* pB)
 		m_Char_A = pA;
 		m_Char_B = pB;
 		bBattle = true;
+		X = 0.0f;
 		return true;
 	}
 	else
@@ -67,16 +68,16 @@ void CSystemBattle::Update()
 		{
 			X++;
 		}
-		else
+		else if(bMove == false)
 		{
 			bMove = true;
-			Damage();
 		}
 
 		if (bMove)
 		{
-			if (AnimFrame > 120)
+			if (AnimFrame > 10)
 			{
+				Damage();
 				bBattle = false;
 			}
 			AnimFrame++;

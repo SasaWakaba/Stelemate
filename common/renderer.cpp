@@ -30,6 +30,8 @@ ID3D11DepthStencilState* CRenderer::m_DepthStateDisable;
 
 XMMATRIX*				 CRenderer::m_ViewMatrix = NULL;
 
+ID3D11BlendState*		 CRenderer::blendState = NULL;
+ID3D11BlendState*		 CRenderer::AlphaTestblendState = NULL;
 
 
 void CRenderer::Init()
@@ -144,9 +146,13 @@ void CRenderer::Init()
 	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
 	float blendFactor[4] = {0.0f, 0.0f, 0.0f, 0.0f};
-	ID3D11BlendState* blendState = NULL;
+	
 	m_D3DDevice->CreateBlendState( &blendDesc, &blendState );
 	m_ImmediateContext->OMSetBlendState( blendState, blendFactor, 0xffffffff );
+
+	blendDesc.AlphaToCoverageEnable = TRUE;
+	m_D3DDevice->CreateBlendState(&blendDesc, &AlphaTestblendState);
+	
 
 
 
@@ -450,3 +456,18 @@ void CRenderer::DrawIndexed( unsigned int IndexCount, unsigned int StartIndexLoc
 
 }
 
+void CRenderer::SetAlphaTestEnable(bool Enable)
+{
+	if (Enable)
+	{
+		float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+
+		m_ImmediateContext->OMSetBlendState(AlphaTestblendState, blendFactor, 0xffffffff);
+	}
+	else
+	{
+		float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+
+		m_ImmediateContext->OMSetBlendState(blendState, blendFactor, 0xffffffff);
+	}
+}

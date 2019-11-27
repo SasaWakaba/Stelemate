@@ -107,6 +107,8 @@ private:
 	static ID3D11DepthStencilState* m_DepthStateEnable;
 	static ID3D11DepthStencilState* m_DepthStateDisable;
 
+	static ID3D11BlendState* blendState;
+	static ID3D11BlendState* AlphaTestblendState;
 
 public:
 	static void Init();
@@ -130,4 +132,6 @@ public:
 	static ID3D11DeviceContext* GetDeviceContext( void ){ return m_ImmediateContext; }
 
 	static XMMATRIX* GetViewMatrix(void) { return m_ViewMatrix; }
+
+	static void SetAlphaTestEnable(bool Enable);
 };

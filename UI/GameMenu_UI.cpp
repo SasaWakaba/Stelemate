@@ -37,6 +37,8 @@ void CGameMenu_UI::Initialize()
 
 	m_bDraw = false;
 
+	frame = 0;
+
 }
 
 void CGameMenu_UI::Finalize()
@@ -156,6 +158,7 @@ void CGameMenu_UI::Update()
 				}
 			}
 		}
+		frame++;
 	}
 }
 
@@ -177,8 +180,20 @@ void CGameMenu_UI::Draw()
 			m_Polygon[2]->Draw(m_Pos[2].x, m_Pos[2].y, 0.0f, 0.0f, GAMEMENU_UI_WIDTH, GAMEMENU_UI_HEIGHT, GAMEMENU_UI_WIDTH, GAMEMENU_UI_HEIGHT);
 		}
 
-		m_Polygon[4]->Draw(m_Pos[m_MenuPos].x, m_Pos[m_MenuPos].y, 0.0f, 0.0f, 165.0f, 90.0f, 165.0f, 90.0f);
-		m_Polygon[3]->Draw(m_Pos[m_MenuPos].x - 100.0f, m_Pos[m_MenuPos].y - 30.0f, 0.0f, 0.0f, 90.0f, 90.0f, 90.0f, 90.0f);
+		static float alpha = 1.0f;
+		if (frame % 60 < 30)
+		{
+			alpha -= 0.5f / 30;
+		}
+		else
+		{
+			alpha += 0.5f / 30;
+		}
+		VertexColor_4 color;
+		color.setAll(XMFLOAT4(1.0f, 1.0f, 1.0f, alpha));
+
+		m_Polygon[4]->Draw(m_Pos[m_MenuPos].x, m_Pos[m_MenuPos].y, 0.0f, 0.0f, 165.0f, 90.0f, 165.0f, 90.0f, color);
+		m_Polygon[3]->Draw(m_Pos[m_MenuPos].x - 100.0f, m_Pos[m_MenuPos].y - 30.0f * alpha, 0.0f, 0.0f, 90.0f, 90.0f, 90.0f, 90.0f);
 	}
 }
 

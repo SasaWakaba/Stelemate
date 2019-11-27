@@ -54,6 +54,7 @@ void CAttackSearch::Draw()
 
 std::vector<Vector2_3D> CAttackSearch::Search(Vector2_3D pos, Weapontype Atk)
 {
+	Reset();
 	Vector2_3D add;
 	switch (Atk)
 	{

@@ -31,15 +31,20 @@ void CStageManager::Initialize()
 {
 	CCharcterBase* man;
 	CCharcterBase* cat;
+	CCharcterBase* cat2;
 	man = new CSwordsman();
 	man->SetAlly(true);
 	cat = new CSwordsman();
 	cat->SetAlly(false);
+	cat2 = new CSwordsman();
+	cat2->SetAlly(false);
 	stage1[0].bChar = true;
 	stage1[0].Charcter = man;
 
 	stage1[63].bChar = true;
 	stage1[63].Charcter = cat;
+	stage1[57].bChar = true;
+	stage1[57].Charcter = cat2;
 
 	AddStage(stage1, 8, 8);
 	AddMainSystem(stage1, 8, 8);

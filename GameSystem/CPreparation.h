@@ -1,7 +1,7 @@
 #ifndef CPREPARATION_H_
 #define CPREPARATION_H_
 
-
+#include "../common/CFade.h"
 
 class CPreparation : public CScene
 {

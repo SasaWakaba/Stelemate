@@ -5,7 +5,7 @@
 
 class CCube;
 class CTexture;
-class CModelLoader;
+class CModelAnimation;
 
 class CStagePanel
 {
@@ -15,7 +15,7 @@ protected:
 	CCube*						cube;
 	CTexture*					m_Texture;
 
-	CModelLoader*				m_Model = nullptr;
+	CModelAnimation*				m_Model = nullptr;
 public:
 	CStagePanel(unsigned short panelpattarn, XMFLOAT3 position) :m_Position(position) { m_PanelPattarn = panelpattarn; }
 	virtual ~CStagePanel(){}

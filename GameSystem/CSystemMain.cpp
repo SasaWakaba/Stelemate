@@ -80,6 +80,11 @@ void CSystemMain::Initialize(int x, int z, PanelState* Map)
 
 	CCharcterBase* SelectEnemy = nullptr;
 	Vector2_3D SelectEnemyPos = {0, 0};
+
+
+	//===============
+	m_StageMap[0].Charcter->GetStatus()->HP = 99;
+	m_StageMap[0].Charcter->nowHP = 99;
 }
 
 void CSystemMain::Finalize()
@@ -134,6 +139,7 @@ void CSystemMain::Update()
 		TurnEnemy();
 		break;
 	case TurnChangePlayer:
+		m_bBattle = false;
 		for (int z = 0; z < m_Z; z++)
 		{
 			for (int x = 0; x < m_X; x++)
@@ -166,6 +172,7 @@ void CSystemMain::Update()
 		}
 		break;
 	case TurnChangeEnemy:
+		m_bBattle = false;
 		for (int z = 0; z < m_Z; z++)
 		{
 			for (int x = 0; x < m_X; x++)
@@ -219,6 +226,29 @@ void CSystemMain::Update()
 	}
 
 	if (eneCnt == 0)
+	{
+		CGame::Change();
+	}
+	//============================================================
+
+	//味方が全滅したらゲームオーバー============================================
+	int preCnt = 0;
+	for (int z = 0; z < m_Z; z++)
+	{
+		for (int x = 0; x < m_X; x++)
+		{
+			if (m_StageMap[z * m_X + x].bChar)
+			{
+				if (m_StageMap[z * m_X + x].Charcter->GetAlly())
+				{
+					preCnt++;
+
+				}
+			}
+		}
+	}
+
+	if (preCnt == 0)
 	{
 		CGame::Change();
 	}
@@ -422,7 +452,7 @@ void CSystemMain::TurnPlayer()
 	}
 
 	//決定キー入力
-	if (CInput::GetKeyTrigger('E'))
+	if (CInput::GetKeyTrigger(VK_SPACE))
 	{
 		m_Ok->Play(false);
 		if (!m_bSelect && !m_bMenu)
@@ -519,9 +549,10 @@ void CSystemMain::TurnPlayer()
 				UI->reset();
 				m_AttackSearch->Reset();
 				m_bMenu = false;
-				m_SelectChar = nullptr;
-
-				
+				if (!m_bBattle)
+				{
+					m_SelectChar = nullptr;
+				}
 			}
 		}
 	}
@@ -568,12 +599,8 @@ void CSystemMain::TurnPlayer()
 	{
 		if (!CSystemBattle::BattleEnd())
 		{
-			CScene* sceneC;
-			sceneC = CManager::GetScene();
-
-			CTurnChangeUI* ChangeUI = sceneC->GetGameObject<CTurnChangeUI>(4);
-			ChangeUI->ChangeEnemy();
-			turn = TurnChangeEnemy;
+			m_SelectChar->SetTurnMove(true);
+			m_bBattle = false;
 		}
 	}
 
@@ -607,6 +634,8 @@ void CSystemMain::TurnPlayer()
 			turn = TurnChangeEnemy;
 			m_MoveSerch->SetDraw(false);
 			m_MoveSerch->Reset();
+			m_AttackSearch->SetDraw(false);
+			m_AttackSearch->Reset();
 		}
 	}
 }
@@ -616,42 +645,45 @@ void CSystemMain::TurnEnemy()
 {
 	{
 		//行動していないキャラがいるか
-		int notMove = 0;
-		for (int z = 0; z < m_Z; z++)
+		if (m_EnemyMoving == wait)
 		{
-			for (int x = 0; x < m_X; x++)
+			int notMove = 0;
+			for (int z = 0; z < m_Z; z++)
 			{
-				if (m_StageMap[z * m_X + x].bChar)
+				for (int x = 0; x < m_X; x++)
 				{
-					if (!m_StageMap[z * m_X + x].Charcter->GetAlly())
+					if (m_StageMap[z * m_X + x].bChar)
 					{
-						if (!m_StageMap[z * m_X + x].Charcter->GetTurnMove())
+						if (!m_StageMap[z * m_X + x].Charcter->GetAlly())
 						{
-							notMove++;
+							if (!m_StageMap[z * m_X + x].Charcter->GetTurnMove())
+							{
+								notMove++;
+							}
 						}
 					}
 				}
 			}
-		}
-		//全員行動済みになったらターン終了
-		if (notMove == 0)
-		{
-			static int cnt = 0;
-			if (cnt == 30)
+			//全員行動済みになったらターン終了
+			if (notMove == 0)
 			{
-				CScene* sceneC;
-				sceneC = CManager::GetScene();
+				static int cnt = 0;
+				if (cnt == 30)
+				{
+					CScene* sceneC;
+					sceneC = CManager::GetScene();
 
-				CTurnChangeUI* ChangeUI = sceneC->GetGameObject<CTurnChangeUI>(4);
-				ChangeUI->ChangePlayer();
-				turn = TurnChangePlayer;
-				cnt = 0;
+					CTurnChangeUI* ChangeUI = sceneC->GetGameObject<CTurnChangeUI>(4);
+					ChangeUI->ChangePlayer();
+					turn = TurnChangePlayer;
+					cnt = 0;
+				}
+				cnt++;
 			}
-			cnt++;
 		}
 	}
 	int age = m_Frame - m_FrameEnemy;
-	if (age % 30 == 0)
+	if (age % 15 == 0)
 	{
 		switch (m_EnemyMoving)
 		{
@@ -669,6 +701,7 @@ void CSystemMain::TurnEnemy()
 								SelectEnemy = m_StageMap[z * m_X + x].Charcter;
 								SelectEnemyPos = { x, z };
 								m_EnemyMoving = move;
+								m_CursorLocation = SelectEnemyPos;
 								break;
 							}
 						}
@@ -686,19 +719,24 @@ void CSystemMain::TurnEnemy()
 
 				m_StageMap[SelectEnemyPos.z * m_X + SelectEnemyPos.x].bChar = false;
 				m_StageMap[SelectEnemyPos.z * m_X + SelectEnemyPos.x].Charcter = nullptr;
+
+				SelectEnemyPos = m_CursorLocation;
 			}
 			m_EnemyMoving = m_Enemy->Select(m_CursorLocation, SelectEnemy->GetWeapon()->WeaponType);
 			break;
 		case attack:
-			for (Vector2_3D pos : m_AttackSearch->Search(m_CursorLocation, SelectEnemy->GetWeapon()->WeaponType))
+			if (!m_bBattle)
 			{
-				if (m_StageMap[pos.z * m_X + pos.x].bChar)
+				for (Vector2_3D pos : m_AttackSearch->Search(m_CursorLocation, SelectEnemy->GetWeapon()->WeaponType))
 				{
-					if (m_StageMap[pos.z * m_X + pos.x].Charcter->GetAlly())
+					if (m_StageMap[pos.z * m_X + pos.x].bChar)
 					{
-						CSystemBattle::Battle(SelectEnemy, m_StageMap[pos.z * m_X + pos.x].Charcter);
-						m_bBattle = true;
-						break;
+						if (m_StageMap[pos.z * m_X + pos.x].Charcter->GetAlly())
+						{
+							CSystemBattle::Battle(SelectEnemy, m_StageMap[pos.z * m_X + pos.x].Charcter);
+							m_bBattle = true;
+							break;
+						}
 					}
 				}
 			}
@@ -708,6 +746,12 @@ void CSystemMain::TurnEnemy()
 				if (!CSystemBattle::BattleEnd())
 				{
 					m_EnemyMoving = end;
+					m_bBattle = false;
+					if (SelectEnemy->nowHP <= 0)
+					{
+						m_StageMap[SelectEnemyPos.z * m_X + SelectEnemyPos.x].bChar = false;
+						m_StageMap[SelectEnemyPos.z * m_X + SelectEnemyPos.x].Charcter = nullptr;
+					}
 				}
 			}
 			else

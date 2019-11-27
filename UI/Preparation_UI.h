@@ -15,7 +15,7 @@ private:
 		Strengthen,
 	};
 
-	static const int maxTex = 4;
+	static const int maxTex = 5;
 	CPolygon*	m_Texture[maxTex];
 	CDrawText*	m_Text[2];
 

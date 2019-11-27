@@ -29,6 +29,8 @@ private:
 
 	UI_POS m_Pos[NUM_UI];
 
+	int frame;
+
 public:
 	void Initialize();
 	void Finalize();
