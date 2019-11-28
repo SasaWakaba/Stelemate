@@ -14,7 +14,7 @@ typedef struct
 class CDebugUI
 {
 private:
-
+	static bool bAI_Window;
 public:
 	static void Initialize();
 	static void Finalize();

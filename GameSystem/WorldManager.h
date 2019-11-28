@@ -58,6 +58,9 @@ public:
 	static void AddSoldierPoint(int add);
 	//SPŽg—p
 	static void UseSoldierPoint(int use);
+
+	static GameMode GetGameMode() { return Gamemode; }
+	static int GetNowStage() { return NowStage; }
 };
 
 #endif // !WORLD_MANAGER_H_

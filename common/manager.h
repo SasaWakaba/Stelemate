@@ -4,6 +4,7 @@
 #include "CGame.h"
 #include "CResult.h"
 #include "CTitle.h"
+#include "../GameSystem/CPreparation.h"
 #include "CFade.h"
 
 class CScene;
@@ -49,6 +50,10 @@ public:
 		if (typeid(*m_scene) == typeid(CTitle))
 		{
 			return "Title";
+		}
+		if (typeid(*m_scene) == typeid(CPreparation))
+		{
+			return "Preparation";
 		}
 
 		return "Null";
