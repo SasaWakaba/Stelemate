@@ -140,7 +140,19 @@ void CDebugUI::Draw()
 		{
 			ImGui::SetNextTreeNodeOpen(true, ImGuiCond_Once);
 			if (ImGui::TreeNode("Game")) {
-				ImGui::Text("NowStage : %d", WorldManager::GetNowStage());
+				ImGui::Text("NowStage : %d", WorldManager::GetNowStageNum());
+				ImGui::Text("Turn : %d", WorldManager::GetTurn());
+				switch (WorldManager::GetActionTurn())
+				{
+				case 0:
+				case 2:
+					ImGui::Text("ActionTurn : Player");
+					break;
+				case 1:
+				case 3:
+					ImGui::Text("ActionTurn : Enemy");
+					break;
+				}
 
 
 				ImGui::Checkbox("AI Window", &bAI_Window);
@@ -162,7 +174,7 @@ void CDebugUI::Draw()
 		{
 			ImGui::SetNextTreeNodeOpen(true, ImGuiCond_Once);
 			if (ImGui::TreeNode("Preparation")) {
-				ImGui::Text("NextStage : %d", WorldManager::GetNowStage());
+				ImGui::Text("NextStage : %d", WorldManager::GetNowStageNum());
 
 				ImGui::TreePop();
 			}
@@ -198,22 +210,80 @@ void CDebugUI::Draw()
 	if (bAI_Window)
 	{
 		ImGui::Begin("AI Window", &show_another_window);
-		ImVec2 pos = ImGui::GetWindowPos();
-		float width = ImGui::GetWindowWidth();
-		float height = ImGui::GetWindowHeight();
+
+		switch (WorldManager::GetEnemyAction())
+		{
+		case wait:
+			ImGui::Text("EnemySelectAction : wait");
+			break;
+		case move:
+			ImGui::Text("EnemySelectAction : Move");
+			break;
+		case attack:
+			ImGui::Text("EnemySelectAction : Attack");
+			break;
+		case heal:
+			ImGui::Text("EnemySelectAction : Heal");
+			break;
+		case end:
+			ImGui::Text("EnemySelectAction : end");
+			break;
+		}
+		
+
+
+		ImVec2 pos = { ImGui::GetWindowPos().x + 50, ImGui::GetWindowPos().y + 100 };
+		float width = ImGui::GetWindowWidth() - 100;
+		float height = ImGui::GetWindowHeight() - 100;
 		if (width > height)
 		{
 			width = height;
 		}
-		else if(height > width)
+		else if (height > width)
 		{
 			height = width;
 		}
 
-		ImGui::GetForegroundDrawList()->AddLine(ImVec2(pos.x + 50, pos.y + 50), ImVec2(pos.x + width - 50, pos.y + 50), ImColor(0.968f, 0.933f, 0.396f), 1.0f);
-		ImGui::GetForegroundDrawList()->AddLine(ImVec2(pos.x + width - 50, pos.y + 50), ImVec2(pos.x + width - 50, pos.y + height - 50), ImColor(0.968f, 0.933f, 0.396f), 1.0f);
-		ImGui::GetForegroundDrawList()->AddLine(ImVec2(pos.x + width - 50, pos.y + height - 50), ImVec2(pos.x + 50, pos.y + height - 50), ImColor(0.968f, 0.933f, 0.396f), 1.0f);
-		ImGui::GetForegroundDrawList()->AddLine(ImVec2(pos.x + 50, pos.y + height - 50), ImVec2(pos.x + 50, pos.y + 50), ImColor(0.968f, 0.933f, 0.396f), 1.0f);
+		StageState nowStage = WorldManager::GetNowStage();
+		ImColor color = {0.968f, 0.933f, 0.396f};
+		for (int i = 0; i < nowStage.numZ + 1; i++)
+		{
+			ImVec2 linePosA = { pos.x,			pos.y + (height / (nowStage.numZ) * i) };
+			ImVec2 linePosB = { pos.x + width,	pos.y + (height / (nowStage.numZ) * i) };
+			ImGui::GetWindowDrawList()->AddLine(linePosA, linePosB, color, 1.0f);
+		}
+
+		for (int i = 0; i < nowStage.numX + 1; i++)
+		{
+			ImVec2 linePosA = { pos.x + width / (nowStage.numX) * i, pos.y };
+			ImVec2 linePosB = { pos.x + width / (nowStage.numX) * i, pos.y + height };
+			ImGui::GetWindowDrawList()->AddLine(linePosA, linePosB, color, 1.0f);
+		}
+
+		for (int z = 0; z < nowStage.numZ; z++)
+		{
+			for (int x = 0; x < nowStage.numX; x++)
+			{
+				if (nowStage.Stage[z * nowStage.numX + x].bChar)
+				{
+					float w = width - width / nowStage.numX;
+					float h = height - height / nowStage.numZ;
+					ImVec2 Diffpos = { pos.x + (width / nowStage.numX / 2), pos.y + (height / nowStage.numZ / 2) };
+					ImVec2 Pos2 = { Diffpos.x + w / (nowStage.numX - 1) * x, Diffpos.y + h / (nowStage.numZ - 1) * (nowStage.numZ - 1 - z) };
+					if (!nowStage.Stage[z * nowStage.numX + x].Charcter->GetAlly())
+					{
+						color = {1.0f, 0.0f, 0.0f};
+					}
+					else
+					{
+						color = { 0.109f, 0.996f, 1.000f };
+					}
+					ImGui::GetWindowDrawList()->AddCircleFilled(Pos2, (width / (nowStage.numX)) / 3, color, 12);
+				}
+			}
+		}
+		
+
 		if (ImGui::Button("Close Me"))
 			bAI_Window = false;
 		ImGui::End();

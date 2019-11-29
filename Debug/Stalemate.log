@@ -1,9 +1,6 @@
-﻿  DebugUi.cpp
+﻿  CSystemMain.cpp
 c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
 c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-c:\program files\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-c:\program files\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-c:\program files\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-c:\program files\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-c:\users\nayup\documents\stelemate\debugui\debugui.cpp(41): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
+c:\users\nayup\documents\stelemate\gamesystem\arrowsline.h(37): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\gamesystem\cenemyai.h(40): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
   Stalemate.vcxproj -> C:\Users\nayup\Documents\Stelemate\Debug\Stalemate.exe

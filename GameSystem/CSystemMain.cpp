@@ -24,6 +24,7 @@
 #include "CEnemyAI.h"
 
 #include "../UI/TurnChange_UI.h"
+#include "WorldManager.h"
 
 
 
@@ -68,7 +69,7 @@ void CSystemMain::Initialize(int x, int z, PanelState* Map)
 	//カメラ位置初期化
 	CCamera::SetAt(XMFLOAT3((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 0.5f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
 	//ターン初期化
-	turn = Player;
+	turn = TurnChangePlayer;
 	//エネミーのAI初期化
 	m_Enemy = new CEnemyAI();
 	m_Enemy->Initialize(m_X, m_Z, m_StageMap);
@@ -77,7 +78,9 @@ void CSystemMain::Initialize(int x, int z, PanelState* Map)
 	m_FrameEnemy = 0;
 
 	m_EnemyMoving = wait;
-
+#if defined(_DEBUG) || defined(DEBUG)
+	WorldManager::SetEnemyAction(m_EnemyMoving);
+#endif
 	CCharcterBase* SelectEnemy = nullptr;
 	Vector2_3D SelectEnemyPos = {0, 0};
 
@@ -129,7 +132,9 @@ void CSystemMain::Update()
 	scene = CManager::GetScene();
 
 	CTurnChangeUI* ChangeUI = scene->GetGameObject<CTurnChangeUI>(4);
-
+#if defined(_DEBUG) || defined(DEBUG)
+	WorldManager::SetTurn(turn);
+#endif
 	switch (turn)
 	{
 	case Player:
@@ -169,6 +174,7 @@ void CSystemMain::Update()
 				}
 			}
 			turn = Player;
+			WorldManager::AddTurn();
 		}
 		break;
 	case TurnChangeEnemy:
@@ -580,8 +586,11 @@ void CSystemMain::TurnPlayer()
 			m_StageMap[m_SelectLocation.z * m_X + m_SelectLocation.x].Charcter = m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter;
 			m_StageMap[m_SelectLocation.z * m_X + m_SelectLocation.x].Charcter->MoveLocation(XMFLOAT3((m_SelectLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 1.0f, (m_SelectLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
 
-			m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar = false;
-			m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter = nullptr;
+			if (m_SelectLocation != m_CursorLocation)
+			{
+				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar = false;
+				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter = nullptr;
+			}
 
 			CScene* scene;
 			scene = CManager::GetScene();
@@ -702,6 +711,9 @@ void CSystemMain::TurnEnemy()
 								SelectEnemyPos = { x, z };
 								m_EnemyMoving = move;
 								m_CursorLocation = SelectEnemyPos;
+#if defined(_DEBUG) || defined(DEBUG)
+								WorldManager::SetEnemyAction(m_EnemyMoving);
+#endif
 								break;
 							}
 						}
@@ -723,6 +735,9 @@ void CSystemMain::TurnEnemy()
 				SelectEnemyPos = m_CursorLocation;
 			}
 			m_EnemyMoving = m_Enemy->Select(m_CursorLocation, SelectEnemy->GetWeapon()->WeaponType);
+#if defined(_DEBUG) || defined(DEBUG)
+			WorldManager::SetEnemyAction(m_EnemyMoving);
+#endif
 			break;
 		case attack:
 			if (!m_bBattle)
@@ -758,6 +773,9 @@ void CSystemMain::TurnEnemy()
 			{
 				m_EnemyMoving = end;
 			}
+#if defined(_DEBUG) || defined(DEBUG)
+			WorldManager::SetEnemyAction(m_EnemyMoving);
+#endif
 			break;
 		case heal:
 			for (Vector2_3D pos : m_AttackSearch->Search(m_CursorLocation, SelectEnemy->GetWeapon()->WeaponType))
@@ -771,11 +789,17 @@ void CSystemMain::TurnEnemy()
 					}
 				}
 			}
+#if defined(_DEBUG) || defined(DEBUG)
+			WorldManager::SetEnemyAction(m_EnemyMoving);
+#endif
 			break;
 		case end:
 			SelectEnemy->SetTurnMove(true);
 			SelectEnemy = nullptr;
 			m_EnemyMoving = wait;
+#if defined(_DEBUG) || defined(DEBUG)
+			WorldManager::SetEnemyAction(m_EnemyMoving);
+#endif
 			break;
 		default:
 			break;

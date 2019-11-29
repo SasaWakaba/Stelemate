@@ -11,7 +11,10 @@ int WorldManager::NowStage;
 int WorldManager::ClearTurn;
 int WorldManager::ClearTurnAll;
 int WorldManager::SoldierPoint;
+int WorldManager::turn;
 
+StageState WorldManager::StageStateAll[5];
+EnemyMove WorldManager::enemyAction;
 
 void WorldManager::SetGameMode(GameMode mode) { Gamemode = mode; }
 void WorldManager::AddTurn() { ClearTurn++; }
@@ -22,4 +25,11 @@ void WorldManager::StageStart(int stageNum)
 {
 	NowStage = stageNum;
 	ClearTurn = 0;
+}
+
+void WorldManager::SetStageState(PanelState* stage, int x, int z, int stageNum)
+{
+	StageStateAll[stageNum].Stage = stage;
+	StageStateAll[stageNum].numX = x;
+	StageStateAll[stageNum].numZ = z;
 }

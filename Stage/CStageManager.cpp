@@ -8,6 +8,7 @@
 
 #include "../Charcter/CCharcterBase.h"
 #include "../Charcter/CJob.h"
+#include "../GameSystem/WorldManager.h"
 
 PanelState stage0[] = {
 	{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},
@@ -48,6 +49,8 @@ void CStageManager::Initialize()
 
 	AddStage(stage1, 8, 8);
 	AddMainSystem(stage1, 8, 8);
+
+	WorldManager::SetStageState(stage1, 8, 8, 0);
 }
 
 void CStageManager::Update()
