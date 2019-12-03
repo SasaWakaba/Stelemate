@@ -8,7 +8,7 @@ private:
 	XMMATRIX	m_ViewMatrix;
 	RECT m_Viewport;
 
-	XMFLOAT3 m_Eye;					//カメラ座標
+	static XMFLOAT3 m_Eye;					//カメラ座標
 	static XMFLOAT3 m_at;					//見てる場所(注視点)
 	XMFLOAT3 m_CameraFront;			//カメラの正面、長さ１
 	XMFLOAT3 m_CameraRight;			//カメラの右側、長さ１
@@ -33,4 +33,6 @@ public:
 			bMove = true;
 			cnt = 0;
 	}
+
+	static XMFLOAT3 GetEye() { return m_Eye; }
 };

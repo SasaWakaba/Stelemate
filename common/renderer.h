@@ -134,4 +134,8 @@ public:
 	static XMMATRIX* GetViewMatrix(void) { return m_ViewMatrix; }
 
 	static void SetAlphaTestEnable(bool Enable);
+
+
+	static void SetCustomShader(ID3D11VertexShader* vs, ID3D11InputLayout* inputlayout, ID3D11PixelShader* ps);
+	static void SetDefaultShader();
 };

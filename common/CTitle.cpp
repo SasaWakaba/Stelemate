@@ -17,7 +17,7 @@
 #include "CSkyBox.h"
 
 #include "../UI/TitleMenu_UI.h"
-
+#include "particle.h"
 #include "CFade.h"
 
 bool CTitle::bChange;
@@ -27,14 +27,28 @@ void CTitle::Init()
 	bChange = false;
 
 	AddGameObject<CCamera>(0)->SetAt(XMFLOAT3(0.0f, 0.0f, 0.0f));
-	AddGameObject<CSkyBox>(0)->SetNight(true);
+	//AddGameObject<CSkyBox>(0)->SetNight(true);
 
-	AddGameObject<CTitleMenu>(1);
+	CParticle* particleTest = AddGameObject<CParticle>(0);
+	particleTest->CreateInstance(25);
+	XMFLOAT3* movement = new XMFLOAT3[particleTest->GetInstanceCount()];
+	int* startFrame = new int[particleTest->GetInstanceCount()];
+	for (int i = 0; i < particleTest->GetInstanceCount(); i++) {
+		movement[i].x = cos((i - 1))*0.05f; //何番目のインスタンスがこういうｘ動きする
+		movement[i].y = 0.05f;               //何番目のインスタンスがこういうｙ動きする
+		movement[i].z = sin((i - 1))*0.05f; //何番目のインスタンスがこういうｚ動きする
+		startFrame[i] = 0 - i * 2;
+	}
+	particleTest->SetMaxFrame(60);
+	particleTest->SetStartFrame(startFrame);
+	particleTest->SetMovement(movement);
+
+	//AddGameObject<CTitleMenu>(1);
 
 	CFade::EndFade();
 
 	// メモリリーク検出
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 }
 
 void CTitle::UnInit()

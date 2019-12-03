@@ -8,6 +8,7 @@
 
 
 XMFLOAT3 CCamera::m_at;
+XMFLOAT3 CCamera::m_Eye;
 int CCamera::cnt;
 XMFLOAT3 CCamera::MoveLength;
 bool CCamera::bMove;

@@ -285,6 +285,12 @@
     <ClCompile Include="UI\Preparation_UI.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
+    <ClCompile Include="common\particle.cpp">
+      <Filter>ソース ファイル\common\base</Filter>
+    </ClCompile>
+    <ClCompile Include="common\shader.cpp">
+      <Filter>ソース ファイル\common\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugUi\DebugUI.h">
@@ -503,6 +509,12 @@
     <ClInclude Include="UI\Preparation_UI.h">
       <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
+    <ClInclude Include="common\particle.h">
+      <Filter>ヘッダー ファイル\common\base</Filter>
+    </ClInclude>
+    <ClInclude Include="common\shader.h">
+      <Filter>ヘッダー ファイル\common\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="imgui\imgui.natvis">
@@ -514,6 +526,15 @@
       <Filter>リソース ファイル</Filter>
     </FxCompile>
     <FxCompile Include="vertexShader.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="Particle_GShader.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="Particle_PShader.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="Particle_VShader.hlsl">
       <Filter>リソース ファイル</Filter>
     </FxCompile>
   </ItemGroup>

@@ -471,3 +471,23 @@ void CRenderer::SetAlphaTestEnable(bool Enable)
 		m_ImmediateContext->OMSetBlendState(blendState, blendFactor, 0xffffffff);
 	}
 }
+
+void CRenderer::SetCustomShader(ID3D11VertexShader* vs, ID3D11InputLayout* inputlayout, ID3D11PixelShader* ps)
+{
+	// 入力レイアウト設定
+	m_ImmediateContext->IASetInputLayout(inputlayout);
+
+	// シェーダ設定
+	m_ImmediateContext->VSSetShader(vs, NULL, 0);
+	m_ImmediateContext->PSSetShader(ps, NULL, 0);
+}
+
+void CRenderer::SetDefaultShader()
+{
+	// 入力レイアウト設定
+	m_ImmediateContext->IASetInputLayout(m_VertexLayout);
+
+	// シェーダ設定
+	m_ImmediateContext->VSSetShader(m_VertexShader, NULL, 0);
+	m_ImmediateContext->PSSetShader(m_PixelShader, NULL, 0);
+}

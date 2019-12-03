@@ -27,6 +27,8 @@ typedef struct
 	int			numZ;
 }StageState;
 
+class CMoveSearch;
+
 class WorldManager
 {
 private:
@@ -57,6 +59,8 @@ private:
 	//エネミーの行動
 	static EnemyMove enemyAction;
 
+	static CMoveSearch* moveArea;
+
 public:
 	//ゲームモード設定
 	static void SetGameMode(GameMode mode);
@@ -84,6 +88,7 @@ public:
 	static int GetActionTurn() { return turn; }
 	static void SetEnemyAction(EnemyMove move) { enemyAction = move; }
 	static EnemyMove GetEnemyAction() { return enemyAction; }
+	static void SetMoveSearch(CMoveSearch* area) { moveArea = area; }
 
 };
 

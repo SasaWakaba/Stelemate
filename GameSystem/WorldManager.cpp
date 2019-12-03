@@ -2,6 +2,7 @@
 #include "../common/math.h"
 #include "../Charcter/CCharcterBase.h"
 #include "../Stage/CStage.h"
+#include "../GameSystem/CMoveSearch.h"
 #include <list>
 
 #include "WorldManager.h"
@@ -15,6 +16,7 @@ int WorldManager::turn;
 
 StageState WorldManager::StageStateAll[5];
 EnemyMove WorldManager::enemyAction;
+CMoveSearch* WorldManager::moveArea;
 
 void WorldManager::SetGameMode(GameMode mode) { Gamemode = mode; }
 void WorldManager::AddTurn() { ClearTurn++; }

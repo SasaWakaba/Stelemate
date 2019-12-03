@@ -33,6 +33,7 @@
 #include "CFade.h"
 
 
+
 //CRI ADX2
 //Wwise
 bool CGame::bChange;
@@ -55,6 +56,8 @@ void CGame::Init()
 
 	AddGameObject<CSkyBox>(0);
 	AddGameObject<CStageManager>(0)->SetStageNum(0);
+
+
 
 	AddGameObject<CPanelState>(3);
 	AddGameObject<CCharacterState>(3);
