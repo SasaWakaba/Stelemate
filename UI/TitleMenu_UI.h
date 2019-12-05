@@ -9,7 +9,6 @@
 #define TITLELOGO_WIDTH (1024.0f)
 #define TITLELOGO_HEIGHT (512.0f)
 
-class CModelLoader;
 class CGameModeSelect;
 
 class CTitleMenu:public CGameObject
@@ -33,7 +32,6 @@ private:
 		Mode,
 	};
 
-	CModelLoader*	m_Model;
 	CPolygon*		m_Polygon[6];
 
 	//PRESS========

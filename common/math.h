@@ -13,6 +13,15 @@ enum EnemyMove
 	end,
 };
 
+enum PlayerMove
+{
+	NotSelect = 0,
+	Select,
+	Manu,
+	BattleSelect,
+	HealSelect,
+	Fin,
+};
 
 
 

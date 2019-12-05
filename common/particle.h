@@ -20,6 +20,10 @@ private:
 	ID3D11Buffer* m_IndexBuffer				= nullptr;
 	ID3D11Buffer* m_CameraPosBuffer			= nullptr;
 
+	ID3D11Buffer* m_WorldBuffer = nullptr;
+	ID3D11Buffer* m_ViewBuffer = nullptr;
+	ID3D11Buffer* m_ProjectionBuffer = nullptr;
+
 	//頂点データ
 	VERTEX_3D* pVertex;
 	//インスタンスデータ

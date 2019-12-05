@@ -4,7 +4,6 @@
 #include "../common/texture.h"
 #include "../common/polygon.h"
 #include "../common/model.h"
-#include "../mesh/ModelLoader.h"
 
 #include "../common/Scene.h"
 #include "../common/CTitle.h"
@@ -12,9 +11,6 @@
 #include "GameModeSelect.h"
 
 #include "TitleMenu_UI.h"
-
-static bool g_tu;
-static CPolygon* g_poly;
 
 void CTitleMenu::Initialize()
 {
@@ -41,9 +37,6 @@ void CTitleMenu::Initialize()
 	m_Polygon[Menu_3] = new CPolygon();
 	m_Polygon[Menu_3]->Initialize();
 	m_Polygon[Menu_3]->Load("asset/texture/titleUI004.png");
-
-	//m_Model = new CModelLoader();
-	//m_Model->Load("asset/model/Tree.obj");
 
 	select = Title;
 	//PRESS=============================
@@ -73,12 +66,6 @@ void CTitleMenu::Initialize()
 
 	ModeSelect = new CGameModeSelect();
 
-	////////////////////
-	g_tu = false;
-	g_poly = new CPolygon();
-	g_poly->Initialize();
-	g_poly->Load("asset/texture/turtrial.png");
-	////////////////////
 }
 
 void CTitleMenu::Finalize()
@@ -165,14 +152,6 @@ void CTitleMenu::Update()
 					break;
 
 				case 1:
-					if (!g_tu)
-					{
-						g_tu = true;
-					}
-					else
-					{
-						g_tu = false;
-					}
 					break;
 
 				case 2:
@@ -284,10 +263,5 @@ void CTitleMenu::Draw()
 	case CTitleMenu::Mode:
 		ModeSelect->Draw();
 		break;
-	}
-
-	if (g_tu)
-	{
-		g_poly->Draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT/ 2,0,0,700,350,700,350);
 	}
 }

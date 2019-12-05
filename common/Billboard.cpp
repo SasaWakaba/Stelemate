@@ -4,6 +4,9 @@
 #include "texture.h"
 #include "Game_Object.h"
 #include "Billboard.h"
+#include "Scene.h"
+#include "manager.h"
+#include "camera.h"
 
 XMMATRIX ExtractOffset(const XMMATRIX& mWorld);
 XMMATRIX ExtractScaling(const XMMATRIX& mWorld);
@@ -39,10 +42,11 @@ void CBillboard::Initialize()
 	//=======================================================
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
-	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.Usage = D3D11_USAGE_DYNAMIC;
 	bd.ByteWidth = sizeof(VERTEX_3D) * 4;
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	bd.CPUAccessFlags = 0;
+	bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	bd.MiscFlags = 0;
 
 	D3D11_SUBRESOURCE_DATA sd;
 	ZeroMemory(&sd, sizeof(sd));

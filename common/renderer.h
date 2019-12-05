@@ -98,10 +98,9 @@ private:
 	static ID3D11Buffer*			m_MaterialBuffer;
 	static ID3D11Buffer*			m_LightBuffer;
 
-/*
+
 	static XMMATRIX				m_WorldMatrix;
 	static XMMATRIX				m_ProjectionMatrix;
-*/
 	static XMMATRIX*				m_ViewMatrix;
 
 	static ID3D11DepthStencilState* m_DepthStateEnable;
@@ -132,6 +131,7 @@ public:
 	static ID3D11DeviceContext* GetDeviceContext( void ){ return m_ImmediateContext; }
 
 	static XMMATRIX* GetViewMatrix(void) { return m_ViewMatrix; }
+	static XMMATRIX* GetProjectionMatrix(void) { return &m_ProjectionMatrix; }
 
 	static void SetAlphaTestEnable(bool Enable);
 

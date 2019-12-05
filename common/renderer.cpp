@@ -28,6 +28,8 @@ ID3D11Buffer*			CRenderer::m_LightBuffer = NULL;
 ID3D11DepthStencilState* CRenderer::m_DepthStateEnable;
 ID3D11DepthStencilState* CRenderer::m_DepthStateDisable;
 
+XMMATRIX				 CRenderer::m_WorldMatrix;
+XMMATRIX				 CRenderer::m_ProjectionMatrix;
 XMMATRIX*				 CRenderer::m_ViewMatrix = NULL;
 
 ID3D11BlendState*		 CRenderer::blendState = NULL;
@@ -261,12 +263,15 @@ void CRenderer::Init()
 
 	m_D3DDevice->CreateBuffer( &hBufferDesc, NULL, &m_WorldBuffer );
 	m_ImmediateContext->VSSetConstantBuffers( 0, 1, &m_WorldBuffer);
+	m_ImmediateContext->GSSetConstantBuffers(0, 1, &m_WorldBuffer);
 
 	m_D3DDevice->CreateBuffer( &hBufferDesc, NULL, &m_ViewBuffer );
 	m_ImmediateContext->VSSetConstantBuffers( 1, 1, &m_ViewBuffer );
+	m_ImmediateContext->GSSetConstantBuffers(1, 1, &m_ViewBuffer);
 
 	m_D3DDevice->CreateBuffer( &hBufferDesc, NULL, &m_ProjectionBuffer );
 	m_ImmediateContext->VSSetConstantBuffers( 2, 1, &m_ProjectionBuffer );
+	m_ImmediateContext->GSSetConstantBuffers(2, 1, &m_ProjectionBuffer);
 
 
 	hBufferDesc.ByteWidth = sizeof(MATERIAL);
@@ -398,6 +403,7 @@ void CRenderer::SetViewMatrix( XMMATRIX *ViewMatrix )
 void CRenderer::SetProjectionMatrix( XMMATRIX *ProjectionMatrix )
 {
 	XMMATRIX projection;
+	m_ProjectionMatrix = *ProjectionMatrix;
 	projection = *ProjectionMatrix;
 	m_ImmediateContext->UpdateSubresource(m_ProjectionBuffer, 0, NULL, &XMMatrixTranspose(projection), 0, 0);
 }

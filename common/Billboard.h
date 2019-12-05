@@ -13,6 +13,8 @@ public:
 	void Finalize();
 	void Update(){}
 	void Draw(XMMATRIX world);
+	
+
 
 	void Load(const char* filename);
 

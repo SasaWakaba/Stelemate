@@ -10,7 +10,7 @@ void CParticle::Initialize()
 {
 	m_Position = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	m_Rotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
-	m_Scale = XMFLOAT3(4.0f, 4.0f, 4.0f);
+	m_Scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 
 	//テクスチャ管理システム（自作）
 	m_Texture = new CTexture();
@@ -70,6 +70,7 @@ void CParticle::CreateInstance(int count)
 		CRenderer::GetDevice()->CreateBuffer(&hBufferDesc, NULL, &m_PositionBuffer);
 		CRenderer::GetDeviceContext()->VSSetConstantBuffers(6, 1, &m_PositionBuffer);
 
+
 		hBufferDesc.ByteWidth = sizeof(XMFLOAT4);
 		hBufferDesc.StructureByteStride = sizeof(float);
 		CRenderer::GetDevice()->CreateBuffer(&hBufferDesc, NULL, &m_CameraPosBuffer);
@@ -120,9 +121,6 @@ void CParticle::Update()
 }
 void CParticle::Draw()
 {
-	//シェーダーを適用する関数（自作）
-	CRenderer::SetCustomShader(m_ParticleVShader, m_ParticleVLayout, m_ParticlePShader);
-	CRenderer::GetDeviceContext()->GSSetShader(m_ParticleGShader, NULL, 0);
 
 	//頂点バッファ初期化
 	UINT stride = sizeof(m_Position);
@@ -135,6 +133,9 @@ void CParticle::Draw()
 	world *= XMMatrixTranslation(m_Position.x, m_Position.y, m_Position.z);
 	CRenderer::SetWorldMatrix(&world);																
 
+	//シェーダーを適用する関数（自作）
+	CRenderer::SetCustomShader(m_ParticleVShader, m_ParticleVLayout, m_ParticlePShader);
+	CRenderer::GetDeviceContext()->GSSetShader(m_ParticleGShader, NULL, 0);
 	//テクスチャ設定
 	CRenderer::SetTexture(m_Texture);
 

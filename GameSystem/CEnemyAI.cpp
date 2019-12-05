@@ -140,6 +140,10 @@ std::vector<Vector2_3D> CEnemyAI::Move(Vector2_3D pos, int Move)
 			}
 		}
 	}
+	else
+	{
+		Add(pos);
+	}
 
 	
 

@@ -23,16 +23,16 @@ enum JOBCLASS
 
 typedef struct
 {
-	int HP;
-	int Attack;
-	int Speed;
-	int Defense;
-	int MagicDefense;
-	int Dexterity;
-	int Luck;
+	int HP;				//ヒットポイント、体力
+	int Attack;			//攻撃力
+	int Speed;			//速度
+	int Defense;		//防御力
+	int MagicDefense;	//魔法防御力
+	int Dexterity;		//俊敏さ
+	int Luck;			//運
 
-	int MovePoint;
-	Weapontype type;
+	int MovePoint;		//行動力
+	Weapontype type;	//武器タイプ
 
 }STATUS;
 

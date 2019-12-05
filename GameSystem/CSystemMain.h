@@ -71,6 +71,8 @@ private:
 	//í“¬’†‚©”Û‚©
 	bool m_bBattle;
 
+	PlayerMove PlayerSelection;
+
 
 	enum Turn
 	{

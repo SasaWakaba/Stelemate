@@ -27,7 +27,7 @@ void CTitle::Init()
 	bChange = false;
 
 	AddGameObject<CCamera>(0)->SetAt(XMFLOAT3(0.0f, 0.0f, 0.0f));
-	//AddGameObject<CSkyBox>(0)->SetNight(true);
+	AddGameObject<CSkyBox>(0)->SetNight(true);
 
 	CParticle* particleTest = AddGameObject<CParticle>(0);
 	particleTest->CreateInstance(25);
@@ -43,7 +43,7 @@ void CTitle::Init()
 	particleTest->SetStartFrame(startFrame);
 	particleTest->SetMovement(movement);
 
-	//AddGameObject<CTitleMenu>(1);
+	AddGameObject<CTitleMenu>(1);
 
 	CFade::EndFade();
 
@@ -63,7 +63,6 @@ void CTitle::Update()
 	{
 		if (CFade::startFin())
 		{
-
 			//CManager::SetScene<CGame>();
 			CManager::SetScene<CPreparation>();
 		}
