@@ -24,6 +24,7 @@
 #include "CEnemyAI.h"
 
 #include "../UI/TurnChange_UI.h"
+#include "../UI/BattleSimu_UI.h"
 #include "WorldManager.h"
 
 
@@ -126,8 +127,17 @@ void CSystemMain::Update()
 	m_CursorOld = m_CursorLocation;
 
 	//ステージパネルの情報UIの更新
-	CPanelState::SetPanel(m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].PanelPattarn);
-	CCharacterState::SetPanel(&m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x]);
+	if (PlayerSelection != BattleSelect)
+	{
+		CPanelState::SetDraw(true);
+		CPanelState::SetPanel(m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].PanelPattarn);
+		CCharacterState::SetPanel(&m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x]);
+	}
+	else
+	{
+		CPanelState::SetDraw(false);
+		CCharacterState::SetPanel(nullptr);
+	}
 
 	CScene* scene;
 	scene = CManager::GetScene();
@@ -279,7 +289,7 @@ void CSystemMain::Draw()
 	m_AttackSearch->Draw();
 
 	//移動の矢印の描画
-	if (m_bSelect)
+	if (PlayerSelection == Select)
 	{
 		m_Arrow->Draw(m_X, m_Z);
 	}
@@ -331,349 +341,9 @@ void CSystemMain::TurnPlayer()
 			}
 		}
 	}
-		
-		break;
-	case Select:
-		break;
-	case Manu:
-		break;
-	case BattleSelect:
-		break;
-	case HealSelect:
-		break;
-	case Fin:
-		break;
-	default:
-		break;
-	}
-	//選択カーソル移動
-	{
-		//上入力
-		if (CInput::GetKeyTrigger('W'))
-		{
-			switch (PlayerSelection)
-			{
-			case NotSelect:
-				if ((m_CursorLocation.z + 1) < m_Z)
-				{
-					m_CursorLocation.z++;
-				}
-				break;
-			case Select:
-				if ((m_CursorLocation.z + 1) < m_Z)
-				{
-					for (Vector2_3D pos : m_MoveArea)
-					{
-						if ((m_CursorLocation.z + 1) == pos.z && m_CursorLocation.x == pos.x)
-						{
-							m_CursorLocation.z++;
-							break;
-						}
-						else if ((m_CursorLocation.z + 1) == m_SelectLocation.z && m_CursorLocation.x == m_SelectLocation.x)
-						{
-							m_CursorLocation.z++;
-							break;
-						}
-					}
-				}
-				break;
-			case Manu:
-				break;
-			case BattleSelect:
-			case HealSelect:
-				if (m_AtkArea.size() > 1)
-				{
-					for (Vector2_3D pos : m_AtkArea)
-					{
-						if (m_StageMap[pos.z * m_X + pos.x].bChar)
-						{
-							if (m_CursorLocation.z < pos.z)
-							{
-								m_CursorLocation = pos;
-								break;
-							}
-						}
-					}
-				}
-				break;
-			case Fin:
-				break;
-			}
-			/*if (!m_bMenu && !m_bSelect)
-			{
-				if ((m_CursorLocation.z + 1) < m_Z)
-				{
-					m_CursorLocation.z++;
-				}
-			}
-			else if (m_bSelect)
-			{
-				if ((m_CursorLocation.z + 1) < m_Z)
-				{
-					for (Vector2_3D pos : m_MoveArea)
-					{
-						if ((m_CursorLocation.z + 1) == pos.z && m_CursorLocation.x == pos.x)
-						{
-							m_CursorLocation.z++;
-							break;
-						}
-						else if ((m_CursorLocation.z + 1) == m_SelectLocation.z && m_CursorLocation.x == m_SelectLocation.x)
-						{
-							m_CursorLocation.z++;
-							break;
-						}
-					}
-				}
-			}*/
-		}
-		//下入力
-		if (CInput::GetKeyTrigger('S'))
-		{
-			switch (PlayerSelection)
-			{
-			case NotSelect:
-				if ((m_CursorLocation.z - 1) >= 0)
-				{
-					m_CursorLocation.z--;
-				}
-				break;
-			case Select:
-				if ((m_CursorLocation.z - 1) >= 0)
-				{
-					for (Vector2_3D pos : m_MoveArea)
-					{
-						if ((m_CursorLocation.z - 1) == pos.z && m_CursorLocation.x == pos.x)
-						{
-							m_CursorLocation.z--;
-							break;
-						}
-						else if ((m_CursorLocation.z - 1) == m_SelectLocation.z && m_CursorLocation.x == m_SelectLocation.x)
-						{
-							m_CursorLocation.z--;
-							break;
-						}
-					}
-				}
-				break;
-			case Manu:
-				break;
-			case BattleSelect:
-			case HealSelect:
-				if (m_AtkArea.size() > 1)
-				{
-					for (Vector2_3D pos : m_AtkArea)
-					{
-						if (m_StageMap[pos.z * m_X + pos.x].bChar)
-						{
-							if (m_CursorLocation.z > pos.z)
-							{
-								m_CursorLocation = pos;
-								break;
-							}
-						}
-					}
-				}
-				break;
-			case Fin:
-				break;
-			}
-			/*if (!m_bMenu && !m_bSelect)
-			{
-				if ((m_CursorLocation.z - 1) >= 0)
-				{
-					m_CursorLocation.z--;
-				}
-			}
-			else if (m_bSelect)
-			{
-				if ((m_CursorLocation.z - 1) >= 0)
-				{
-					for (Vector2_3D pos : m_MoveArea)
-					{
-						if ((m_CursorLocation.z - 1) == pos.z && m_CursorLocation.x == pos.x)
-						{
-							m_CursorLocation.z--;
-							break;
-						}
-						else if ((m_CursorLocation.z - 1) == m_SelectLocation.z && m_CursorLocation.x == m_SelectLocation.x)
-						{
-							m_CursorLocation.z--;
-							break;
-						}
-					}
-				}
-			}*/
-		}
-		//左入力
-		if (CInput::GetKeyTrigger('A'))
-		{
-			switch (PlayerSelection)
-			{
-			case NotSelect:
-				if ((m_CursorLocation.x - 1) >= 0)
-				{
-					m_CursorLocation.x--;
-				}
-				break;
-			case Select:
-				if ((m_CursorLocation.x - 1) >= 0)
-				{
-					for (Vector2_3D pos : m_MoveArea)
-					{
-						if ((m_CursorLocation.x - 1) == pos.x && m_CursorLocation.z == pos.z)
-						{
-							m_CursorLocation.x--;
-							break;
-						}
-						else if ((m_CursorLocation.x - 1) == m_SelectLocation.x && m_CursorLocation.z == m_SelectLocation.z)
-						{
-							m_CursorLocation.x--;
-							break;
-						}
-					}
-				}
-				break;
-			case Manu:
-				break;
-			case BattleSelect:
-			case HealSelect:
-				if (m_AtkArea.size() > 1)
-				{
-					for (Vector2_3D pos : m_AtkArea)
-					{
-						if (m_StageMap[pos.z * m_X + pos.x].bChar)
-						{
-							if (m_CursorLocation.x > pos.x)
-							{
-								m_CursorLocation = pos;
-								break;
-							}
-						}
-					}
-				}
-				break;
-			case Fin:
-				break;
-			}
-			/*if (!m_bMenu && !m_bSelect)
-			{
-				if ((m_CursorLocation.x - 1) >= 0)
-				{
-					m_CursorLocation.x--;
-				}
-			}
-			else if (m_bSelect)
-			{
-				if ((m_CursorLocation.x - 1) >= 0)
-				{
-					for (Vector2_3D pos : m_MoveArea)
-					{
-						if ((m_CursorLocation.x - 1) == pos.x && m_CursorLocation.z == pos.z)
-						{
-							m_CursorLocation.x--;
-							break;
-						}
-						else if ((m_CursorLocation.x - 1) == m_SelectLocation.x && m_CursorLocation.z == m_SelectLocation.z)
-						{
-							m_CursorLocation.x--;
-							break;
-						}
-					}
-				}
-			}*/
-		}
-		//右入力
-		if (CInput::GetKeyTrigger('D'))
-		{
-			switch (PlayerSelection)
-			{
-			case NotSelect:
-				if ((m_CursorLocation.x + 1) < m_X)
-				{
-					m_CursorLocation.x++;
-				}
-				break;
-			case Select:
-				if ((m_CursorLocation.x + 1) >= 0)
-				{
-					for (Vector2_3D pos : m_MoveArea)
-					{
-						if ((m_CursorLocation.x + 1) == pos.x && m_CursorLocation.z == pos.z)
-						{
-							m_CursorLocation.x++;
-							break;
-						}
-						else if ((m_CursorLocation.x + 1) == m_SelectLocation.x && m_CursorLocation.z == m_SelectLocation.z)
-						{
-							m_CursorLocation.x++;
-							break;
-						}
-					}
-				}
-				break;
-			case Manu:
-				break;
-			case BattleSelect:
-			case HealSelect:
-				if (m_AtkArea.size() > 1)
-				{
-					for (Vector2_3D pos : m_AtkArea)
-					{
-						if (m_StageMap[pos.z * m_X + pos.x].bChar)
-						{
-							if (m_CursorLocation.x < pos.x)
-							{
-								m_CursorLocation = pos;
-								break;
-							}
-						}
-					}
-				}
-				break;
-			case Fin:
-				break;
-			}
-			/*if (!m_bMenu && !m_bSelect)
-			{
-				if ((m_CursorLocation.x + 1) < m_X)
-				{
-					m_CursorLocation.x++;
-				}
-			}
-			else if (m_bSelect)
-			{
-				if ((m_CursorLocation.x + 1) >= 0)
-				{
-					for (Vector2_3D pos : m_MoveArea)
-					{
-						if ((m_CursorLocation.x + 1) == pos.x && m_CursorLocation.z == pos.z)
-						{
-							m_CursorLocation.x++;
-							break;
-						}
-						else if ((m_CursorLocation.x + 1) == m_SelectLocation.x && m_CursorLocation.z == m_SelectLocation.z)
-						{
-							m_CursorLocation.x++;
-							break;
-						}
-					}
-				}
-			}*/
-		}
-	}
 
-	//キャラ選択中の移動矢印の判断
-	if (m_CursorOld.x != m_CursorLocation.x || m_CursorOld.z != m_CursorLocation.z)
-	{
-		if (m_bSelect)
-		{
-			m_Arrow->Add(m_CursorLocation);
-		}
-	}
 	//移動できる範囲の計算
-	switch (PlayerSelection)
 	{
-	case NotSelect:
 		if (m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar)
 		{
 			int move;
@@ -694,142 +364,199 @@ void CSystemMain::TurnPlayer()
 			m_MoveSerch->SetDraw(false);
 			m_MoveSerch->Reset();
 		}
-		break;
-	case Select:
-		if (m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar || m_bSelect)
-		{
-			int move;
-			move = m_SelectChar->GetStatus()->MovePoint;
-			m_MoveArea = m_MoveSerch->Search(m_SelectLocation, move);
-			m_MoveSerch->SetDraw(true);
-		}
-		else
-		{
-			m_MoveSerch->SetDraw(false);
-			m_MoveSerch->Reset();
-		}
-		break;
-	case Manu:
-		m_MoveSerch->SetDraw(false);
-		m_MoveSerch->Reset();
-		break;
-	case BattleSelect:
-		break;
-	case HealSelect:
-		break;
-	case Fin:
-		break;
-	default:
-		break;
 	}
-	//if (!m_bMenu)
-	//{
-	//	//移動できる範囲の計算
-	//	if (m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar || m_bSelect)
-	//	{
-	//		int move;
-	//		if (!m_bSelect)
-	//		{
-	//			if (m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetAlly())
-	//			{
-	//				move = m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetStatus()->MovePoint;
-	//				m_MoveSerch->Search(m_CursorLocation, move);
-	//				m_MoveSerch->SetDraw(true);
-	//			}
-	//			else
-	//			{
-	//				m_MoveSerch->SetDraw(false);
-	//				m_MoveSerch->Reset();
-	//			}
-	//		}
-	//		else
-	//		{
-	//			move = m_SelectChar->GetStatus()->MovePoint;
-	//			m_MoveArea = m_MoveSerch->Search(m_SelectLocation, move);
-	//			m_MoveSerch->SetDraw(true);
-	//		}
-	//	}
-	//	else
-	//	{
-	//		m_MoveSerch->SetDraw(false);
-	//		m_MoveSerch->Reset();
-	//	}
-	//}
-	//else
-	//{
-	//	m_MoveSerch->SetDraw(false);
-	//	m_MoveSerch->Reset();
-	//	//m_AttackSearch->Search(m_CursorLocation, m_SelectChar->GetStatus()->type);
-	//}
+
+	//決定キー入力
+	if (CInput::GetKeyTrigger(VK_SPACE))
+	{
+		m_Ok->Play(false);
+		if (m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar && m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetAlly())
+		{
+			m_SelectChar = m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter;
+			m_SelectPanel = &m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x];
+			m_SelectLocation = m_CursorLocation;
+			m_Arrow->Add(m_CursorLocation);
+			PlayerSelection = Select;
+		}
+	}
+		break;
+
+	case Select:
+	//選択カーソル移動
+	{
+		//上入力
+		if (CInput::GetKeyTrigger('W'))
+		{
+			if ((m_CursorLocation.z + 1) < m_Z)
+			{
+				for (Vector2_3D pos : m_MoveArea)
+				{
+					if ((m_CursorLocation.z + 1) == pos.z && m_CursorLocation.x == pos.x)
+					{
+						m_CursorLocation.z++;
+						break;
+					}
+					else if ((m_CursorLocation.z + 1) == m_SelectLocation.z && m_CursorLocation.x == m_SelectLocation.x)
+					{
+						m_CursorLocation.z++;
+						break;
+					}
+				}
+			}
+		}
+		//下入力
+		if (CInput::GetKeyTrigger('S'))
+		{
+			if ((m_CursorLocation.z - 1) >= 0)
+			{
+				for (Vector2_3D pos : m_MoveArea)
+				{
+					if ((m_CursorLocation.z - 1) == pos.z && m_CursorLocation.x == pos.x)
+					{
+						m_CursorLocation.z--;
+						break;
+					}
+					else if ((m_CursorLocation.z - 1) == m_SelectLocation.z && m_CursorLocation.x == m_SelectLocation.x)
+					{
+						m_CursorLocation.z--;
+						break;
+					}
+				}
+			}
+		}
+		//左入力
+		if (CInput::GetKeyTrigger('A'))
+		{
+			if ((m_CursorLocation.x - 1) >= 0)
+			{
+				for (Vector2_3D pos : m_MoveArea)
+				{
+					if ((m_CursorLocation.x - 1) == pos.x && m_CursorLocation.z == pos.z)
+					{
+						m_CursorLocation.x--;
+						break;
+					}
+					else if ((m_CursorLocation.x - 1) == m_SelectLocation.x && m_CursorLocation.z == m_SelectLocation.z)
+					{
+						m_CursorLocation.x--;
+						break;
+					}
+				}
+			}
+		}
+		//右入力
+		if (CInput::GetKeyTrigger('D'))
+		{
+			if ((m_CursorLocation.x + 1) >= 0)
+			{
+				for (Vector2_3D pos : m_MoveArea)
+				{
+					if ((m_CursorLocation.x + 1) == pos.x && m_CursorLocation.z == pos.z)
+					{
+						m_CursorLocation.x++;
+						break;
+					}
+					else if ((m_CursorLocation.x + 1) == m_SelectLocation.x && m_CursorLocation.z == m_SelectLocation.z)
+					{
+						m_CursorLocation.x++;
+						break;
+					}
+				}
+			}
+		}
+	}
+	//キャラ選択中の移動矢印の判断
+	if (m_CursorOld.x != m_CursorLocation.x || m_CursorOld.z != m_CursorLocation.z)
+	{
+		m_Arrow->Add(m_CursorLocation);
+	}
+	//移動できる範囲の計算
+	{
+		int move;
+		move = m_SelectChar->GetStatus()->MovePoint;
+		m_MoveArea = m_MoveSerch->Search(m_SelectLocation, move);
+		m_MoveSerch->SetDraw(true);
+	}
 
 	//決定キー入力
 	if (CInput::GetKeyTrigger(VK_SPACE))
 	{
 		m_Ok->Play(false);
 		CGameMenu_UI* UI;
-		switch (PlayerSelection)
+		if (!m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar || m_SelectLocation == m_CursorLocation)
 		{
-		case NotSelect:
-			if (m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar && m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetAlly())
+			m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar = true;
+			m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter = m_SelectChar;
+			m_SelectChar->MoveLocation(XMFLOAT3((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 1.0f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
+
+			CScene* scene;
+			scene = CManager::GetScene();
+
+			UI = scene->GetGameObject<CGameMenu_UI>(4);
+
+			m_AtkArea = m_AttackSearch->Search(m_CursorLocation, m_SelectChar->GetStatus()->type);
+
+			if (m_SelectLocation != m_CursorLocation)
 			{
-				m_SelectChar = m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter;
-				m_SelectPanel = &m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x];
-				m_SelectLocation = m_CursorLocation;
-				m_Arrow->Add(m_CursorLocation);
-				PlayerSelection = Select;
+				m_SelectPanel->bChar = false;
+				m_SelectPanel->Charcter = nullptr;
 			}
-			break;
-		case Select:
-			if (!m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar || m_SelectLocation == m_CursorLocation)
+			m_SelectPanel = nullptr;
+
+			bool attack = false;
+			for (Vector2_3D pos : m_AtkArea)
 			{
-				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar = true;
-				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter = m_SelectChar;
-				m_SelectChar->MoveLocation(XMFLOAT3((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 1.0f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
-
-				CScene* scene;
-				scene = CManager::GetScene();
-
-				UI = scene->GetGameObject<CGameMenu_UI>(4);
-
-				m_AtkArea = m_AttackSearch->Search(m_CursorLocation, m_SelectChar->GetStatus()->type);
-
-				if (m_SelectLocation != m_CursorLocation)
+				if (m_StageMap[pos.z * m_X + pos.x].bChar)
 				{
-					m_SelectPanel->bChar = false;
-					m_SelectPanel->Charcter = nullptr;
+					attack = true;
+					break;
 				}
-				m_SelectPanel = nullptr;
-
-				bool attack = false;
-				for (Vector2_3D pos : m_AtkArea)
-				{
-					if (m_StageMap[pos.z * m_X + pos.x].bChar)
-					{
-						attack = true;
-						break;
-					}
-				}
-
-				if (attack)
-				{
-					m_AttackSearch->SetDraw(true);
-				}
-				else
-				{
-					m_AttackSearch->SetDraw(false);
-					m_AttackSearch->Reset();
-				}
-
-				UI->Set(attack, false, true);
-				m_MoveSerch->SetDraw(false);
-				m_MoveSerch->Reset();
-
-				m_Arrow->Reset();
-
-				PlayerSelection = Manu;
 			}
-			break;
-		case Manu:
+
+			if (attack)
+			{
+				m_AttackSearch->SetDraw(true);
+			}
+			else
+			{
+				m_AttackSearch->SetDraw(false);
+				m_AttackSearch->Reset();
+			}
+
+			UI->Set(attack, false, true);
+			m_MoveSerch->SetDraw(false);
+			m_MoveSerch->Reset();
+
+			m_Arrow->Reset();
+			m_SelectMovedLocation = m_CursorLocation;
+			PlayerSelection = Manu;
+		}
+	}
+
+	//キャンセルキー入力
+	if (CInput::GetKeyTrigger('Q'))
+	{
+		m_MoveSerch->SetDraw(false);
+		m_MoveSerch->Reset();
+
+		m_SelectChar = nullptr;
+		m_SelectPanel = nullptr;
+
+		m_Arrow->Reset();
+		PlayerSelection = NotSelect;
+	}
+
+		break;
+	case Manu:
+		//移動できる範囲の計算
+		m_MoveSerch->SetDraw(false);
+		m_MoveSerch->Reset();
+
+		//決定キー入力
+		if (CInput::GetKeyTrigger(VK_SPACE))
+		{
+			m_Ok->Play(false);
+			CGameMenu_UI* UI;
 			UI = CManager::GetScene()->GetGameObject<CGameMenu_UI>(4);
 
 			if (UI->Ready())
@@ -851,150 +578,14 @@ void CSystemMain::TurnPlayer()
 					PlayerSelection = Fin;
 					break;
 				}
-
 				UI->reset();
-				m_AttackSearch->Reset();
-			}
-			break;
-		case BattleSelect:
-		case HealSelect:
-			if (!m_bBattle)
-			{
-				for (Vector2_3D pos : m_AtkArea)
-				{
-					if (m_StageMap[pos.z * m_X + pos.x].bChar)
-					{
-						CSystemBattle::Battle(m_SelectChar, m_StageMap[pos.z * m_X + pos.x].Charcter);
-						m_bBattle = true;
-						break;
-					}
-				}
-			}
-			break;
-		case Fin:
-			m_SelectChar->SetTurnMove(true);
-			m_SelectChar = nullptr;
-			break;
-		}
-		/*if (!m_bSelect && !m_bMenu)
-		{
-			if (m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar && m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetAlly())
-			{
-				m_SelectChar = m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter;
-				m_SelectPanel = &m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x];
-				m_SelectLocation = m_CursorLocation;
-				m_bSelect = true;
-				m_Arrow->Add(m_CursorLocation);
 			}
 		}
-		else if (m_bSelect)
+
+		//キャンセルキー入力
+		if (CInput::GetKeyTrigger('Q'))
 		{
-			if (!m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar || m_SelectLocation == m_CursorLocation)
-			{
-				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar = true;
-				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter = m_SelectChar;
-				m_SelectChar->MoveLocation(XMFLOAT3((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 1.0f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
-
-				CScene* scene;
-				scene = CManager::GetScene();
-
-				CGameMenu_UI* UI = scene->GetGameObject<CGameMenu_UI>(4);
-
-				m_AtkArea = m_AttackSearch->Search(m_CursorLocation, m_SelectChar->GetStatus()->type);
-
-				if (m_SelectLocation != m_CursorLocation)
-				{
-					m_SelectPanel->bChar = false;
-					m_SelectPanel->Charcter = nullptr;
-				}
-				m_SelectPanel = nullptr;
-
-				bool attack = false;
-				for (Vector2_3D pos : m_AtkArea)
-				{
-					if (m_StageMap[pos.z * m_X + pos.x].bChar)
-					{
-						attack = true;
-						break;
-					}
-				}
-
-				if (attack)
-				{
-					m_AttackSearch->SetDraw(true);
-				}
-				else
-				{
-					m_AttackSearch->SetDraw(false);
-					m_AttackSearch->Reset();
-				}
-
-				UI->Set(attack, false, true);
-				m_MoveSerch->SetDraw(false);
-				m_MoveSerch->Reset();
-
-
-
-				m_bSelect = false;
-				m_Arrow->Reset();
-				m_bMenu = true;
-			}
-		}
-		else if (m_bMenu)
-		{
-			CGameMenu_UI* UI = CManager::GetScene()->GetGameObject<CGameMenu_UI>(4);
-
-			if (UI->Ready())
-			{
-				switch (UI->OK())
-				{
-				case 0:
-					for (Vector2_3D pos : m_AtkArea)
-					{
-						if (m_StageMap[pos.z * m_X + pos.x].bChar)
-						{
-							CSystemBattle::Battle(m_SelectChar, m_StageMap[pos.z * m_X + pos.x].Charcter);
-							m_bBattle = true;
-							break;
-						}
-					}
-					break;
-				case 2:
-					m_SelectChar->SetTurnMove(true);
-					break;
-				}
-
-				UI->reset();
-				m_AttackSearch->Reset();
-				m_bMenu = false;
-				if (!m_bBattle)
-				{
-					m_SelectChar = nullptr;
-				}
-			}
-		}*/
-	}
-
-
-
-
-
-	if (CInput::GetKeyTrigger('Q'))
-	{
-		CGameMenu_UI* UI;
-		switch (PlayerSelection)
-		{
-		case Select:
-			m_MoveSerch->SetDraw(false);
-			m_MoveSerch->Reset();
-
-			m_SelectChar = nullptr;
-			m_SelectPanel = nullptr;
-
-			m_Arrow->Reset();
-			PlayerSelection = NotSelect;
-			break;
-		case Manu:
+			CGameMenu_UI* UI;
 			m_StageMap[m_SelectLocation.z * m_X + m_SelectLocation.x].bChar = true;
 			m_StageMap[m_SelectLocation.z * m_X + m_SelectLocation.x].Charcter = m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter;
 			m_StageMap[m_SelectLocation.z * m_X + m_SelectLocation.x].Charcter->MoveLocation(XMFLOAT3((m_SelectLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 1.0f, (m_SelectLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
@@ -1014,55 +605,160 @@ void CSystemMain::TurnPlayer()
 			m_AttackSearch->Reset();
 			m_SelectChar = nullptr;
 			PlayerSelection = NotSelect;
-			break;
-		case BattleSelect:
-		case HealSelect:
-
-			PlayerSelection = Manu;
-			break;
-		case Fin:
-			break;
 		}
-		if (m_bSelect)
+		break;
+	case BattleSelect:
+	//選択カーソル移動
+	{
+		//上入力
+		if (CInput::GetKeyTrigger('W'))
 		{
-			m_MoveSerch->SetDraw(false);
-			m_MoveSerch->Reset();
-
-			m_SelectChar = nullptr;
-			m_SelectPanel = nullptr;
-
-			m_bSelect = false;
-			m_Arrow->Reset();
-		}
-		else if (m_bMenu)
-		{
-			m_StageMap[m_SelectLocation.z * m_X + m_SelectLocation.x].bChar = true;
-			m_StageMap[m_SelectLocation.z * m_X + m_SelectLocation.x].Charcter = m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter;
-			m_StageMap[m_SelectLocation.z * m_X + m_SelectLocation.x].Charcter->MoveLocation(XMFLOAT3((m_SelectLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 1.0f, (m_SelectLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
-
-			if (m_SelectLocation != m_CursorLocation)
+			if (m_AtkArea.size() > 1)
 			{
-				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar = false;
-				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter = nullptr;
+				for (Vector2_3D pos : m_AtkArea)
+				{
+					if (m_StageMap[pos.z * m_X + pos.x].bChar)
+					{
+						if (m_CursorLocation.z < pos.z)
+						{
+							m_CursorLocation = pos;
+							break;
+						}
+					}
+				}
 			}
-
-			CScene* scene;
-			scene = CManager::GetScene();
-
-			CGameMenu_UI* UI = scene->GetGameObject<CGameMenu_UI>(4);
-
-			UI->reset();
-			m_AttackSearch->Reset();
-			m_bMenu = false;
-			m_SelectChar = nullptr;
 		}
+		//下入力
+		if (CInput::GetKeyTrigger('S'))
+		{
+			if (m_AtkArea.size() > 1)
+			{
+				for (Vector2_3D pos : m_AtkArea)
+				{
+					if (m_StageMap[pos.z * m_X + pos.x].bChar)
+					{
+						if (m_CursorLocation.z > pos.z)
+						{
+							m_CursorLocation = pos;
+							break;
+						}
+					}
+				}
+			}
+		}
+		//左入力
+		if (CInput::GetKeyTrigger('A'))
+		{
+			if (m_AtkArea.size() > 1)
+			{
+				for (Vector2_3D pos : m_AtkArea)
+				{
+					if (m_StageMap[pos.z * m_X + pos.x].bChar)
+					{
+						if (m_CursorLocation.x > pos.x)
+						{
+							m_CursorLocation = pos;
+							break;
+						}
+					}
+				}
+			}
+		}
+		//右入力
+		if (CInput::GetKeyTrigger('D'))
+		{
+			if (m_AtkArea.size() > 1)
+			{
+				for (Vector2_3D pos : m_AtkArea)
+				{
+					if (m_StageMap[pos.z * m_X + pos.x].bChar)
+					{
+						if (m_CursorLocation.x < pos.x)
+						{
+							m_CursorLocation = pos;
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	if(!m_bBattle)
+	{
+		CBattleSimu* simu = CManager::GetScene()->GetGameObject<CBattleSimu>(4);
+		simu->SetDraw(true);
+		simu->SetChar(m_SelectChar, m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter);
+	}
+
+	//決定キー入力
+	if (CInput::GetKeyTrigger(VK_SPACE))
+	{
+		m_Ok->Play(false);
+		CGameMenu_UI* UI;
+		if (!m_bBattle)
+		{
+			for (Vector2_3D pos : m_AtkArea)
+			{
+				if (m_StageMap[pos.z * m_X + pos.x].bChar)
+				{
+					CSystemBattle::Battle(m_SelectChar, m_StageMap[pos.z * m_X + pos.x].Charcter);
+					m_bBattle = true;
+					m_AttackSearch->Reset();
+					CBattleSimu* simu = CManager::GetScene()->GetGameObject<CBattleSimu>(4);
+					simu->SetDraw(false);
+					break;
+				}
+			}
+		}
+	}
+
+	//キャンセルキー入力
+	if (CInput::GetKeyTrigger('Q'))
+	{
+		m_AtkArea = m_AttackSearch->Search(m_SelectMovedLocation, m_SelectChar->GetStatus()->type);
+		CGameMenu_UI* UI;
+		UI = CManager::GetScene()->GetGameObject<CGameMenu_UI>(4);
+		bool attack = false;
+		for (Vector2_3D pos : m_AtkArea)
+		{
+			if (m_StageMap[pos.z * m_X + pos.x].bChar)
+			{
+				attack = true;
+				break;
+			}
+		}
+
+		if (attack)
+		{
+			m_AttackSearch->SetDraw(true);
+		}
+		else
+		{
+			m_AttackSearch->SetDraw(false);
+			m_AttackSearch->Reset();
+		}
+
+		UI->Set(attack, false, true);
+		m_CursorLocation = m_SelectMovedLocation;
+		CBattleSimu* simu = CManager::GetScene()->GetGameObject<CBattleSimu>(4);
+		simu->SetDraw(false);
+		PlayerSelection = Manu;
+	}
+		break;
+	case HealSelect:
+		break;
+	case Fin:
+		m_SelectChar->SetTurnMove(true);
+		m_SelectChar = nullptr;
+		PlayerSelection = NotSelect;
+		break;
 	}
 
 	if (m_bBattle)
 	{
 		if (!CSystemBattle::BattleEnd())
 		{
-			m_SelectChar->SetTurnMove(true);
 			m_bBattle = false;
 			PlayerSelection = Fin;
 		}

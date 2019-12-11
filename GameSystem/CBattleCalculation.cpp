@@ -1,4 +1,5 @@
 #include "../common/main.h"
+#include "../common/math.h"
 #include "../Charcter/CCharcterBase.h"
 #include "../Charcter/CCharacterData.h"
 
@@ -27,7 +28,7 @@ int CBattleCalculation::Damage(CCharcterBase* atk, CCharcterBase* def)
 	STATUS* atkStatus = atk->GetStatus();
 	STATUS* defStatus = def->GetStatus();
 	//–½’†—¦
-	int hitnum = Hit(atkStatus->Dexterity, atkStatus->Luck, atk->GetWeapon()->Hit) - Avoidance(defStatus->Speed, defStatus->Luck);
+	int hitnum = myMath::Hit(atkStatus->Dexterity, atkStatus->Luck, atk->GetWeapon()->Hit) - myMath::Avoidance(defStatus->Speed, defStatus->Luck);
 
 	//0ˆÈ‰º‚È‚çƒ~ƒX
 	if (hitnum <= 0)
@@ -45,8 +46,8 @@ int CBattleCalculation::Damage(CCharcterBase* atk, CCharcterBase* def)
 	
 	int attacknum = 1;
 	//˜AŒ‚”»’è
-	if (AttackSpeed(atkStatus->Speed, atkStatus->Attack, atk->GetWeapon()->Weight) 
-		- AttackSpeed(defStatus->Speed, defStatus->Attack, def->GetWeapon()->Weight) >= 4)
+	if (myMath::AttackSpeed(atkStatus->Speed, atkStatus->Attack, atk->GetWeapon()->Weight)
+		- myMath::AttackSpeed(defStatus->Speed, defStatus->Attack, def->GetWeapon()->Weight) >= 4)
 	{
 		attacknum = 2;
 	}
@@ -54,8 +55,8 @@ int CBattleCalculation::Damage(CCharcterBase* atk, CCharcterBase* def)
 	int damage = 0;
 	for (int i = 0; i < attacknum; i++)
 	{
-		int dam = atkStatus->Attack + (atk->GetWeapon()->Attack * Advantage(atk->m_JobClass, def->m_JobClass)) - defStatus->Defense;
-		if (Critical(atkStatus->Dexterity, atkStatus->Luck, atk->GetWeapon()->Cri) - defStatus->Luck > Random())
+		int dam = atkStatus->Attack + (atk->GetWeapon()->Attack * myMath::Advantage(atk->m_JobClass, def->m_JobClass)) - defStatus->Defense;
+		if (myMath::Critical(atkStatus->Dexterity, atkStatus->Luck, atk->GetWeapon()->Cri) - defStatus->Luck > Random())
 		{
 			dam *= 2;
 		}
@@ -69,7 +70,7 @@ int CBattleCalculation::DamageMagic(CCharcterBase* atk, CCharcterBase* def)
 {
 	STATUS* atkStatus = atk->GetStatus();
 	STATUS* defStatus = def->GetStatus();
-	int hitnum = Hit(atkStatus->Dexterity, atkStatus->Luck, atk->GetWeapon()->Hit) - Avoidance(defStatus->Speed, defStatus->Luck);
+	int hitnum = myMath::Hit(atkStatus->Dexterity, atkStatus->Luck, atk->GetWeapon()->Hit) - myMath::Avoidance(defStatus->Speed, defStatus->Luck);
 	if (hitnum <= 0)
 	{
 		return -1;
@@ -83,8 +84,8 @@ int CBattleCalculation::DamageMagic(CCharcterBase* atk, CCharcterBase* def)
 	}
 
 	int attacknum = 1;
-	if (AttackSpeed(atkStatus->Speed, atkStatus->Attack, atk->GetWeapon()->Weight)
-		- AttackSpeed(defStatus->Speed, defStatus->Attack, def->GetWeapon()->Weight) >= 4)
+	if (myMath::AttackSpeed(atkStatus->Speed, atkStatus->Attack, atk->GetWeapon()->Weight)
+		- myMath::AttackSpeed(defStatus->Speed, defStatus->Attack, def->GetWeapon()->Weight) >= 4)
 	{
 		attacknum = 2;
 	}
@@ -92,8 +93,8 @@ int CBattleCalculation::DamageMagic(CCharcterBase* atk, CCharcterBase* def)
 	int damage = 0;
 	for (int i = 0; i < attacknum; i++)
 	{
-		int dam = atkStatus->Attack + (atk->GetWeapon()->Attack * Advantage(atk->m_JobClass, def->m_JobClass)) - defStatus->MagicDefense;
-		if (Critical(atkStatus->Dexterity, atkStatus->Luck, atk->GetWeapon()->Cri) - defStatus->Luck > Random())
+		int dam = atkStatus->Attack + (atk->GetWeapon()->Attack * myMath::Advantage(atk->m_JobClass, def->m_JobClass)) - defStatus->MagicDefense;
+		if (myMath::Critical(atkStatus->Dexterity, atkStatus->Luck, atk->GetWeapon()->Cri) - defStatus->Luck > Random())
 		{
 			dam *= 2;
 		}
@@ -103,82 +104,82 @@ int CBattleCalculation::DamageMagic(CCharcterBase* atk, CCharcterBase* def)
 	return damage;
 }
 
-float CBattleCalculation::Advantage(JOBCLASS atkjob, JOBCLASS defjob)
-{
-	if (atkjob == Swordman)
-	{
-		switch (defjob)
-		{
-		case Swordman:
-			return 1.0f;
-			break;
-		case Lancer:
-			return DISADVANTAGE;
-			break;
-		case Archer:
-			return ADVANTAGEOUS;
-			break;
-		case Sorcerer:
-			return 1.0f;
-			break;
-		}
-	}
-	else if(atkjob == Lancer)
-	{
-		switch (defjob)
-		{
-		case Swordman:
-			return ADVANTAGEOUS;
-			break;
-		case Lancer:
-			return 1.0f;
-			break;
-		case Archer:
-			return DISADVANTAGE;
-			break;
-		case Sorcerer:
-			return ADVANTAGEOUS;
-			break;
-		}
-	}
-	else if (atkjob == Archer)
-	{
-		switch (defjob)
-		{
-		case Swordman:
-			return DISADVANTAGE;
-			break;
-		case Lancer:
-			return ADVANTAGEOUS;
-			break;
-		case Archer:
-			return 1.0f;
-			break;
-		case Sorcerer:
-			return 1.0f;
-			break;
-		}
-	}
-	else if (atkjob == Sorcerer)
-	{
-		switch (defjob)
-		{
-		case Swordman:
-			return 1.0f;
-			break;
-		case Lancer:
-			return DISADVANTAGE;
-			break;
-		case Archer:
-			return ADVANTAGEOUS;
-			break;
-		case Sorcerer:
-			return 1.0f;
-			break;
-		}
-	}
-	else
-	{
-		return -1.0f;
-	}
-}
+//float CBattleCalculation::Advantage(JOBCLASS atkjob, JOBCLASS defjob)
+//{
+//	if (atkjob == Swordman)
+//	{
+//		switch (defjob)
+//		{
+//		case Swordman:
+//			return 1.0f;
+//			break;
+//		case Lancer:
+//			return DISADVANTAGE;
+//			break;
+//		case Archer:
+//			return ADVANTAGEOUS;
+//			break;
+//		case Sorcerer:
+//			return 1.0f;
+//			break;
+//		}
+//	}
+//	else if(atkjob == Lancer)
+//	{
+//		switch (defjob)
+//		{
+//		case Swordman:
+//			return ADVANTAGEOUS;
+//			break;
+//		case Lancer:
+//			return 1.0f;
+//			break;
+//		case Archer:
+//			return DISADVANTAGE;
+//			break;
+//		case Sorcerer:
+//			return ADVANTAGEOUS;
+//			break;
+//		}
+//	}
+//	else if (atkjob == Archer)
+//	{
+//		switch (defjob)
+//		{
+//		case Swordman:
+//			return DISADVANTAGE;
+//			break;
+//		case Lancer:
+//			return ADVANTAGEOUS;
+//			break;
+//		case Archer:
+//			return 1.0f;
+//			break;
+//		case Sorcerer:
+//			return 1.0f;
+//			break;
+//		}
+//	}
+//	else if (atkjob == Sorcerer)
+//	{
+//		switch (defjob)
+//		{
+//		case Swordman:
+//			return 1.0f;
+//			break;
+//		case Lancer:
+//			return DISADVANTAGE;
+//			break;
+//		case Archer:
+//			return ADVANTAGEOUS;
+//			break;
+//		case Sorcerer:
+//			return 1.0f;
+//			break;
+//		}
+//	}
+//	else
+//	{
+//		return -1.0f;
+//	}
+//}

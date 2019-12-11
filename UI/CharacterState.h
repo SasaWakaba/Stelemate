@@ -6,7 +6,7 @@
 #include "../Stage/CStage.h"
 
 
-#define STATE_TEX_NUM (1)
+#define STATE_TEX_NUM (8)
 
 class CTexture;
 class CPolygon;
@@ -23,6 +23,7 @@ private:
 	CDrawText* m_Text[1];
 
 	static PanelState* m_PanelState;
+	static bool bDraw;
 public:
 	void Initialize();
 	void Finalize();
@@ -30,6 +31,7 @@ public:
 	void Draw();
 
 	static void SetPanel(PanelState* panel) { m_PanelState = panel; }
+	static void SetDraw(bool bEnable) { bDraw = bEnable; }
 };
 
 

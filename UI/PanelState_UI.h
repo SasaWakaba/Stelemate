@@ -14,6 +14,7 @@ class CPanelState:public CGameObject
 private:
 	CPolygon* m_Polygon[PANELSTATE_TEX_NUM];
 	static unsigned short m_PanelPattarn;
+	static bool bDraw;
 public:
 	void Initialize();
 	void Finalize();
@@ -21,6 +22,7 @@ public:
 	void Draw();
 
 	static void SetPanel(unsigned short panel) { m_PanelPattarn = panel; }
+	static void SetDraw(bool bEnable) { bDraw = bEnable; }
 };
 
 

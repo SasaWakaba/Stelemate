@@ -30,6 +30,8 @@ private:
 	Vector2_3D					m_CursorOld;
 	//選択中のキャラの二次元座標
 	Vector2_3D					m_SelectLocation;
+	//選択中のキャラの移動後座標
+	Vector2_3D					m_SelectMovedLocation;
 	//ステージのデータ
 	PanelState*					m_StageMap;
 	//選択中のパネル

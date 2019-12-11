@@ -1,6 +1,50 @@
 ﻿  CSystemMain.cpp
 c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
 c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\common\math.h(33): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\common\math.h(34): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
 c:\users\nayup\documents\stelemate\gamesystem\arrowsline.h(37): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
 c:\users\nayup\documents\stelemate\gamesystem\cenemyai.h(40): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\gamesystem\csystemmain.cpp(698): warning C4101: 'UI': ローカル変数は 1 度も使われていません。
+  BattleSimu_UI.cpp
+c:\users\nayup\documents\stelemate\common\math.h(33): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\common\math.h(34): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(40): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(41): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(50): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(108): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(119): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(154): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(158): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(162): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(166): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(170): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(171): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(177): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(181): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(185): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(189): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(193): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\battlesimu_ui.cpp(194): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+  CharacterState.cpp
+c:\users\nayup\documents\stelemate\ui\characterstate.cpp(95): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\characterstate.cpp(95): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+  CGame.cpp
+c:\program files\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\common\math.h(33): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\common\math.h(34): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\common\scene.h(70): warning C4316: 'CCamera': ヒープで割り当てられたオブジェクトが 16 にアラインメントされていない可能性があります
+  c:\users\nayup\documents\stelemate\common\cgame.cpp(51): note: コンパイル対象の関数 テンプレート インスタンス化 'T *CScene::AddGameObject<CCamera>(int)' のリファレンスを確認してください
+          with
+          [
+              T=CCamera
+          ]
+  コードを生成中...
+c:\users\nayup\documents\stelemate\common\math.h(115): warning C4715: 'myMath::Advantage': 値を返さないコントロール パスがあります。
+  LINK : 前回のインクリメンタル リンクで C:\Users\nayup\Documents\Stelemate\Debug\Stalemate.exe が見つからなかったか、ビルドされませんでした。フル リンクを行います。
   Stalemate.vcxproj -> C:\Users\nayup\Documents\Stelemate\Debug\Stalemate.exe

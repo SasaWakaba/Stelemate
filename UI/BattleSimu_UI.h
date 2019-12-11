@@ -3,11 +3,10 @@
 
 #include "../common/Game_Object.h"
 
-#define MAX_TEXNUM (5)
+#define MAX_TEXNUM (10)
 class CPolygon;
 class CDrawText;
 class CScore;
-class CCharacterBase;
 
 class CBattleSimu:public CGameObject
 {
@@ -16,14 +15,18 @@ private:
 	CPolygon*		m_Texture[MAX_TEXNUM];
 	CDrawText*		m_Text[2];
 	CScore*			m_Number;
-	CCharacterBase*	m_Char[2];
+	CCharcterBase*	m_Char[2];
 
 	bool			bDraw;
+	int				frame;
 public:
 	void Initialize();
 	void Finalize();
 	void Update();
 	void Draw();
+
+	void SetDraw(bool benable) { bDraw = benable; }
+	void SetChar(CCharcterBase* A, CCharcterBase* B) { m_Char[0] = A; m_Char[1] = B; }
 };
 
 #endif // !CBATTLE_SIMU_H_

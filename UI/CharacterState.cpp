@@ -9,6 +9,8 @@
 #include "../common/CScore.h"
 #include "../common/CDrawText.h"
 #include "CharacterState.h"
+#include "../Charcter/CCharacterData.h"
+
 
 #define STATUS_WINDOW_WIDTH (768 / 3 * 2)
 #define STATUS_WINDOW_HEIGHT (160 / 3 * 2)
@@ -19,15 +21,26 @@
 #define WEAPON_FONT_SIZE (30)
 
 PanelState* CCharacterState::m_PanelState;
+bool CCharacterState::bDraw;
 
 void CCharacterState::Initialize()
 {
 	m_StateNum = new CScore();
 	m_StateNum->Initialize(2, 30, 30);
 
-	m_CharacterState[0] = new CPolygon();
-	m_CharacterState[0]->Initialize();
+	for (int i = 0; i < STATE_TEX_NUM; i++)
+	{
+		m_CharacterState[i] = new CPolygon();
+		m_CharacterState[i]->Initialize();
+	}
 	m_CharacterState[0]->Load("asset/texture/DataStatus000.png");
+	m_CharacterState[1]->Load("asset/texture/DataStatus001.png");
+	m_CharacterState[2]->Load("asset/texture/DataStatus002.png");
+	m_CharacterState[3]->Load("asset/texture/Icon000.png");
+	m_CharacterState[4]->Load("asset/texture/Icon001.png");
+	m_CharacterState[5]->Load("asset/texture/Icon002.png");
+	m_CharacterState[6]->Load("asset/texture/Icon003.png");
+	m_CharacterState[7]->Load("asset/texture/Icon004.png");
 
 	m_PanelState = nullptr;
 
@@ -80,6 +93,17 @@ void CCharacterState::Draw()
 			VertexColor_4 textcolor;
 			textcolor.setAll(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 			m_Text[0]->DrawJpn(-STATUS_WINDOW_WIDTH / 3.5 + x, y + 5, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE, m_PanelState->Charcter->GetWeapon()->name, textcolor);
+			switch (m_PanelState->Charcter->m_JobClass)
+			{
+			case Swordman:
+				break;
+			case Lancer:
+				break;
+			case Archer:
+				break;
+			case Sorcerer:
+				break;
+			}
 		}
 	}
 }
