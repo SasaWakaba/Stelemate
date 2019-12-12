@@ -93,6 +93,12 @@ void CModelAnimation::DrawMesh(aiNode* node, XMMATRIX matrix)
 	{
 		DrawMesh(node->mChildren[n], world);
 	}
+
+	MATERIAL material;
+	ZeroMemory(&material, sizeof(material));
+	material.Diffuse = COLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	material.Ambient = COLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	CRenderer::SetMaterial(material);
 }
 
 void CModelAnimation::Load(const char* Filename)

@@ -40,7 +40,7 @@ public:
 	{
 		XMMATRIX world;
 		world = XMMatrixScaling(0.25f, 0.25f, 0.25f);
-		world *= XMMatrixRotationRollPitchYaw((PI/180) * 90.0f, 0.0f, 0.0f);
+		world *= XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f);
 		world *= XMMatrixTranslation(m_Location.x, m_Location.y, m_Location.z);
 		if (bAlly)
 		{

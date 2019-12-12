@@ -9,6 +9,8 @@
 
 
 class CStagePanel;
+class CMeshField;
+class CModelAnimation;
 
 
 typedef struct
@@ -24,9 +26,10 @@ class CStage
 private:
 	PanelState* m_StageMap;
 	CStagePanel* m_StagePanel[2];
+	CMeshField* m_Meshfield;
 	int m_Xnum;
 	int m_Znum;
-
+	CModelAnimation* m_Model[2];
 public:
 	CStage(int nX, int nZ, PanelState* stage) :m_StageMap(stage) {
 		m_Xnum = nX;

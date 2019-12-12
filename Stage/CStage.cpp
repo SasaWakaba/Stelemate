@@ -1,6 +1,6 @@
 #include "../common/main.h"
-
-
+#include "../common/MeshField.h"
+#include "../common/ModelAnimation.h"
 
 
 #include "CStagePanel.h"
@@ -23,19 +23,22 @@ void CStage::Initialize()
 		{
 			if (m_StageMap[z * m_Xnum + x].PanelPattarn != 0)
 			{
-				//CStagePanel* panel;
-				//panel = new CStagePanel(m_StageMap[z * m_Xnum + x].PanelPattarn, XMFLOAT3((x * SPACE_SIZE) - (SPACE_SIZE * m_Xnum/2), -0.5f, (z * SPACE_SIZE) - (SPACE_SIZE * m_Znum/2)));
-				//panel->Initialize();
-				//m_StagePanel.push_back(panel);
 				if (m_StageMap[z * m_Xnum + x].bChar)
 				{
 					m_StageMap[z * m_Xnum + x].Charcter->Initialize();
-					m_StageMap[z * m_Xnum + x].Charcter->SetLocation(XMFLOAT3((x * SPACE_SIZE) - (SPACE_SIZE * m_Xnum / 2), 1.0f, (z * SPACE_SIZE) - (SPACE_SIZE * m_Znum / 2)));
+					m_StageMap[z * m_Xnum + x].Charcter->SetLocation(XMFLOAT3((x * SPACE_SIZE) - (SPACE_SIZE * m_Xnum / 2), 0.0f, (z * SPACE_SIZE) - (SPACE_SIZE * m_Znum / 2)));
 				}
 			}
 		}
 	}
+	m_Meshfield = new CMeshField();
+	m_Meshfield->Initialize(m_Xnum * SPACE_SIZE * 3, m_Znum * SPACE_SIZE * 2, m_Xnum * 3, m_Znum * 2);
 
+	m_Model[0] = new CModelAnimation();
+	m_Model[0]->Load("asset/model/wooden watch tower2.fbx");
+
+	m_Model[1] = new CModelAnimation();
+	m_Model[1]->Load("asset/model/forest/treeplan1.fbx");
 }
 
 void CStage::Finalize()
@@ -60,6 +63,13 @@ void CStage::Finalize()
 		delete panel;
 	}
 
+	m_Meshfield->Finalize();
+	delete m_Meshfield;
+
+	m_Model[0]->UnLoad();
+	delete m_Model[0];
+	m_Model[1]->UnLoad();
+	delete m_Model[1];
 }
 
 void CStage::Update()
@@ -109,4 +119,38 @@ void CStage::Draw()
 			}
 		}
 	}
+
+	m_Meshfield->SetRotation(XMFLOAT3(0.0f, 0.0f, 0.0f));
+	m_Meshfield->SetPosition(XMFLOAT3(SPACE_SIZE * m_Xnum - SPACE_SIZE / 2, 0.0f, SPACE_SIZE * m_Znum * 1.5f - SPACE_SIZE /2));
+	m_Meshfield->Draw();
+	m_Meshfield->SetPosition(XMFLOAT3(-(SPACE_SIZE * m_Xnum + SPACE_SIZE / 2), 0.0f, -(SPACE_SIZE * m_Znum * 1.5f + SPACE_SIZE / 2)));
+	m_Meshfield->Draw();
+
+	m_Meshfield->SetRotation(XMFLOAT3(0.0f, XMConvertToRadians(90.0f), 0.0f));
+	m_Meshfield->SetPosition(XMFLOAT3(-(SPACE_SIZE * m_Znum * 1.5f + SPACE_SIZE / 2), 0.0f, SPACE_SIZE * m_Xnum - SPACE_SIZE / 2));
+	m_Meshfield->Draw();
+	m_Meshfield->SetPosition(XMFLOAT3(SPACE_SIZE * m_Znum * 1.5f - SPACE_SIZE / 2, 0.0f, -(SPACE_SIZE * m_Xnum - SPACE_SIZE / 2)));
+	m_Meshfield->Draw();
+
+	XMMATRIX world = XMMatrixScaling(0.5f, 0.5f, 0.5f);
+	world *= XMMatrixRotationRollPitchYaw(XMConvertToRadians(90.0f), 0.0f, 0.0f);
+	world *= XMMatrixTranslation(-(SPACE_SIZE * (m_Xnum + 4) / 2), 0.0f, -(SPACE_SIZE * (m_Znum + 4) / 2));
+	m_Model[0]->Draw(world);
+
+	world = XMMatrixScaling(0.5f, 0.5f, 0.5f);
+	world *= XMMatrixRotationRollPitchYaw(XMConvertToRadians(90.0f), 0.0f, 0.0f);
+	world *= XMMatrixTranslation((SPACE_SIZE * (m_Xnum + 4) / 2), 0.0f, (SPACE_SIZE * (m_Znum + 4) / 2));
+	m_Model[0]->Draw(world);
+
+	for (int z = 0; z < 1; z++)
+	{
+		for (int x = 1; x < (m_Xnum + 4); x++)
+		{
+			world = XMMatrixScaling(0.05f, 0.05f, 0.05f);
+			world *= XMMatrixRotationRollPitchYaw(XMConvertToRadians(90.0f), 0.0f, 0.0f);
+			world *= XMMatrixTranslation((x * SPACE_SIZE) -(SPACE_SIZE * (m_Xnum + 4) / 2), 0.0f, (z * SPACE_SIZE) -(SPACE_SIZE * (m_Znum + 4) / 2));
+			m_Model[1]->Draw(world);
+		}
+	}
+
 }

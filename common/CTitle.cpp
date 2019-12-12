@@ -29,13 +29,13 @@ void CTitle::Init()
 	AddGameObject<CCamera>(0)->SetAt(XMFLOAT3(0.0f, 0.0f, 0.0f));
 	AddGameObject<CSkyBox>(0)->SetNight(true);
 
-	CParticle* particleTest = AddGameObject<CParticle>(0);
+	CParticle* particleTest = AddGameObject<CParticle>(1);
 	particleTest->CreateInstance(25);
 	XMFLOAT3* movement = new XMFLOAT3[particleTest->GetInstanceCount()];
 	int* startFrame = new int[particleTest->GetInstanceCount()];
 	for (int i = 0; i < particleTest->GetInstanceCount(); i++) {
 		movement[i].x = cos((i - 1))*0.05f; //何番目のインスタンスがこういうｘ動きする
-		movement[i].y = 0.05f;               //何番目のインスタンスがこういうｙ動きする
+		movement[i].y = -0.25f;               //何番目のインスタンスがこういうｙ動きする
 		movement[i].z = sin((i - 1))*0.05f; //何番目のインスタンスがこういうｚ動きする
 		startFrame[i] = 0 - i * 2;
 	}
@@ -43,7 +43,7 @@ void CTitle::Init()
 	particleTest->SetStartFrame(startFrame);
 	particleTest->SetMovement(movement);
 
-	AddGameObject<CTitleMenu>(1);
+	AddGameObject<CTitleMenu>(2);
 
 	CFade::EndFade();
 

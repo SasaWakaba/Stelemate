@@ -24,5 +24,8 @@ public:
 	void Draw();
 
 	void SetViewPos(int x, int y, int w, int h);
+	void SetEye(XMFLOAT3 pos) { m_Eye = pos; }
+	void SetAt(XMFLOAT3 pos) { m_at = pos; }
+	void SetUp(XMFLOAT3 vec) { m_CameraUp = vec; }
 };
 #endif // !CSUB_CAMERA_H_

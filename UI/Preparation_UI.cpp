@@ -151,9 +151,9 @@ void CPreparationUI::Draw()
 	text = "‹­‰»";
 	m_Text[0]->DrawJpn(textX, SCREEN_HEIGHT / 5 * 4 - textY, TEXT_SIZE_BIG, TEXT_SIZE_BIG / 3 * 2, text, color);
 	
-	color.setAll(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+	color.setAll(XMFLOAT4(0.8f, 0.8f, 0.8f, 1.0f));
 	text = "Stage1";
-	m_Text[1]->DrawJpn(0, 0, TEXT_SIZE_SMALL, TEXT_SIZE_SMALL / 2, text, color);
+	m_Text[1]->DrawEng(0, 0, TEXT_SIZE_SMALL, TEXT_SIZE_SMALL / 2, text, color);
 
 	color.setAll(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 	int cursor = 125;

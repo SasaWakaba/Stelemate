@@ -2,7 +2,9 @@
 #ifndef MESH_FIELD_H_
 #define MESH_FIELD_H_
 
-
+#include "Game_Object.h"
+#include "renderer.h"
+class CTexture;
 
 class CMeshField :public CGameObject
 {
@@ -28,6 +30,9 @@ public:
 
 
 	float GetHeight(XMFLOAT3 position);
+
+	void SetPosition(XMFLOAT3 pos) { m_Position = pos; }
+	void SetRotation(XMFLOAT3 rot) { m_Rotation = rot; }
 };
 
 #endif

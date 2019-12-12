@@ -111,8 +111,11 @@ void CTexture::Load(const char *FileName)
 
 void CTexture::Unload()
 {
-	m_Texture->Release();
-	m_ShaderResourceView->Release();
+	if (m_Texture != nullptr)
+	{
+		m_Texture->Release();
+		m_ShaderResourceView->Release();
+	}
 }
 
 

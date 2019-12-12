@@ -20,7 +20,7 @@ private:
 
 	CScore*	m_StateNum;
 
-	CDrawText* m_Text[1];
+	CDrawText* m_Text[2];
 
 	static PanelState* m_PanelState;
 	static bool bDraw;

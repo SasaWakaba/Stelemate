@@ -65,7 +65,7 @@ void CMeshField::Initialize(float gridSizeX, float gridSizeZ, float gridX, float
 	//ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ
 	//=======================================================
 	m_Texture = new CTexture();
-	m_Texture->Load("asset/hoshi.tga");
+	m_Texture->LoadTex("asset/texture/forest.jpg");
 
 
 	//=======================================================
@@ -183,8 +183,8 @@ void CMeshField::Draw()
 
 	XMMATRIX world;
 	world = XMMatrixScaling(1.0f, 1.0f, 1.0f);					//Šg‘åEk¬
-	world *= XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f);	//‰ñ“]
-	world *= XMMatrixTranslation(0.0f, 0.0f, 0.0f);				//ˆÚ“®
+	world *= XMMatrixRotationRollPitchYaw(m_Rotation.x, m_Rotation.y, m_Rotation.z);	//‰ñ“]
+	world *= XMMatrixTranslation(m_Position.x, m_Position.y, m_Position.z);				//ˆÚ“®
 	CRenderer::SetWorldMatrix(&world);
 
 	

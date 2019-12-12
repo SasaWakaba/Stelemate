@@ -19,6 +19,7 @@
 #define GAP_WINDOW_X (SCREEN_WIDTH / 25)
 
 #define WEAPON_FONT_SIZE (30)
+#define JOB_FONT_SIZE (60)
 
 PanelState* CCharacterState::m_PanelState;
 bool CCharacterState::bDraw;
@@ -46,6 +47,8 @@ void CCharacterState::Initialize()
 
 	m_Text[0] = new CDrawText();
 	m_Text[0]->Set(WEAPON_FONT_SIZE);
+	m_Text[1] = new CDrawText();
+	m_Text[1]->Set(JOB_FONT_SIZE);
 }
 
 void CCharacterState::Finalize()
@@ -61,6 +64,8 @@ void CCharacterState::Finalize()
 
 	m_Text[0]->UnSet();
 	delete m_Text[0];
+	m_Text[1]->UnSet();
+	delete m_Text[1];
 }
 
 void CCharacterState::Update()
@@ -85,6 +90,14 @@ void CCharacterState::Draw()
 			float y = SCREEN_HEIGHT - ((STATUS_WINDOW_HEIGHT / 2) + GAP_WINDOW_Y);
 
 			m_CharacterState[0]->Draw(x, y, 0, 0, STATUS_WINDOW_WIDTH, STATUS_WINDOW_HEIGHT, STATUS_WINDOW_WIDTH, STATUS_WINDOW_HEIGHT);
+			if (m_PanelState->Charcter->GetAlly())
+			{
+				m_CharacterState[1]->Draw(x, y - STATUS_WINDOW_HEIGHT / 3 * 2.5f, 0, 0, STATUS_WINDOW_WIDTH, STATUS_WINDOW_HEIGHT / 3 * 1.5f, STATUS_WINDOW_WIDTH, STATUS_WINDOW_HEIGHT / 3 * 1.5f);
+			}
+			else
+			{
+				m_CharacterState[2]->Draw(x, y - STATUS_WINDOW_HEIGHT / 3 * 2.5f, 0, 0, STATUS_WINDOW_WIDTH, STATUS_WINDOW_HEIGHT / 3 * 1.5f, STATUS_WINDOW_WIDTH, STATUS_WINDOW_HEIGHT / 3 * 1.5f);
+			}
 
 			m_StateNum->Draw(-STATUS_WINDOW_WIDTH / 4 + x, -10 + y, m_PanelState->Charcter->Level);
 			m_StateNum->Draw(x, -10 + y, m_PanelState->Charcter->nowHP);
@@ -96,12 +109,20 @@ void CCharacterState::Draw()
 			switch (m_PanelState->Charcter->m_JobClass)
 			{
 			case Swordman:
+				m_Text[1]->DrawJpn(x - JOB_FONT_SIZE / 3 * 2, y - STATUS_WINDOW_HEIGHT / 3 * 2.7f - JOB_FONT_SIZE / 2, JOB_FONT_SIZE, JOB_FONT_SIZE / 3 * 2, "Œ•Žm", textcolor);
+				m_CharacterState[3]->Draw(-STATUS_WINDOW_WIDTH / 3.0 + x, y + 10 + WEAPON_FONT_SIZE / 2, 0, 0, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE);
 				break;
 			case Lancer:
+				m_Text[1]->DrawJpn(x - JOB_FONT_SIZE / 3 * 2, y - STATUS_WINDOW_HEIGHT / 3 * 2.7f - JOB_FONT_SIZE / 2, JOB_FONT_SIZE, JOB_FONT_SIZE / 3 * 2, "‘„•º", textcolor);
+				m_CharacterState[7]->Draw(-STATUS_WINDOW_WIDTH / 3.0 + x, y + 10 + WEAPON_FONT_SIZE / 2, 0, 0, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE);
 				break;
 			case Archer:
+				m_Text[1]->DrawJpn(x - JOB_FONT_SIZE / 3 * 2, y - STATUS_WINDOW_HEIGHT / 3 * 2.7f - JOB_FONT_SIZE / 2, JOB_FONT_SIZE, JOB_FONT_SIZE / 3 * 2, "‹|Žm", textcolor);
+				m_CharacterState[4]->Draw(-STATUS_WINDOW_WIDTH / 3.0 + x, y + 10 + WEAPON_FONT_SIZE / 2, 0, 0, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE);
 				break;
 			case Sorcerer:
+				m_Text[1]->DrawJpn(x - JOB_FONT_SIZE / 3 * 2, y - STATUS_WINDOW_HEIGHT / 3 * 2.7f - JOB_FONT_SIZE / 2, JOB_FONT_SIZE, JOB_FONT_SIZE / 3 * 2, "–‚pŽt", textcolor);
+				m_CharacterState[5]->Draw(-STATUS_WINDOW_WIDTH / 3.0 + x, y + 10 + WEAPON_FONT_SIZE / 2, 0, 0, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE);
 				break;
 			}
 		}
