@@ -15,6 +15,7 @@ public:
 	void Finalize();
 	void Update();
 	void Draw();
+	void Draw(XMMATRIX trans);
 
 	void SetNight(bool bEnable) { bNight = bEnable; }
 };

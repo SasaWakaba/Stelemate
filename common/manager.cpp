@@ -52,7 +52,12 @@ void CManager::UnInit()
 void CManager::Update()
 {
 	CFade::Update();
-	CDebugUI::Update();
+
+	if (GetDebugWindow())
+	{
+		CDebugUI::Update();
+	}
+
 	CInput::Update();
 
 	m_scene->Update();
@@ -66,8 +71,10 @@ void CManager::Draw()
 	m_scene->Draw();
 
 	CFade::Draw();
-
-	CDebugUI::Draw();
+	if (GetDebugWindow())
+	{
+		CDebugUI::Draw();
+	}
 
 
 	CRenderer::End();

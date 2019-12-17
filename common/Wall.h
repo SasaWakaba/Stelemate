@@ -1,7 +1,7 @@
 #ifndef WALL_H_
 #define WALL_H_
 
-class CWall:public CGameObject
+class CBattleRand:public CGameObject
 {
 private:
 	ID3D11Buffer* m_VertexBuffer = NULL;
@@ -10,7 +10,7 @@ public:
 	void Initialize();
 	void Finalize();
 	void Update();
-	void Draw();
+	void Draw(XMMATRIX world, CTexture* tex);
 };
 
 #endif

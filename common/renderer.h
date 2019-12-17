@@ -116,6 +116,7 @@ public:
 	static void End();
 
 	static void SetDepthEnable(bool Enable);
+	static void DepthReset();
 	static void SetWorldViewProjection2D();
 	static void SetWorldMatrix(XMMATRIX * WorldMatrix);
 	static void SetViewMatrix(XMMATRIX * ViewMatrix);

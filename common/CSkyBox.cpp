@@ -221,3 +221,32 @@ void CSkyBox::Draw()
 	CRenderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);	//トポロジ設定
 	CRenderer::GetDeviceContext()->DrawIndexed(36, 0, 0);	//ポリゴン描画
 }
+
+
+void CSkyBox::Draw(XMMATRIX trans)
+{
+	UINT stride = sizeof(VERTEX_3D);
+	UINT offset = 0;
+	CRenderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset); //頂点バッファ設定
+	CRenderer::GetDeviceContext()->IASetIndexBuffer(m_IndexBuffer, DXGI_FORMAT_R16_UINT, 0);
+	if (bNight)
+	{
+		CRenderer::SetTexture(m_Texture[1]);	//テクスチャ設定
+	}
+	else
+	{
+		CRenderer::SetTexture(m_Texture[0]);	//テクスチャ設定
+	}
+
+
+	XMMATRIX world;
+	world = XMMatrixScaling(100.0f, 100.0f, 100.0f);					//拡大・縮小
+	world *= XMMatrixRotationRollPitchYaw(0.0f, (PI / 180) * frame, 0.0f);	//回転
+	world *= trans;				//移動
+	CRenderer::SetWorldMatrix(&world);
+
+
+
+	CRenderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);	//トポロジ設定
+	CRenderer::GetDeviceContext()->DrawIndexed(36, 0, 0);	//ポリゴン描画
+}

@@ -1,4 +1,7 @@
-#pragma once
+#ifndef MAIN_H_
+#define MAIN_H_
+
+
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
@@ -35,6 +38,7 @@ void EndGaming(void);
 
 
 HWND GetWindow();
+bool GetDebugWindow();
 
 typedef struct {
 	XMFLOAT4 a, b, c, d;
@@ -64,3 +68,4 @@ typedef struct
 	float x, y;
 }UI_POS;
 
+#endif // !MAIN_H_

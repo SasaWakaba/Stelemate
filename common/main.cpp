@@ -22,6 +22,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 
 HWND g_Window;
+bool bDebugWindow;
+
+bool GetDebugWindow() { return bDebugWindow; }
 
 HWND GetWindow()
 {
@@ -69,13 +72,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	// 初期化処理(ウィンドウを作成してから行う)
 	CManager::Init();
 	CDataManager::Load();
-
+	bDebugWindow = false;
 
 	// ウインドウの表示(初期化処理の後に行う)
 	ShowWindow(g_Window, nCmdShow);
 	UpdateWindow(g_Window);
 
-#if defined(_DEBUG) || defined(DEBUG)
 	//デバッグUI
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -84,7 +86,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	ImGui_ImplWin32_Init(g_Window);
 	
 	CDebugUI::Initialize();
-#endif
 
 
 	//フレームカウント初期化
@@ -125,6 +126,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 				// 描画処理
 				CManager::Draw();
+
 			}
 		}
 	}
@@ -167,6 +169,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		{
 		case VK_ESCAPE:
 			DestroyWindow(hWnd);
+			break;
+
+		case VK_F3:
+			bDebugWindow = !bDebugWindow;
 			break;
 		}
 		break;

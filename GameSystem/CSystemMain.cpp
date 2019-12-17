@@ -80,9 +80,9 @@ void CSystemMain::Initialize(int x, int z, PanelState* Map)
 
 	m_EnemyMoving = wait;
 	PlayerSelection = NotSelect;
-#if defined(_DEBUG) || defined(DEBUG)
+
 	WorldManager::SetEnemyAction(m_EnemyMoving);
-#endif
+
 	CCharcterBase* SelectEnemy = nullptr;
 	Vector2_3D SelectEnemyPos = {0, 0};
 
@@ -127,7 +127,7 @@ void CSystemMain::Update()
 	m_CursorOld = m_CursorLocation;
 
 	//ステージパネルの情報UIの更新
-	if (PlayerSelection != BattleSelect)
+	if (PlayerSelection != BattleSelect && !m_bBattle)
 	{
 		CPanelState::SetDraw(true);
 		CPanelState::SetPanel(m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].PanelPattarn);
@@ -143,9 +143,9 @@ void CSystemMain::Update()
 	scene = CManager::GetScene();
 
 	CTurnChangeUI* ChangeUI = scene->GetGameObject<CTurnChangeUI>(4);
-#if defined(_DEBUG) || defined(DEBUG)
+
 	WorldManager::SetTurn(turn);
-#endif
+
 	switch (turn)
 	{
 	case Player:
@@ -276,27 +276,29 @@ void CSystemMain::Update()
 
 void CSystemMain::Draw()
 {
-
-	XMMATRIX world;
-
-	//カーソルのあるパネル
-	world = XMMatrixTranslation((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 0.5f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2));
-	m_Cursor->Draw(world);
-
-	//移動できる範囲の描画
-	m_MoveSerch->Draw();
-
-	m_AttackSearch->Draw();
-
-	//移動の矢印の描画
-	if (PlayerSelection == Select)
+	if (!m_bBattle)
 	{
-		m_Arrow->Draw(m_X, m_Z);
-	}
+		XMMATRIX world;
 
-	//カーソルの描画
-	world = XMMatrixTranslation((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 3.5f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2));
-	m_Yazirushi->Draw(world);
+		//カーソルのあるパネル
+		world = XMMatrixTranslation((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 0.5f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2));
+		m_Cursor->Draw(world);
+
+		//移動できる範囲の描画
+		m_MoveSerch->Draw();
+
+		m_AttackSearch->Draw();
+
+		//移動の矢印の描画
+		if (PlayerSelection == Select)
+		{
+			m_Arrow->Draw(m_X, m_Z);
+		}
+
+		//カーソルの描画
+		world = XMMatrixTranslation((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 3.5f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2));
+		m_Yazirushi->Draw(world);
+	}
 }
 
 
@@ -501,7 +503,7 @@ void CSystemMain::TurnPlayer()
 				m_SelectPanel->bChar = false;
 				m_SelectPanel->Charcter = nullptr;
 			}
-			m_SelectPanel = nullptr;
+			m_SelectPanel = &m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x];
 
 			bool attack = false;
 			for (Vector2_3D pos : m_AtkArea)
@@ -702,7 +704,7 @@ void CSystemMain::TurnPlayer()
 			{
 				if (m_StageMap[pos.z * m_X + pos.x].bChar)
 				{
-					CSystemBattle::Battle(m_SelectChar, m_StageMap[pos.z * m_X + pos.x].Charcter);
+					CSystemBattle::Battle(m_SelectPanel, &m_StageMap[pos.z * m_X + pos.x]);
 					m_bBattle = true;
 					m_AttackSearch->Reset();
 					CBattleSimu* simu = CManager::GetScene()->GetGameObject<CBattleSimu>(4);
@@ -752,6 +754,7 @@ void CSystemMain::TurnPlayer()
 		m_SelectChar->SetTurnMove(true);
 		m_SelectChar = nullptr;
 		PlayerSelection = NotSelect;
+		m_SelectPanel = nullptr;
 		break;
 	}
 
@@ -862,9 +865,9 @@ void CSystemMain::TurnEnemy()
 								SelectEnemyPos = { x, z };
 								m_EnemyMoving = move;
 								m_CursorLocation = SelectEnemyPos;
-#if defined(_DEBUG) || defined(DEBUG)
+
 								WorldManager::SetEnemyAction(m_EnemyMoving);
-#endif
+
 								break;
 							}
 						}
@@ -889,9 +892,9 @@ void CSystemMain::TurnEnemy()
 				SelectEnemyPos = m_CursorLocation;
 			}
 			m_EnemyMoving = m_Enemy->Select(m_CursorLocation, SelectEnemy->GetWeapon()->WeaponType);
-#if defined(_DEBUG) || defined(DEBUG)
+
 			WorldManager::SetEnemyAction(m_EnemyMoving);
-#endif
+
 			break;
 		case attack:
 			if (!m_bBattle)
@@ -902,7 +905,7 @@ void CSystemMain::TurnEnemy()
 					{
 						if (m_StageMap[pos.z * m_X + pos.x].Charcter->GetAlly())
 						{
-							CSystemBattle::Battle(SelectEnemy, m_StageMap[pos.z * m_X + pos.x].Charcter);
+							CSystemBattle::Battle(&m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x], &m_StageMap[pos.z * m_X + pos.x]);
 							m_bBattle = true;
 							break;
 						}
@@ -927,9 +930,9 @@ void CSystemMain::TurnEnemy()
 			{
 				m_EnemyMoving = end;
 			}
-#if defined(_DEBUG) || defined(DEBUG)
+
 			WorldManager::SetEnemyAction(m_EnemyMoving);
-#endif
+
 			break;
 		case heal:
 			for (Vector2_3D pos : m_AttackSearch->Search(m_CursorLocation, SelectEnemy->GetWeapon()->WeaponType))
@@ -938,22 +941,22 @@ void CSystemMain::TurnEnemy()
 				{
 					if (!m_StageMap[pos.z * m_X + pos.x].Charcter->GetAlly())
 					{
-						CSystemBattle::Battle(SelectEnemy, m_StageMap[pos.z * m_X + pos.x].Charcter);
+						//CSystemBattle::Battle(SelectEnemy, m_StageMap[pos.z * m_X + pos.x].Charcter);
 						break;
 					}
 				}
 			}
-#if defined(_DEBUG) || defined(DEBUG)
+
 			WorldManager::SetEnemyAction(m_EnemyMoving);
-#endif
+
 			break;
 		case end:
 			SelectEnemy->SetTurnMove(true);
 			SelectEnemy = nullptr;
 			m_EnemyMoving = wait;
-#if defined(_DEBUG) || defined(DEBUG)
+
 			WorldManager::SetEnemyAction(m_EnemyMoving);
-#endif
+
 			break;
 		default:
 			break;

@@ -16,12 +16,12 @@ void CSubCamera::Initialize()
 
 	m_Viewport.left = 0;
 	m_Viewport.top = 0;
-	m_Viewport.right = SCREEN_WIDTH;
-	m_Viewport.bottom = SCREEN_HEIGHT;
+	m_Viewport.right = SCREEN_WIDTH/2;
+	m_Viewport.bottom = SCREEN_HEIGHT/2;
 
-	m_at = XMFLOAT3(0.0f, 0.0f, 0.0f);
+	m_at = XMFLOAT3(0.0f, 90.0f, 0.0f);
 
-	m_Eye = XMFLOAT3(m_at.x, m_at.y + m_Length, m_at.z);
+	m_Eye = XMFLOAT3(m_at.x, m_at.y + m_Length, m_at.z - m_Length);
 
 	m_CameraFront = XMFLOAT3(m_at.x - m_Eye.x, m_at.y - m_Eye.y, m_at.z - m_Eye.z);
 	m_CameraRight = XMFLOAT3(-1.0f, 0.0f, 0.0f);
@@ -65,6 +65,11 @@ void CSubCamera::Finalize()
 
 void CSubCamera::Update()
 {
+	//if (m_Position.x != m_at.x || m_Position.y != m_at.y || m_Position.z != m_at.z)
+	//{
+	//	m_Eye = XMFLOAT3(m_at.x, m_at.y, m_at.z - m_Length);
+	//}
+	//m_Position = m_at;
 }
 
 

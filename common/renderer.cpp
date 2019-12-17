@@ -347,7 +347,10 @@ void CRenderer::Begin()
 	m_ImmediateContext->ClearDepthStencilView( m_DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
 }
-
+void CRenderer::DepthReset()
+{
+	m_ImmediateContext->ClearDepthStencilView(m_DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+}
 
 
 void CRenderer::End()

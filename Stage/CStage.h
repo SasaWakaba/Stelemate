@@ -6,11 +6,12 @@
 #include <list>
 #include "../Charcter/CCharcterBase.h"
 
-
+#define MODEL_MAX (3)
 
 class CStagePanel;
 class CMeshField;
 class CModelAnimation;
+class CCircleShadow;
 
 
 typedef struct
@@ -29,7 +30,10 @@ private:
 	CMeshField* m_Meshfield;
 	int m_Xnum;
 	int m_Znum;
-	CModelAnimation* m_Model[2];
+	CModelAnimation* m_Model[MODEL_MAX];
+
+	std::list<XMMATRIX> m_Forest;
+	CCircleShadow*	m_Shadow;
 public:
 	CStage(int nX, int nZ, PanelState* stage) :m_StageMap(stage) {
 		m_Xnum = nX;

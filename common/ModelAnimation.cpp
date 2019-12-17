@@ -6,6 +6,7 @@
 #include "renderer.h"
 
 #include "texture.h"
+#include "shader.h"
 
 #include "ModelAnimation.h"
 
@@ -50,6 +51,11 @@ void CModelAnimation::Draw(XMMATRIX world)
 
 void CModelAnimation::DrawMesh(aiNode* node, XMMATRIX matrix)
 {
+	if (m_bInstance)
+	{
+		CRenderer::SetCustomShader(m_InstanceVShader, m_InstanceVLayout, m_InstancePShader);
+	}
+
 	XMMATRIX world;
 
 	//aiMatrix4x4 mtxTransform = node->mTransformation;
@@ -86,7 +92,17 @@ void CModelAnimation::DrawMesh(aiNode* node, XMMATRIX matrix)
 		CRenderer::SetVertexBuffers(m_mesh[m].vertexBuffer);
 		CRenderer::SetIndexBuffer(m_mesh[m].indexBuffer);
 		CRenderer::SetMaterial(m_material[0]);
-		CRenderer::DrawIndexed(m_mesh[m].IndexNum, 0, 0);
+		if (!m_bInstance)
+		{
+			CRenderer::DrawIndexed(m_mesh[m].IndexNum, 0, 0);
+		}
+		else
+		{
+			CRenderer::GetDeviceContext()->UpdateSubresource(MoveBuffer, 0, NULL, &InstanseSpace, 0, 0);
+			CRenderer::GetDeviceContext()->VSSetConstantBuffers(5, 1, &MoveBuffer);
+			CRenderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+			CRenderer::GetDeviceContext()->DrawIndexedInstanced(m_mesh[m].IndexNum, InstanseSpace.Move.z, m, 0, 0);
+		}
 	}
 
 	for (int n = 0; n < node->mNumChildren; n++)
@@ -94,6 +110,11 @@ void CModelAnimation::DrawMesh(aiNode* node, XMMATRIX matrix)
 		DrawMesh(node->mChildren[n], world);
 	}
 
+
+	if (m_bInstance)
+	{
+		CRenderer::SetDefaultShader();
+	}
 	MATERIAL material;
 	ZeroMemory(&material, sizeof(material));
 	material.Diffuse = COLOR(1.0f, 1.0f, 1.0f, 1.0f);
@@ -228,7 +249,29 @@ void CModelAnimation::Load(const char* Filename)
 		delete index;
 	}
 
-	
+	if (m_bInstance)
+	{
+		D3D11_INPUT_ELEMENT_DESC layout[] =
+		{
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		};
+		CShader::LoadVertexShader("Instance_VS.cso", &m_InstanceVShader, &m_InstanceVLayout, layout, ARRAYSIZE(layout));
+		CShader::LoadPixelShader("pixelShader.cso", &m_InstancePShader);
+
+		D3D11_BUFFER_DESC hBufferDesc;
+		hBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+		hBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		hBufferDesc.CPUAccessFlags = 0;
+		hBufferDesc.MiscFlags = 0;
+		hBufferDesc.StructureByteStride = sizeof(float);
+		hBufferDesc.ByteWidth = sizeof(Instaced);
+		CRenderer::GetDevice()->CreateBuffer(&hBufferDesc, NULL, &MoveBuffer);
+		CRenderer::GetDeviceContext()->UpdateSubresource(MoveBuffer, 0, NULL, &InstanseSpace, 0, 0);
+		CRenderer::GetDeviceContext()->VSSetConstantBuffers(5, 1, &MoveBuffer);
+	}
 }
 
 void CModelAnimation::UnLoad()

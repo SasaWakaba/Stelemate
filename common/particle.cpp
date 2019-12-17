@@ -8,13 +8,13 @@
 #include "manager.h"
 void CParticle::Initialize()
 {
-	m_Position = XMFLOAT3(0.0f, 0.0f, 0.0f);
+	m_Position = XMFLOAT3(0.0f, 8.0f, 0.0f);
 	m_Rotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	m_Scale = XMFLOAT3(0.5f, 0.5f, 0.5f);
 
 	//テクスチャ管理システム（自作）
 	m_Texture = new CTexture();
-	m_Texture->LoadTex("asset/texture/cursor.png");
+	m_Texture->LoadTex("asset/texture/snow.png");
 
 	//バファー設定と初期化
 	D3D11_BUFFER_DESC bd;

@@ -41,9 +41,23 @@ private:
 	std::map<std::string, aiQuaternion> m_NodeRotation;
 	std::map<std::string, aiVector3D> m_NodePosition;
 
+	bool			m_bInstance = false;
+	typedef struct
+	{
+		XMFLOAT4 Move;
+	}Instaced;
+
+	Instaced			InstanseSpace;
+
+	ID3D11InputLayout*  m_InstanceVLayout = nullptr;
+	ID3D11VertexShader* m_InstanceVShader = nullptr;
+	ID3D11PixelShader*  m_InstancePShader = nullptr;
+	ID3D11Buffer* MoveBuffer = nullptr;
+
 public:
 	void Draw(XMMATRIX world);
 	void DrawMesh(aiNode* node, XMMATRIX matrix);
+	void InstanceEnable(bool enable, XMFLOAT4 size) { m_bInstance = enable; InstanseSpace.Move = size;}
 
 	void Update(int Animation, int Frame);
 	void Update(int Animation1, int Animation2, float blend, int Frame);

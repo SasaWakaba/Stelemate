@@ -31,6 +31,7 @@
 
 
 #include "CFade.h"
+#include "../GameSystem/CSubCamera.h"
 
 
 
@@ -64,14 +65,20 @@ void CGame::Init()
 
 	AddGameObject<CGameMenu_UI>(4);
 
-	AddGameObject<CSystemBattle>(4);
 
 	AddGameObject<CTurnChangeUI>(4);
 	AddGameObject<CBattleSimu>(4);
 
+	AddGameObject<CSystemBattle>(4);
+	
+	//AddGameObject<CSubCamera>(4);
+	////AddGameObject<CSkyBox>(4)->SetNight(true);
+	
 	CFade::EndFade();
-
-
+	//CRenderer::SetDepthEnable(false);
+	//AddGameObject<CSubCamera>(4)->SetViewPos(SCREEN_WIDTH / 6, SCREEN_HEIGHT / 6, SCREEN_WIDTH / 6 * 5, SCREEN_HEIGHT / 6 * 5);
+	//AddGameObject<CWall>(4);
+	//CRenderer::SetDepthEnable(true);
 }
 
 void CGame::UnInit()
