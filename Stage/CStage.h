@@ -5,6 +5,7 @@
 #include "../common/main.h"
 #include <list>
 #include "../Charcter/CCharcterBase.h"
+#include "CStageData.h"
 
 #define MODEL_MAX (3)
 
@@ -14,12 +15,12 @@ class CModelAnimation;
 class CCircleShadow;
 
 
-typedef struct
-{
-	unsigned short PanelPattarn;
-	CCharcterBase* Charcter;
-	bool bChar;
-}PanelState;
+//typedef struct
+//{
+//	unsigned short PanelPattarn;
+//	CCharcterBase* Charcter;
+//	bool bChar;
+//}PanelState;
 
 
 class CStage

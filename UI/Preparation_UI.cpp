@@ -20,6 +20,7 @@
 
 #define TEXT_SIZE_BIG (90)
 #define TEXT_SIZE_SMALL (50)
+static float pos = 1.0f;
 CPreparationUI::CPreparationUI()
 {
 	m_Text[0] = new CDrawText();
@@ -52,6 +53,7 @@ void CPreparationUI::Initialize()
 
 	m_Cursol = Arrangement;
 	frame = 0;
+	pos = 1.0f;
 }
 
 void CPreparationUI::Finalize()
@@ -151,13 +153,14 @@ void CPreparationUI::Draw()
 	text = "‹­‰»";
 	m_Text[0]->DrawJpn(textX, SCREEN_HEIGHT / 5 * 4 - textY, TEXT_SIZE_BIG, TEXT_SIZE_BIG / 3 * 2, text, color);
 	
-	color.setAll(XMFLOAT4(0.8f, 0.8f, 0.8f, 1.0f));
+	color.a = color.c = { 1.0f, 1.0f, 1.0f, 1.0f };
+	color.b = color.d = { 0.0f, 0.0f, 0.0f, 1.0f };
 	text = "Stage1";
 	m_Text[1]->DrawEng(0, 0, TEXT_SIZE_SMALL, TEXT_SIZE_SMALL / 2, text, color);
 
 	color.setAll(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 	int cursor = 125;
-	static float pos = 1.0f;
+
 	if (frame % 60 < 30)
 	{
 		pos -= 0.5f / 30;

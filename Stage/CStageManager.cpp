@@ -1,7 +1,6 @@
 #include "../common/main.h"
 #include "../common/texture.h"
 #include <list>
-#include "../common/main.h"
 
 #include "CStage.h"
 #include "CStageManager.h"
@@ -9,6 +8,7 @@
 #include "../Charcter/CCharcterBase.h"
 #include "../Charcter/CJob.h"
 #include "../GameSystem/WorldManager.h"
+#include "CStageData.h"
 
 PanelState stage0[] = {
 	{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},
@@ -30,6 +30,7 @@ PanelState stage1[] = {
 
 void CStageManager::Initialize()
 {
+	PanelState* stage0 = CStageData::m_StageData[1]->stage;
 	CCharcterBase* man;
 	CCharcterBase* cat;
 	CCharcterBase* cat2;

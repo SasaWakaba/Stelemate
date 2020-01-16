@@ -88,8 +88,8 @@ void CSystemMain::Initialize(int x, int z, PanelState* Map)
 
 
 	//===============
-	m_StageMap[0].Charcter->GetStatus()->HP = 99;
-	m_StageMap[0].Charcter->nowHP = 99;
+	m_StageMap[0].Charcter->GetStatus()->HP = 20;
+	m_StageMap[0].Charcter->nowHP = 20;
 }
 
 void CSystemMain::Finalize()

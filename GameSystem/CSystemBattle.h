@@ -2,15 +2,19 @@
 #define CSYSTEM_BATTLE_H_
 
 
-#define BATTLE_TEXTURE_WIDTH (960)
-#define BATTLE_TEXTURE_HEIGHT (420)
-
 #include "../Stage/CStage.h"
+
+#define CHARACTER_MAX (2)
+#define UI_MAX (7)
+
 class CPolygon;
 class CSubCamera;
 class CBattleRand;
 class CTexture;
 class CSkyBox;
+class CModelAnimation;
+class CDrawText;
+class CCircleShadow;
 
 class CSystemBattle:public CGameObject
 {
@@ -33,7 +37,7 @@ private:
 
 	static float X;
 
-	CPolygon*	m_Polygon[3];
+	CPolygon*	m_Polygon[UI_MAX];
 
 	CSubCamera*	camera;
 
@@ -50,7 +54,17 @@ private:
 
 	static int Frame;
 
+	static XMFLOAT3 charaPos[2];
+
 	CSkyBox* sky;
+
+	CModelAnimation* Model[CHARACTER_MAX];
+
+	int Damage_A = 0;
+	int Damage_B = 0;
+	int DamageCount = 0;
+	CDrawText* text;
+	CCircleShadow* shadow;
 
 public:
 

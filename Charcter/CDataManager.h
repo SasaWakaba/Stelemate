@@ -4,6 +4,7 @@
 #include "CCharacterData.h"
 #include "CWeaponData.h"
 #include "../common/CDrawText.h"
+#include "../Stage/CStageData.h"
 
 class CDataManager
 {
@@ -13,12 +14,14 @@ public:
 		CCharacterData::Initialize();
 		CWeaponData::Initialize();
 		CDrawText::Initialize();
+		CStageData::Initialize();
 	}
 	static void Unload()
 	{
 		CCharacterData::Finalize();
 		CWeaponData::Finalize();
 		CDrawText::Finalize();
+		CStageData::Finalize();
 	}
 };
 

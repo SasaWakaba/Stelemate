@@ -33,7 +33,7 @@ void CResult::Init()
 
 	AddGameObject<CCamera>(0)->SetAt(XMFLOAT3(0.0f, 0.0f, 0.0f));
 	AddGameObject<CSkyBox>(0)->SetNight(true);
-
+	bChange = false;
 	CFade::EndFade();
 }
 

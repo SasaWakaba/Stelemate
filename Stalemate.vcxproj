@@ -69,8 +69,10 @@
     <ClCompile Include="mesh\ModelLoader.cpp" />
     <ClCompile Include="Stage\CCube.cpp" />
     <ClCompile Include="Stage\CStage.cpp" />
+    <ClCompile Include="Stage\CStageData.cpp" />
     <ClCompile Include="Stage\CStageManager.cpp" />
     <ClCompile Include="Stage\CStagePanel.cpp" />
+    <ClCompile Include="Stage\CStageSetting.cpp" />
     <ClCompile Include="UI\BattleSimu_UI.cpp" />
     <ClCompile Include="UI\CharacterState.cpp" />
     <ClCompile Include="UI\GameMenu_UI.cpp" />
@@ -146,8 +148,10 @@
     <ClInclude Include="mesh\ModelLoader.h" />
     <ClInclude Include="Stage\CCube.h" />
     <ClInclude Include="Stage\CStage.h" />
+    <ClInclude Include="Stage\CStageData.h" />
     <ClInclude Include="Stage\CStageManager.h" />
     <ClInclude Include="Stage\CStagePanel.h" />
+    <ClInclude Include="Stage\CStageSetting.h" />
     <ClInclude Include="UI\BattleSimu_UI.h" />
     <ClInclude Include="UI\CharacterState.h" />
     <ClInclude Include="UI\GameMenu_UI.h" />

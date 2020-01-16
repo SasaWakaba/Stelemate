@@ -18,11 +18,11 @@
 
 bool show_another_window = false;
 
-bool CDebugUI::bAI_Window = false;
+bool CDebugUI::bAI_Window = true;
 
 void CDebugUI::Initialize()
 {
-#if defined(_DEBUG) || defined(DEBUG)
+
 	ImGui_ImplDX11_Init(CRenderer::GetDevice(), CRenderer::GetDeviceContext());
 
 	const ImVec4 kColorPrimaryBase = { 0.109f, 0.996f, 1.000f , 1.0f };
@@ -80,30 +80,25 @@ void CDebugUI::Initialize()
 	ImGui::GetStyle().WindowRounding = 0.0f;
 	ImGui::GetStyle().FrameRounding = 0.0f;
 
-#endif
+
 }
 
 void CDebugUI::Finalize()
 {
-#if defined(_DEBUG) || defined(DEBUG)
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
-#endif
 }
 
 void CDebugUI::Update()
 {
-#if defined(_DEBUG) || defined(DEBUG)
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-#endif
 }
 
 void CDebugUI::Draw()
 {
-#if defined(_DEBUG) || defined(DEBUG)
 	CScene* scene = CManager::GetScene();
 	static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 	XMFLOAT3 pos(0,0,0);
@@ -292,5 +287,4 @@ void CDebugUI::Draw()
 	// Rendering
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-#endif
 }
