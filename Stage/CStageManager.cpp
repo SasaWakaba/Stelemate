@@ -30,7 +30,9 @@ PanelState stage1[] = {
 
 void CStageManager::Initialize()
 {
-	PanelState* stage0 = CStageData::m_StageData[1]->stage;
+	PanelState* stage0 = CStageData::m_StageData["stage1"]->stage;
+
+
 	CCharcterBase* man;
 	CCharcterBase* cat;
 	CCharcterBase* cat2;
@@ -40,18 +42,18 @@ void CStageManager::Initialize()
 	cat->SetAlly(false);
 	cat2 = new CSwordsman();
 	cat2->SetAlly(false);
-	stage1[0].bChar = true;
-	stage1[0].Charcter = man;
+	stage0[0].bChar = true;
+	stage0[0].Charcter = man;
 
-	stage1[63].bChar = true;
-	stage1[63].Charcter = cat;
-	stage1[57].bChar = true;
-	stage1[57].Charcter = cat2;
+	stage0[63].bChar = true;
+	stage0[63].Charcter = cat;
+	stage0[57].bChar = true;
+	stage0[57].Charcter = cat2;
 
-	AddStage(stage1, 8, 8);
-	AddMainSystem(stage1, 8, 8);
+	AddStage(stage0, 8, 8);
+	AddMainSystem(stage0, 8, 8);
 
-	WorldManager::SetStageState(stage1, 8, 8, 0);
+	WorldManager::SetStageState(stage0, 8, 8, 0);
 }
 
 void CStageManager::Update()

@@ -1,26 +1,9 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: 中間ディレクトリ (Release\) に別のプロジェクト (Project_Base.vcxproj) と共有されているファイルが含まれています。これにより、クリーンしてリビルド動作が適切に行われない可能性があります。
-  Preparation_UI.cpp
-c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-c:\users\nayup\documents\stelemate\gamesystem\cattacksearch.h(45): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-c:\users\nayup\documents\stelemate\common\math.h(33): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\common\math.h(34): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(120): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(134): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(137): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(138): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(139): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(142): warning C4244: '初期化中': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(146): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(150): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(152): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(154): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(175): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(178): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(181): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(184): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+  CStageData.cpp
+c:\users\nayup\documents\stelemate\stage\cstagedata.cpp(49): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
   コード生成しています。
-  2 of 3419 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  10 of 3456 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    10 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   Stalemate.vcxproj -> C:\Users\nayup\Documents\Stelemate\Release\Stalemate.exe

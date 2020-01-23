@@ -19,9 +19,9 @@ typedef struct
 class CStageData
 {
 private:
-	static void Load(int stageNum, const char* filename);
+	static void Load(const char* filename);
 public:
-	static std::map<int, StageInfo*> m_StageData;
+	static std::map<std::string, StageInfo*> m_StageData;
 
 	static void Initialize();
 	static void Finalize();

@@ -11,17 +11,17 @@ class CDataManager
 public:
 	static void Load()
 	{
+		CStageData::Initialize();
 		CCharacterData::Initialize();
 		CWeaponData::Initialize();
 		CDrawText::Initialize();
-		CStageData::Initialize();
 	}
 	static void Unload()
 	{
+		CStageData::Finalize();
 		CCharacterData::Finalize();
 		CWeaponData::Finalize();
 		CDrawText::Finalize();
-		CStageData::Finalize();
 	}
 };
 

@@ -2,12 +2,13 @@
 #include <fstream>
 #include <sstream>
 #include <map>
+#include <list>
 #include "../Charcter/CCharcterBase.h"
 #include "CStageData.h"
 
-std::map<int, StageInfo*> CStageData::m_StageData;
+std::map<std::string, StageInfo*> CStageData::m_StageData;
 
-void CStageData::Load(int stageNum, const char* filename)
+void CStageData::Load(const char* filename)
 {
 	std::ifstream file(filename);
 
@@ -17,8 +18,14 @@ void CStageData::Load(int stageNum, const char* filename)
 		return;
 	}
 	std::string str = "";
-	//std::getline(file, str); //àÍçsñ⁄ÇÕñ≥éã
-	int i = 0;
+
+	std::string name = "";
+	std::getline(file, str);
+	getline(std::stringstream(str), name, ',');
+
+	m_StageData[name] = new StageInfo();
+
+	std::list<unsigned short> map;
 	int z = 0;
 	while (std::getline(file, str))
 	{
@@ -27,22 +34,30 @@ void CStageData::Load(int stageNum, const char* filename)
 		int x = 0;
 		while (getline(data, tmp, ','))
 		{
+			unsigned short num;
 			std::stringstream n(tmp);
-			n >> m_StageData[stageNum]->stage[i].PanelPattarn;
-			m_StageData[stageNum]->stage[i].bChar = false;
-			m_StageData[stageNum]->stage[i].Charcter = nullptr;
-			i++;
+			n >> num;
+			map.push_back(num);
 			x++;
 		}
-		m_StageData[stageNum]->StageXnum = x;
+		m_StageData[name]->StageXnum = x;
 		z++;
 	}
-	m_StageData[stageNum]->StageZnum = z;
+	m_StageData[name]->StageZnum = z;
+	std::list<unsigned short>::iterator mapPos = map.begin();
+	m_StageData[name]->stage = new PanelState[map.size()];
+	for (int i = 0; i < map.size(); i++)
+	{
+		m_StageData[name]->stage[i].PanelPattarn = *mapPos;
+		m_StageData[name]->stage[i].bChar = false;
+		m_StageData[name]->stage[i].Charcter = nullptr;
+		++mapPos;
+	}
 }
 
 void CStageData::Initialize()
 {
-	Load(1, "../Data/StageData1.csv");
+	Load("Data/StageData1.csv");
 }
 
 void CStageData::Finalize()
