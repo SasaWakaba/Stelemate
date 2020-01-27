@@ -1,7 +1,7 @@
 #ifndef CPREPARATION_H_
 #define CPREPARATION_H_
 
-#include "../common/CFade.h"
+class CAudioClip;
 
 class CPreparation : public CScene
 {
@@ -14,14 +14,7 @@ public:
 	void UnInit();
 	void Update();
 
-	static void Change()
-	{
-		if (!bChange)
-		{
-			bChange = true;
-			CFade::StartFade();
-		}
-	}
+	static void Change();
 };
 
 #endif // !CPREPARATION_H_

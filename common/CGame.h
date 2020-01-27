@@ -2,7 +2,7 @@
 #define CGAME_H_
 
 #include "Scene.h"
-#include "CFade.h"
+
 class CAudioClip;
 
 class CGame :public CScene
@@ -16,14 +16,7 @@ public:
 	void UnInit();
 	void Update();
 
-	static void Change() 
-	{ 
-		if (!bChange)
-		{
-			bChange = true; 
-			CFade::StartFade();
-		}
-	}
+	static void Change();
 };
 
 

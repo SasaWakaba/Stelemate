@@ -3,10 +3,9 @@
 
 #include "../common/main.h"
 #include "../Stage/CStage.h"
-#include <vector>
 
-#include "../common/texture.h"
-#include "C3DPolygon.h"
+class C3DPolygon;
+class CTexture;
 
 class CMoveSearch
 {
@@ -37,30 +36,7 @@ public:
 
 	void SetDraw(bool bEnable) { bDraw = bEnable; }
 
-	void Add(Vector2_3D pos)
-	{
-		if (m_MoveArea.size() != 0)
-		{
-			bool re = false;
-			for (int i = 0; i < m_MoveArea.size(); i++)
-			{
-				if (m_MoveArea[i].x == pos.x && m_MoveArea[i].z == pos.z)
-				{
-					re = true;
-					break;
-				}
-			}
-
-			if (!re)
-			{
-				m_MoveArea.push_back(pos);
-			}
-		}
-		else
-		{
-			m_MoveArea.push_back(pos);
-		}
-	}
+	void Add(Vector2_3D pos);
 };
 
 

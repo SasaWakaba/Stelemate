@@ -27,17 +27,27 @@
 #include "Scene.h"
 #include "manager.h"
 #include "CResult.h"
-#include "CGame.h"
 
 
 #include "CFade.h"
 #include "../GameSystem/CSubCamera.h"
+
+#include "CGame.h"
 
 
 
 //CRI ADX2
 //Wwise
 bool CGame::bChange;
+
+void CGame::Change()
+{
+	if (!bChange)
+	{
+		bChange = true;
+		CFade::StartFade();
+	}
+}
 
 void CGame::Init()
 {

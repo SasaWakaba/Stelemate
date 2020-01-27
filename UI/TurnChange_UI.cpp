@@ -64,3 +64,20 @@ void CTurnChangeUI::Draw()
 		m_Polygon[1]->Draw(pos, SCREEN_HEIGHT / 2, 0.0f, 0.0f, TURNCHANGE_UI_WIDTH, TURNCHANGE_UI_HEIGHT, TURNCHANGE_UI_WIDTH, TURNCHANGE_UI_HEIGHT);
 	}
 }
+
+void CTurnChangeUI::ChangePlayer()
+{
+	if (!m_bDrawPL)
+	{
+		m_Count = 0;
+		m_bDrawPL = true;
+	}
+}
+void CTurnChangeUI::ChangeEnemy()
+{
+	if (!m_bDrawEne)
+	{
+		m_Count = 0;
+		m_bDrawEne = true;
+	}
+}

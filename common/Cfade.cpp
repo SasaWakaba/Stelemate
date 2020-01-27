@@ -1,4 +1,5 @@
 #include "main.h"
+#include "Game_Object.h"
 #include "polygon.h"
 
 #include "CFade.h"
@@ -70,3 +71,27 @@ void CFade::Draw()
 		m_Polygon[0]->Draw(m_pos[0], SCREEN_HEIGHT / 2, 0.0f, 0.0f, SCREEN_WIDTH * 2, SCREEN_HEIGHT, SCREEN_WIDTH * 2, SCREEN_HEIGHT);
 	}
 }
+
+void CFade::StartFade() {
+	bFadeStart = true;
+	m_pos[0] = -SCREEN_WIDTH;
+	m_pos[1] = 0.0f;
+	frame = 0;
+	startfin = false;
+}
+
+void CFade::EndFade() {
+	if (bFadeStart)
+	{
+		bFadeEnd = true;
+		bFadeStart = false;
+	}
+	else
+	{
+		bFadeEnd = true;
+		bFadeStart = false;
+		m_pos[0] = SCREEN_WIDTH / 2;
+	}
+}
+
+bool CFade::startFin() { return startfin; }

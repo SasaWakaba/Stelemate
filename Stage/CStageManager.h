@@ -1,12 +1,15 @@
 #ifndef CSTAGEMANAGER_H_
 #define CSTAGEMANAGER_H_
 
-#include <list>
-#include "../common/main.h"
-#include "../common/Game_Object.h"
-#include "../GameSystem/CSystemMain.h"
-
+//#include <list>
+//#include "../common/main.h"
+//#include "../common/Game_Object.h"
+//#include "../GameSystem/CSystemMain.h"
+//
 #include "CStage.h"
+
+class CStage;
+class CSystemMain;
 
 class CStageManager:public CGameObject
 {
@@ -20,22 +23,7 @@ public:
 	~CStageManager() {}
 
 	void Initialize();
-	void Finalize()
-	{
-		for (CStage* stage : m_Stage)
-		{
-			stage->Finalize();
-			delete stage;
-		}
-		m_Stage.clear();
-
-		for (CSystemMain* sys : m_MainSys)
-		{
-			sys->Finalize();
-			delete sys;
-		}
-		m_MainSys.clear();
-	}
+	void Finalize();
 	void Update();
 	void Draw();
 
@@ -43,21 +31,9 @@ public:
 
 	//static int GetStageNum(int n) { return StageNum; }
 	
-	CStage* AddStage(PanelState* stagestate, int x, int z)
-	{
-		CStage* stage = new CStage(x, z, stagestate);
-		stage->Initialize();
-		m_Stage.push_back(stage);
-		return stage;
-	}
+	CStage* AddStage(PanelState* stagestate, int x, int z);
 
-	CSystemMain* AddMainSystem(PanelState* stagestate, int x, int z)
-	{
-		CSystemMain* system = new CSystemMain();
-		system->Initialize(x, z, stagestate);
-		m_MainSys.push_back(system);
-		return system;
-	}
+	CSystemMain* AddMainSystem(PanelState* stagestate, int x, int z);
 };
 
 #endif // !CSTAGEMANAGER_H_

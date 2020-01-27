@@ -7,6 +7,31 @@
 
 #include "CAttackSearch.h"
 
+void CAttackSearch::Add(Vector2_3D pos)
+{
+	if (m_AtkArea.size() != 0)
+	{
+		bool re = false;
+		for (int i = 0; i < m_AtkArea.size(); i++)
+		{
+			if (m_AtkArea[i].x == pos.x && m_AtkArea[i].z == pos.z)
+			{
+				re = true;
+				break;
+			}
+		}
+
+		if (!re)
+		{
+			m_AtkArea.push_back(pos);
+		}
+	}
+	else
+	{
+		m_AtkArea.push_back(pos);
+	}
+}
+
 void CAttackSearch::Initialize(int numX, int numZ, PanelState* Map)
 {
 	m_X = numX;

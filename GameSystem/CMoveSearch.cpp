@@ -7,6 +7,31 @@
 #include "CMoveSearch.h"
 
 
+void CMoveSearch::Add(Vector2_3D pos)
+{
+	if (m_MoveArea.size() != 0)
+	{
+		bool re = false;
+		for (int i = 0; i < m_MoveArea.size(); i++)
+		{
+			if (m_MoveArea[i].x == pos.x && m_MoveArea[i].z == pos.z)
+			{
+				re = true;
+				break;
+			}
+		}
+
+		if (!re)
+		{
+			m_MoveArea.push_back(pos);
+		}
+	}
+	else
+	{
+		m_MoveArea.push_back(pos);
+	}
+}
+
 void CMoveSearch::Initialize(int numX, int numZ, PanelState* Map)
 {
 	m_X = numX;

@@ -7,6 +7,40 @@
 
 #include "ArrowsLine.h"
 
+void CArrowsLine::Add(Vector2_3D pos)
+{
+	if (m_ArrowsLine.size() != 0)
+	{
+		int copy = 0;
+		for (int i = 0; i < m_ArrowsLine.size(); i++)
+		{
+			if (m_ArrowsLine[i].x == pos.x && m_ArrowsLine[i].z == pos.z)
+			{
+				copy = m_ArrowsLine.size() - i;
+				break;
+			}
+		}
+
+		if (copy == 0)
+		{
+			m_ArrowsLine.push_back(pos);
+		}
+		else
+		{
+			for (int i = 0; i < copy; i++)
+			{
+				Delete();
+			}
+			m_ArrowsLine.push_back(pos);
+		}
+
+	}
+	else
+	{
+		m_ArrowsLine.push_back(pos);
+	}
+}
+
 void CArrowsLine::Initialize()
 {
 	m_Arrows = new CTexture();

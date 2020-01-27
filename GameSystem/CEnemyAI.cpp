@@ -16,6 +16,66 @@
 #include "../common/math.h"
 
 
+
+bool CEnemyAI::Add(Vector2_3D pos)
+{
+	if (m_SearchArea.size() != 0)
+	{
+		bool re = false;
+		for (int i = 0; i < m_SearchArea.size(); i++)
+		{
+			if (m_SearchArea[i].x == pos.x && m_SearchArea[i].z == pos.z)
+			{
+				re = true;
+				break;
+			}
+		}
+
+
+		if (!re)
+		{
+			m_SearchArea.push_back(pos);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		m_SearchArea.push_back(pos);
+		return true;
+	}
+}
+
+
+Vector2_3D CEnemyAI::NearLocation(std::vector<Vector2_3D> max, Vector2_3D pos)
+{
+	Vector2_3D Near;
+	int length_near = -1;
+	for (Vector2_3D plPos : max)
+	{
+		if (length_near != -1)
+		{
+			int length = abs((pos.x - plPos.x)) + abs((pos.z - plPos.z));
+			if (length_near > length)
+			{
+				Near = plPos;
+				length_near = length;
+			}
+		}
+		else
+		{
+			Near = plPos;
+			length_near = abs((pos.x - plPos.x)) + abs((pos.z - plPos.z));
+		}
+	}
+
+	return Near;
+}
+
+
 void CEnemyAI::Initialize(int numX, int numZ, PanelState* Map)
 {
 	CEnemyAIMother::initialize(numX, numZ, Map);

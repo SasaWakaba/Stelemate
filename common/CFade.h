@@ -1,9 +1,11 @@
 #ifndef CFADE_H_
 #define CFADE_H_
 
-#include "main.h"
-#include "Game_Object.h"
-#include "polygon.h"
+//#include "main.h"
+//#include "Game_Object.h"
+//#include "polygon.h"
+
+class CPolygon;
 
 class CFade
 {
@@ -22,28 +24,10 @@ public:
 	static void Update();
 	static void Draw();
 
-	static void StartFade() { 
-	bFadeStart = true;	
-	m_pos[0] = -SCREEN_WIDTH;
-	m_pos[1] = 0.0f;
-	frame = 0;
-	startfin = false;
-	}
-	static void EndFade() {
-		if (bFadeStart)
-		{
-			bFadeEnd = true;
-			bFadeStart = false;
-		}
-		else
-		{
-			bFadeEnd = true;
-			bFadeStart = false;
-			m_pos[0] = SCREEN_WIDTH / 2;
-		}
-	}
+	static void StartFade();
+	static void EndFade();
 
-	static bool startFin() { return startfin; }
+	static bool startFin();
 };
 
 

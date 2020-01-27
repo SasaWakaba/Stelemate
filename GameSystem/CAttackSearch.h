@@ -3,12 +3,9 @@
 
 #include "../common/main.h"
 #include "../Stage/CStage.h"
-#include <vector>
 
-#include "../common/texture.h"
-#include "C3DPolygon.h"
-
-#include "../Charcter/CCharcterBase.h"
+class C3DPolygon;
+class CTexture;
 
 class CAttackSearch
 {
@@ -37,30 +34,7 @@ public:
 
 	void SetDraw(bool bEnable) { bDraw = bEnable; }
 
-	void Add(Vector2_3D pos)
-	{
-		if (m_AtkArea.size() != 0)
-		{
-			bool re = false;
-			for (int i = 0; i < m_AtkArea.size(); i++)
-			{
-				if (m_AtkArea[i].x == pos.x && m_AtkArea[i].z == pos.z)
-				{
-					re = true;
-					break;
-				}
-			}
-
-			if (!re)
-			{
-				m_AtkArea.push_back(pos);
-			}
-		}
-		else
-		{
-			m_AtkArea.push_back(pos);
-		}
-	}
+	void Add(Vector2_3D pos);
 };
 
 

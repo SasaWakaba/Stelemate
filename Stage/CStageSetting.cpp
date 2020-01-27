@@ -3,7 +3,9 @@
 
 void CStageSetting::Initialize()
 {
-
+	pStage = nullptr;
+	StageXnum = 0;
+	StageZnum = 0;
 }
 
 void CStageSetting::Finalize()

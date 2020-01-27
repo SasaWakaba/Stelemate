@@ -2,8 +2,7 @@
 #define CTURN_CHANGE_UI_
 
 
-#include "../common/main.h"
-#include "../common/Game_Object.h"
+
 class CPolygon;
 
 #define TURNCHANGE_UI_WIDTH (600.0f)
@@ -30,22 +29,8 @@ public:
 	bool GetEndPL() { return m_bDrawPL; }
 	bool GetEndEne() { return m_bDrawEne; }
 
-	void ChangePlayer()
-	{
-		if (!m_bDrawPL)
-		{
-			m_Count = 0;
-			m_bDrawPL = true;
-		}
-	}
-	void ChangeEnemy()
-	{
-		if (!m_bDrawEne)
-		{
-			m_Count = 0;
-			m_bDrawEne = true;
-		}
-	}
+	void ChangePlayer();
+	void ChangeEnemy();
 };
 
 

@@ -3,6 +3,7 @@
 #include "../common/manager.h"
 #include "../common/CFade.h"
 #include "../common/Scene.h"
+#include "../Audio/audio_clip.h"
 #include "CPreparation.h"
 #include "../UI/Preparation_UI.h"
 
@@ -10,6 +11,15 @@
 //CRI ADX2
 //Wwise
 bool CPreparation::bChange;
+
+void CPreparation::Change()
+{
+	if (!bChange)
+	{
+		bChange = true;
+		CFade::StartFade();
+	}
+}
 
 void CPreparation::Init()
 {
