@@ -1,33 +1,38 @@
 #include "../common/main.h"
 #include "../common/renderer.h"
+#include "../GameSystem/WorldManager.h"
 #include "../common/input.h"
 #include "../common/polygon.h"
 #include "../common/CDrawText.h"
 #include "../common/Game_Object.h"
+#include "../common/number.h"
 
 #include "../common/Scene.h"
 #include "../GameSystem/CPreparation.h"
 #include "Preparation_UI.h"
 
-#define FRAME_W (360)
-#define FRAME_H (210)
+#define FRAME_H ((float)SCREEN_HEIGHT * 0.194f)
+#define FRAME_W ((float)FRAME_H * 1.72f)
 
-#define SUBFRAME_W (400)
-#define SUBFRAME_H (145)
+#define FRAME_GAP ((float)SCREEN_HEIGHT * 0.028f)
 
-#define CURSOR_W (345)
-#define CURSOR_H (183.6f)
+#define SUBFRAME_W (FRAME_W * 0.95f)
+#define SUBFRAME_H (FRAME_H * 0.9f)
 
-#define TEXT_SIZE_BIG (90)
-#define TEXT_SIZE_SMALL (50)
+
+#define TEXT_SIZE_BIG (90.0f)
+#define TEXT_SIZE_SMALL (70.0f)
+
 static float pos = 1.0f;
+static float star = 0;
+
 CPreparationUI::CPreparationUI()
 {
 	m_Text[0] = new CDrawText();
 	m_Text[1] = new CDrawText();
 
-	m_Text[0]->Set(TEXT_SIZE_BIG);
-	m_Text[1]->Set(TEXT_SIZE_SMALL);
+	m_Text[0]->Set((int)TEXT_SIZE_BIG);
+	m_Text[1]->Set((int)TEXT_SIZE_SMALL);
 }
 
 CPreparationUI::~CPreparationUI()
@@ -45,15 +50,24 @@ void CPreparationUI::Initialize()
 		m_Texture[i] = new CPolygon();
 		m_Texture[i]->Initialize();
 	}
+
+	m_Number = new CNumber();
+	m_Number->Initialize();
+
 	m_Texture[0]->Load("asset/texture/select.png");
 	m_Texture[1]->Load("asset/texture/PreparationUI000.png");
 	m_Texture[2]->Load("asset/texture/PreparationUI001.png");
 	m_Texture[3]->Load("asset/texture/PreparationUI002.png");
 	m_Texture[4]->Load("asset/texture/PreparationUI003.png");
+	m_Texture[5]->Load("asset/texture/PreparationUI004.png");
+	m_Texture[6]->Load("asset/texture/PreparationUI005.png");
+
+	m_Texture[7]->Load("asset/texture/titleUI008.png");
 
 	m_Cursol = Arrangement;
 	frame = 0;
 	pos = 1.0f;
+	star = 0;
 }
 
 void CPreparationUI::Finalize()
@@ -63,6 +77,8 @@ void CPreparationUI::Finalize()
 		m_Texture[i]->Finalize();
 		delete m_Texture[i];
 	}
+	m_Number->Finalize();
+	delete m_Number;
 }
 
 void CPreparationUI::Update()
@@ -106,60 +122,86 @@ void CPreparationUI::Update()
 
 void CPreparationUI::Draw()
 {
-	//背景
-	m_Texture[1]->Draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
+	float enclosureY = FRAME_H / 2 + FRAME_GAP / 6;
+	float enclosureAddY = FRAME_H + FRAME_GAP / 6;
 
-	int frameX = SCREEN_WIDTH - FRAME_W / 2;
-	static int star = 0;
+	float frameX = (SCREEN_WIDTH - FRAME_W / 2);
+
+
+
 	VertexColor_4 color;
+
 	color.setAll(XMFLOAT4(1.0f, 1.0f, 1.0f, 0.5f));
-	
-	switch (m_Cursol)
-	{
-	case CPreparationUI::Start:
-		m_Texture[3]->Draw(frameX, SCREEN_HEIGHT / 8, star, 0, CURSOR_W, CURSOR_H, CURSOR_W, CURSOR_H, color);
-		break;
-	case CPreparationUI::Arrangement:
-		//m_Texture[3]->Draw(frameX, SCREEN_HEIGHT / 5 * 2, star, 0, CURSOR_W, CURSOR_H, CURSOR_W, CURSOR_H, color);
-		break;
-	case CPreparationUI::Employment:
-		//m_Texture[3]->Draw(frameX, SCREEN_HEIGHT / 5 * 3, star, 0, CURSOR_W, CURSOR_H, CURSOR_W, CURSOR_H, color);
-		break;
-	case CPreparationUI::Strengthen:
-		//m_Texture[3]->Draw(frameX, SCREEN_HEIGHT / 5 * 4, star, 0, CURSOR_W, CURSOR_H, CURSOR_W, CURSOR_H, color);
-		break;
-	}
-	star++;
-	color.setAll(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
-	m_Texture[2]->Draw(frameX, SCREEN_HEIGHT / 8, 0, 0, FRAME_W, FRAME_H, FRAME_W, FRAME_H, color);
-
-
-	m_Texture[4]->Draw(frameX, SCREEN_HEIGHT / 5 * 2, 0, 0, SUBFRAME_W, SUBFRAME_H, SUBFRAME_W, SUBFRAME_H, color);
-	m_Texture[4]->Draw(frameX, SCREEN_HEIGHT / 5 * 3, 0, 0, SUBFRAME_W, SUBFRAME_H, SUBFRAME_W, SUBFRAME_H, color);
-	m_Texture[4]->Draw(frameX, SCREEN_HEIGHT / 5 * 4, 0, 0, SUBFRAME_W, SUBFRAME_H, SUBFRAME_W, SUBFRAME_H, color);
-
 
 	float textX = frameX - TEXT_SIZE_BIG / 3 * 2;
 	float textY = TEXT_SIZE_BIG / 5 * 3;
 
-	std::string text = "戦闘開始";
-	m_Text[0]->DrawJpn(textX - TEXT_SIZE_BIG / 3 *2, SCREEN_HEIGHT / 8 - textY, TEXT_SIZE_BIG, TEXT_SIZE_BIG / 3 * 2, text, color);
+	//背景
+	m_Texture[1]->Draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	color.setAll(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+	m_Texture[7]->Draw(SCREEN_WIDTH / 3, SCREEN_HEIGHT - (SCREEN_HEIGHT * 1.11f * 0.1f), 0, 0, SCREEN_HEIGHT * 1.11f, SCREEN_HEIGHT * 1.11f * 0.1f, SCREEN_HEIGHT * 1.11f, SCREEN_HEIGHT * 1.11f * 0.1f);
+
+	//カーソル後ろの紫
+	switch (m_Cursol)
+	{
+	case CPreparationUI::Start:
+		m_Texture[3]->Draw(frameX, enclosureY, star, 0, SUBFRAME_W, SUBFRAME_H, SUBFRAME_W, SUBFRAME_H, color);
+		break;
+	case CPreparationUI::Arrangement:
+		m_Texture[3]->Draw(frameX, enclosureY + enclosureAddY * 2, star, 0, SUBFRAME_W, SUBFRAME_H, SUBFRAME_W, SUBFRAME_H, color);
+		break;
+	case CPreparationUI::Employment:
+		m_Texture[3]->Draw(frameX, enclosureY + enclosureAddY * 3, star, 0, SUBFRAME_W, SUBFRAME_H, SUBFRAME_W, SUBFRAME_H, color);
+		break;
+	case CPreparationUI::Strengthen:
+		m_Texture[3]->Draw(frameX, enclosureY + enclosureAddY * 4, star, 0, SUBFRAME_W, SUBFRAME_H, SUBFRAME_W, SUBFRAME_H, color);
+		break;
+	}
+	star+=2;
+
+	//メニューの枠
+	color.setAll(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+
+	m_Texture[2]->Draw(frameX, enclosureY, 0, 0, FRAME_W, FRAME_H, FRAME_W, FRAME_H, color);
+
+	m_Texture[4]->Draw(frameX, enclosureY + enclosureAddY, 0, 0, FRAME_W, FRAME_H, FRAME_W, FRAME_H, color);
+
+	m_Texture[2]->Draw(frameX, enclosureY + enclosureAddY * 2, 0, 0, FRAME_W, FRAME_H, FRAME_W, FRAME_H, color);
+
+	m_Texture[2]->Draw(frameX, enclosureY + enclosureAddY * 3, 0, 0, FRAME_W, FRAME_H, FRAME_W, FRAME_H, color);
+
+	m_Texture[2]->Draw(frameX, enclosureY + enclosureAddY * 4, 0, 0, FRAME_W, FRAME_H, FRAME_W, FRAME_H, color);
+
+
+	m_Texture[6]->Draw(frameX - SCREEN_HEIGHT / 4 - SCREEN_HEIGHT / 16, SCREEN_HEIGHT / 2, 0, star, SCREEN_HEIGHT / 8, SCREEN_HEIGHT, SCREEN_HEIGHT / 8, SCREEN_HEIGHT * 4);
+
+	m_Texture[5]->Draw(frameX - SCREEN_HEIGHT / 4, SCREEN_HEIGHT / 2, 0, 0, SCREEN_HEIGHT / 4, SCREEN_HEIGHT, SCREEN_HEIGHT / 4, SCREEN_HEIGHT);
+
+
+
+	//メニュー文字
+	color.setAll(XMFLOAT4(0.662f, 0.647f, 0.615f, 1.0f));
+
+	std::string text = "戦闘開始";
+	m_Text[0]->DrawJpn((int)(textX - TEXT_SIZE_BIG / 3 *2), (int)(enclosureY - textY), (int)TEXT_SIZE_BIG, (int)TEXT_SIZE_BIG / 3 * 2, text, color);
+
 	text = "配置";
-	m_Text[0]->DrawJpn(textX, SCREEN_HEIGHT / 5 * 2 - textY, TEXT_SIZE_BIG, TEXT_SIZE_BIG / 3 * 2, text, color);
+	m_Text[0]->DrawJpn((int)textX, (int)(enclosureY + enclosureAddY * 2 - textY), (int)TEXT_SIZE_BIG, (int)(TEXT_SIZE_BIG / 3 * 2), text, color);
 	text = "雇用";
-	m_Text[0]->DrawJpn(textX, SCREEN_HEIGHT / 5 * 3 - textY, TEXT_SIZE_BIG, TEXT_SIZE_BIG / 3 * 2, text, color);
+	m_Text[0]->DrawJpn((int)textX, (int)(enclosureY + enclosureAddY * 3 - textY), (int)TEXT_SIZE_BIG, (int)(TEXT_SIZE_BIG / 3 * 2), text, color);
 	text = "強化";
-	m_Text[0]->DrawJpn(textX, SCREEN_HEIGHT / 5 * 4 - textY, TEXT_SIZE_BIG, TEXT_SIZE_BIG / 3 * 2, text, color);
+	m_Text[0]->DrawJpn((int)textX, (int)(enclosureY + enclosureAddY * 4 - textY), (int)TEXT_SIZE_BIG, (int)(TEXT_SIZE_BIG / 3 * 2), text, color);
 	
-	color.a = color.c = { 1.0f, 1.0f, 1.0f, 1.0f };
-	color.b = color.d = { 0.0f, 0.0f, 0.0f, 1.0f };
-	text = "Stage1";
-	m_Text[1]->DrawEng(0, 0, TEXT_SIZE_SMALL, TEXT_SIZE_SMALL / 2, text, color);
+	
+	text = std::string("Day") + std::to_string(WorldManager::GetNowStageNum() + 1);
+	m_Text[1]->DrawEng((int)(frameX - (TEXT_SIZE_SMALL / 2 * (text.size() - 1)) / 2), (int)(enclosureY + enclosureAddY - FRAME_H / 2), (int)TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 2, text, color);
+
+
+	m_Number->Draw((int)(frameX + FRAME_W / 4), (int)(enclosureY + enclosureAddY + FRAME_H / 4), TEXT_SIZE_SMALL, TEXT_SIZE_SMALL, WorldManager::GetSoldierPoint(), color);
+
 
 	color.setAll(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
-	int cursor = 125;
+	float cursor = 125.0f;
 
 	if (frame % 60 < 30)
 	{
@@ -169,19 +211,21 @@ void CPreparationUI::Draw()
 	{
 		pos += 0.5f / 30;
 	}
+
+	//カーソル羽ペン
 	switch (m_Cursol)
 	{
 	case CPreparationUI::Start:
-		m_Texture[0]->Draw(frameX - FRAME_W / 2 - cursor / 3, SCREEN_HEIGHT / 8 - cursor / 3 * pos, 0, 0, cursor, cursor, cursor, cursor, color);
+		m_Texture[0]->Draw(frameX - FRAME_W / 2 - cursor / 3, enclosureY - cursor / 3 * pos, 0, 0, cursor, cursor, cursor, cursor, color);
 		break;
 	case CPreparationUI::Arrangement:
-		m_Texture[0]->Draw(frameX - FRAME_W / 2 - cursor / 3, SCREEN_HEIGHT / 5 * 2 - cursor / 3 * pos, 0, 0, cursor, cursor, cursor, cursor, color);
+		m_Texture[0]->Draw(frameX - FRAME_W / 2 - cursor / 3, enclosureY + enclosureAddY * 2 - cursor / 3 * pos, 0, 0, cursor, cursor, cursor, cursor, color);
 		break;
 	case CPreparationUI::Employment:
-		m_Texture[0]->Draw(frameX - FRAME_W / 2 - cursor / 3, SCREEN_HEIGHT / 5 * 3 - cursor / 3 * pos, 0, 0, cursor, cursor, cursor, cursor, color);
+		m_Texture[0]->Draw(frameX - FRAME_W / 2 - cursor / 3, enclosureY + enclosureAddY * 3 - cursor / 3 * pos, 0, 0, cursor, cursor, cursor, cursor, color);
 		break;
 	case CPreparationUI::Strengthen:
-		m_Texture[0]->Draw(frameX - FRAME_W / 2 - cursor / 3, SCREEN_HEIGHT / 5 * 4 - cursor / 3 * pos, 0, 0, cursor, cursor, cursor, cursor, color);
+		m_Texture[0]->Draw(frameX - FRAME_W / 2 - cursor / 3, enclosureY + enclosureAddY * 4 - cursor / 3 * pos, 0, 0, cursor, cursor, cursor, cursor, color);
 		break;
 	}
 }

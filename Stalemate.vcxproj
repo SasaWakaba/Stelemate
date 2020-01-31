@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Audio\audio_clip.cpp" />
     <ClCompile Include="Charcter\CCharacterData.cpp" />
+    <ClCompile Include="Charcter\CPlayerManager.cpp" />
     <ClCompile Include="Charcter\CWeaponData.cpp" />
     <ClCompile Include="common\Billboard.cpp" />
     <ClCompile Include="common\camera.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="Charcter\CCharcterBase.h" />
     <ClInclude Include="Charcter\CDataManager.h" />
     <ClInclude Include="Charcter\CJob.h" />
+    <ClInclude Include="Charcter\CPlayerManager.h" />
     <ClInclude Include="Charcter\CWeaponData.h" />
     <ClInclude Include="common\AI_Base\CAI_Base.h" />
     <ClInclude Include="common\AI_Base\CBlackBoard.h" />

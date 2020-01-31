@@ -7,12 +7,8 @@
 #include "../Stage/CStage.h"
 #include <list>
 
-typedef struct
-{
-	CCharcterBase*	m_Character;
-	int				m_Exp;
-	int				m_NextExp;
-}PlayerData;
+
+class CPlayerManager;
 
 enum GameMode
 {
@@ -36,7 +32,7 @@ private:
 	static GameMode Gamemode;
 
 	//プレイヤーのユニットデータ
-	static std::map<std::string, std::list<PlayerData*>> PlayerParty;
+	static CPlayerManager* PlayerParty;
 
 	//ステージデータ
 	static StageState	StageStateAll[5];
@@ -78,6 +74,8 @@ public:
 	static void AddSoldierPoint(int add);
 	//SP使用
 	static void UseSoldierPoint(int use);
+	//SP取得
+	static int GetSoldierPoint();
 
 	//デバッグ用情報取得関数
 	static GameMode GetGameMode() { return Gamemode; }

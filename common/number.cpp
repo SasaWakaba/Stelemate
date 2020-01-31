@@ -29,5 +29,18 @@ void CNumber::Draw(float x, float y, float w, float h, int n)
 	}
 	float dx = w * n;
 	float dy = 0.0f;
-	m_Polygon->Draw(x, y, dx, dy, w, h, w * 10.0f, h);
+	VertexColor_4 color;
+	color.setAll(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+	m_Polygon->Draw(x, y, dx, dy, w, h, w * 10.0f, h, color);
+}
+
+void CNumber::Draw(float x, float y, float w, float h, int n, VertexColor_4 color)
+{
+	if (n > 9 || n < 0)
+	{
+		return;
+	}
+	float dx = w * n;
+	float dy = 0.0f;
+	m_Polygon->Draw(x, y, dx, dy, w, h, w * 10.0f, h, color);
 }

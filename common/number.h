@@ -16,6 +16,7 @@ public:
 
 	// 0 <= n <= 9
 	void Draw(float x, float y, float w, float h, int n);
+	void Draw(float x, float y, float w, float h, int n, VertexColor_4 color);
 };
 
 

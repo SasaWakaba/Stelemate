@@ -300,6 +300,9 @@
     <ClCompile Include="Stage\CStageData.cpp">
       <Filter>ソース ファイル\Stage</Filter>
     </ClCompile>
+    <ClCompile Include="Charcter\CPlayerManager.cpp">
+      <Filter>ソース ファイル\Game\Charcter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugUi\DebugUI.h">
@@ -532,6 +535,9 @@
     </ClInclude>
     <ClInclude Include="Stage\CStageData.h">
       <Filter>ヘッダー ファイル\Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Charcter\CPlayerManager.h">
+      <Filter>ヘッダー ファイル\Game\Charcter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

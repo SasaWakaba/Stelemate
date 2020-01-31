@@ -30,10 +30,10 @@ enum PlayerMove
 class myMath
 {
 public:
-	static int Hit(int dex, int luk, int weaponHit) { return (dex * 1.5f) + (luk * 0.5f) + weaponHit; }
-	static int Avoidance(int speed, int luk) { return (speed * 1.5f) + (luk * 0.5f); }
-	static int Critical(int dex, int luk, int weaponCri) { return (dex + luk) / 2 + weaponCri; }
-	static int AttackSpeed(int speed, int attack, int weaponWeight) { return speed - (weaponWeight - (attack / 5)); }
+	static int Hit(int dex, int luk, int weaponHit) { return (int)((dex * 1.5f) + (luk * 0.5f) + weaponHit); }
+	static int Avoidance(int speed, int luk) { return (int)((speed * 1.5f) + (luk * 0.5f)); }
+	static int Critical(int dex, int luk, int weaponCri) { return (int)((dex + luk) / 2 + weaponCri); }
+	static int AttackSpeed(int speed, int attack, int weaponWeight) { return (int)(speed - (weaponWeight - (attack / 5))); }
 	static float Advantage(JOBCLASS atkjob, JOBCLASS defjob)
 {
 	if (atkjob == Swordman)

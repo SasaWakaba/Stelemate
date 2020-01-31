@@ -1,8 +1,8 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: 中間ディレクトリ (Release\) に別のプロジェクト (Project_Base.vcxproj) と共有されているファイルが含まれています。これにより、クリーンしてリビルド動作が適切に行われない可能性があります。
-  CStageSetting.cpp
+﻿  Preparation_UI.cpp
+c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(200): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
   コード生成しています。
-  0 of 3456 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  1 of 3471 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   Stalemate.vcxproj -> C:\Users\nayup\Documents\Stelemate\Release\Stalemate.exe

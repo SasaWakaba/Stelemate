@@ -2,6 +2,7 @@
 #define PREPARATION_UI_H_
 
 class CDrawText;
+class CNumber;
 
 class CPreparationUI : public CGameObject
 {
@@ -15,9 +16,10 @@ private:
 		Strengthen,
 	};
 
-	static const int maxTex = 5;
+	static const int maxTex = 8;
 	CPolygon*	m_Texture[maxTex];
 	CDrawText*	m_Text[2];
+	CNumber*	m_Number;
 
 	SelectPre  m_Cursol;
 
