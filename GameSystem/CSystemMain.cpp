@@ -349,21 +349,28 @@ void CSystemMain::TurnPlayer()
 		if (m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar)
 		{
 			int move;
-			if (m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetAlly())
+			if (m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetAlly() 
+				&& m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetTurnMove() == false)
 			{
 				move = m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetStatus()->MovePoint;
 				m_MoveSerch->Search(m_CursorLocation, move);
-				m_MoveSerch->SetDraw(true);
+				m_MoveSerch->SetDraw(true, true);
+			}
+			else if (!m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetAlly())
+			{
+				move = m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetStatus()->MovePoint;
+				m_MoveSerch->Search(m_CursorLocation, move);
+				m_MoveSerch->SetDraw(true, false);
 			}
 			else
 			{
-				m_MoveSerch->SetDraw(false);
+				m_MoveSerch->SetDraw(false, true);
 				m_MoveSerch->Reset();
 			}
 		}
 		else
 		{
-			m_MoveSerch->SetDraw(false);
+			m_MoveSerch->SetDraw(false, true);
 			m_MoveSerch->Reset();
 		}
 	}
@@ -372,7 +379,9 @@ void CSystemMain::TurnPlayer()
 	if (CInput::GetKeyTrigger(VK_SPACE))
 	{
 		m_Ok->Play(false);
-		if (m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar && m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetAlly())
+		if (m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar 
+			&& m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetAlly() 
+			&& m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetTurnMove() == false)
 		{
 			m_SelectChar = m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter;
 			m_SelectPanel = &m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x];
@@ -477,7 +486,7 @@ void CSystemMain::TurnPlayer()
 		int move;
 		move = m_SelectChar->GetStatus()->MovePoint;
 		m_MoveArea = m_MoveSerch->Search(m_SelectLocation, move);
-		m_MoveSerch->SetDraw(true);
+		m_MoveSerch->SetDraw(true, true);
 	}
 
 	//決定キー入力
@@ -508,7 +517,7 @@ void CSystemMain::TurnPlayer()
 			bool attack = false;
 			for (Vector2_3D pos : m_AtkArea)
 			{
-				if (m_StageMap[pos.z * m_X + pos.x].bChar)
+				if (m_StageMap[pos.z * m_X + pos.x].bChar && m_StageMap[pos.z * m_X + pos.x].Charcter->GetAlly() == false)
 				{
 					attack = true;
 					break;
@@ -526,7 +535,7 @@ void CSystemMain::TurnPlayer()
 			}
 
 			UI->Set(attack, false, true);
-			m_MoveSerch->SetDraw(false);
+			m_MoveSerch->SetDraw(false, true);
 			m_MoveSerch->Reset();
 
 			m_Arrow->Reset();
@@ -538,7 +547,7 @@ void CSystemMain::TurnPlayer()
 	//キャンセルキー入力
 	if (CInput::GetKeyTrigger('Q'))
 	{
-		m_MoveSerch->SetDraw(false);
+		m_MoveSerch->SetDraw(false, true);
 		m_MoveSerch->Reset();
 
 		m_SelectChar = nullptr;
@@ -551,7 +560,7 @@ void CSystemMain::TurnPlayer()
 		break;
 	case Manu:
 		//移動できる範囲の計算
-		m_MoveSerch->SetDraw(false);
+		m_MoveSerch->SetDraw(false, true);
 		m_MoveSerch->Reset();
 
 		//決定キー入力
@@ -795,7 +804,7 @@ void CSystemMain::TurnPlayer()
 			CTurnChangeUI* ChangeUI = sceneC->GetGameObject<CTurnChangeUI>(4);
 			ChangeUI->ChangeEnemy();
 			turn = TurnChangeEnemy;
-			m_MoveSerch->SetDraw(false);
+			m_MoveSerch->SetDraw(false, true);
 			m_MoveSerch->Reset();
 			m_AttackSearch->SetDraw(false);
 			m_AttackSearch->Reset();
@@ -845,6 +854,32 @@ void CSystemMain::TurnEnemy()
 			}
 		}
 	}
+
+	//移動できる範囲の計算
+	{
+		if (m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar)
+		{
+			int move;
+			if (!m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetAlly()
+				&& m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetTurnMove() == false)
+			{
+				move = m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetStatus()->MovePoint;
+				m_MoveSerch->Search(m_CursorLocation, move);
+				m_MoveSerch->SetDraw(true, false);
+			}
+			else
+			{
+				m_MoveSerch->SetDraw(false, false);
+				m_MoveSerch->Reset();
+			}
+		}
+		else
+		{
+			m_MoveSerch->SetDraw(false, false);
+			m_MoveSerch->Reset();
+		}
+	}
+
 	int age = m_Frame - m_FrameEnemy;
 	if (age % 15 == 0)
 	{

@@ -14,7 +14,7 @@ public:
 	void Initialize();
 	void Finalize();
 
-	CStagePanel* GetStageData(int stageNum);
+	StageInfo* GetStageData(int stageNum);
 	void SetStageData(CStagePanel* stage);
 };
 

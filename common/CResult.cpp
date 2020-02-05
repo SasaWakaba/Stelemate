@@ -4,6 +4,7 @@
 #include "renderer.h"
 #include "Game_Object.h"
 #include "input.h"
+#include "../GameSystem/WorldManager.h"
 
 #include "Scene.h"
 #include "manager.h"
@@ -54,6 +55,7 @@ void CResult::Update()
 	{
 		if (CFade::startFin())
 		{
+			WorldManager::Finalize();
 			CManager::SetScene<CTitle>();
 		}
 	}

@@ -16,9 +16,10 @@ typedef enum
 enum JOBCLASS
 {
 	Swordman,
-	Lancer,
 	Archer,
-	Sorcerer
+	Sorcerer,
+	Healer,
+	Lancer,
 };
 
 typedef struct

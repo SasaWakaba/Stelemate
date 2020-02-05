@@ -38,19 +38,25 @@ void CMoveSearch::Initialize(int numX, int numZ, PanelState* Map)
 	m_Z = numZ;
 	m_StageMap = Map;
 
-	m_Move = new CTexture();
-	m_Move->LoadTex("asset/texture/Move.png");
+	m_Move[0] = new CTexture();
+	m_Move[0]->LoadTex("asset/texture/Move.png");
+
+	m_Move[1] = new CTexture();
+	m_Move[1]->LoadTex("asset/texture/MoveEne.png");
 
 	m_Polygon = new C3DPolygon();
 	m_Polygon->Initialize();
 
 	bDraw = false;
+	PL = true;
 }
 
 void CMoveSearch::Finalize()
 {
-	m_Move->Unload();
-	delete m_Move;
+	m_Move[0]->Unload();
+	delete m_Move[0];
+	m_Move[1]->Unload();
+	delete m_Move[1];
 	m_Polygon->Finalize();
 	delete m_Polygon;
 }
@@ -69,13 +75,21 @@ void CMoveSearch::Draw()
 		for (Vector2_3D pos : m_MoveArea)
 		{
 			world = XMMatrixTranslation((pos.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 0.4f, (pos.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2));
-			m_Polygon->Draw(m_Move, world, color);
+			if (PL)
+			{
+				m_Polygon->Draw(m_Move[0], world, color);
+			}
+			else
+			{
+				m_Polygon->Draw(m_Move[1], world, color);
+			}
 		}
 	}
 }
 
 std::vector<Vector2_3D> CMoveSearch::Search(Vector2_3D pos, int Move)
 {
+	Reset();
 	Add(pos);
 	ReSearch(pos, Move, pos);
 	return m_MoveArea;

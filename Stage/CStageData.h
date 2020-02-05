@@ -1,6 +1,9 @@
 #ifndef CSTAGE_DATA_H_
 #define CSTAGE_DATA_H_
 
+#include <map>
+
+class CCharcterBase;
 
 typedef struct
 {

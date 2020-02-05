@@ -107,7 +107,7 @@ void CParticle::Update()
 			m_instanceData[i].frame += 1;
 			//frameの値がm_maxFrameにたどり着いたら、初期化値に戻す
 			if (m_instanceData[i].frame > m_maxFrame) {
-				m_instanceData[i].frame = m_startFrame[i];
+				m_instanceData[i].frame = (float)m_startFrame[i];
 			}
 		}
 	//GPUにデータを送る

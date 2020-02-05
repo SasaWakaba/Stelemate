@@ -76,6 +76,7 @@
     <ClCompile Include="Stage\CStageSetting.cpp" />
     <ClCompile Include="UI\BattleSimu_UI.cpp" />
     <ClCompile Include="UI\CharacterState.cpp" />
+    <ClCompile Include="UI\Employment_UI.cpp" />
     <ClCompile Include="UI\GameMenu_UI.cpp" />
     <ClCompile Include="UI\GameModeSelect.cpp" />
     <ClCompile Include="UI\PanelState_UI.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Stage\CStageSetting.h" />
     <ClInclude Include="UI\BattleSimu_UI.h" />
     <ClInclude Include="UI\CharacterState.h" />
+    <ClInclude Include="UI\Employment_UI.h" />
     <ClInclude Include="UI\GameMenu_UI.h" />
     <ClInclude Include="UI\GameModeSelect.h" />
     <ClInclude Include="UI\PanelState_UI.h" />

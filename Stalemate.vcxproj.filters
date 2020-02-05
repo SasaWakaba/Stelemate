@@ -303,6 +303,9 @@
     <ClCompile Include="Charcter\CPlayerManager.cpp">
       <Filter>ソース ファイル\Game\Charcter</Filter>
     </ClCompile>
+    <ClCompile Include="UI\Employment_UI.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugUi\DebugUI.h">
@@ -538,6 +541,9 @@
     </ClInclude>
     <ClInclude Include="Charcter\CPlayerManager.h">
       <Filter>ヘッダー ファイル\Game\Charcter</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Employment_UI.h">
+      <Filter>ヘッダー ファイル\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

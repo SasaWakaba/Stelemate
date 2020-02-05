@@ -1,8 +1,2 @@
-﻿  Preparation_UI.cpp
-c:\users\nayup\documents\stelemate\ui\preparation_ui.cpp(200): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  コード生成しています。
-  1 of 3471 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
-  コード生成が終了しました。
-  Stalemate.vcxproj -> C:\Users\nayup\Documents\Stelemate\Release\Stalemate.exe
+﻿  CMoveSearch.cpp
+c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.cpp : fatal error C1041: プログラム データベース 'C:\Users\nayup\Documents\Stelemate\Release\vc141.pdb' を開けません。複数の CL.EXE が同じ .PDB ファイルに書き込む場合、/FS を使用してください。

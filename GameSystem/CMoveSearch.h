@@ -17,11 +17,13 @@ private:
 
 	C3DPolygon* m_Polygon;
 
-	CTexture* m_Move;
+	CTexture* m_Move[2];
 
 	std::vector<Vector2_3D> m_MoveArea;
 
 	bool bDraw;
+
+	bool PL;
 
 	void ReSearch(Vector2_3D pos, int Move, Vector2_3D posOld);
 
@@ -34,7 +36,7 @@ public:
 
 	void Reset() { m_MoveArea.clear(); }
 
-	void SetDraw(bool bEnable) { bDraw = bEnable; }
+	void SetDraw(bool bEnable, bool pl) { bDraw = bEnable; PL = pl; }
 
 	void Add(Vector2_3D pos);
 };

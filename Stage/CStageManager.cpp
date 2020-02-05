@@ -8,6 +8,7 @@
 
 #include "../Charcter/CCharcterBase.h"
 #include "../Charcter/CJob.h"
+#include "../Charcter/CPlayerManager.h"
 #include "../GameSystem/WorldManager.h"
 #include "CStageData.h"
 
@@ -36,27 +37,35 @@ void CStageManager::Initialize()
 	PanelState* stage0 = CStageData::m_StageData["stage1"]->stage;
 
 
-	CCharcterBase* man;
+	//CCharcterBase* man;
 	CCharcterBase* cat;
 	CCharcterBase* cat2;
-	man = new CSwordsman();
-	man->SetAlly(true);
+	//man = new CSwordsman();
+	//man->SetAlly(true);
 	cat = new CSwordsman();
 	cat->SetAlly(false);
 	cat2 = new CSwordsman();
 	cat2->SetAlly(false);
-	stage0[0].bChar = true;
-	stage0[0].Charcter = man;
+
+	if (WorldManager::GetParty().size() > 0)
+	{
+		for (auto pl : WorldManager::GetParty())
+		{
+			stage0[pl.second->PosZ * CStageData::m_StageData["stage1"]->StageXnum + pl.second->PosX].bChar = true;
+			stage0[pl.second->PosZ * CStageData::m_StageData["stage1"]->StageXnum + pl.second->PosX].Charcter = pl.second->m_Character;
+		}
+	}
+
 
 	stage0[63].bChar = true;
 	stage0[63].Charcter = cat;
 	stage0[57].bChar = true;
 	stage0[57].Charcter = cat2;
 
-	AddStage(stage0, 8, 8);
-	AddMainSystem(stage0, 8, 8);
+	AddStage(stage0, CStageData::m_StageData["stage1"]->StageXnum, CStageData::m_StageData["stage1"]->StageZnum);
+	AddMainSystem(stage0, CStageData::m_StageData["stage1"]->StageXnum, CStageData::m_StageData["stage1"]->StageZnum);
 
-	WorldManager::SetStageState(stage0, 8, 8, 0);
+	WorldManager::SetStageState(stage0, CStageData::m_StageData["stage1"]->StageXnum, CStageData::m_StageData["stage1"]->StageZnum, 0);
 }
 
 void CStageManager::Finalize()

@@ -6,9 +6,13 @@
 #include "../common/CDrawText.h"
 #include "../common/Game_Object.h"
 #include "../common/number.h"
+#include "../Charcter/CPlayerManager.h"
+#include "../Charcter/CJob.h"
 
 #include "../common/Scene.h"
 #include "../GameSystem/CPreparation.h"
+#include "Employment_UI.h"
+
 #include "Preparation_UI.h"
 
 #define FRAME_H ((float)SCREEN_HEIGHT * 0.194f)
@@ -54,6 +58,9 @@ void CPreparationUI::Initialize()
 	m_Number = new CNumber();
 	m_Number->Initialize();
 
+	m_Emp = new CEmploymentUI();
+	m_Emp->Initialize();
+
 	m_Texture[0]->Load("asset/texture/select.png");
 	m_Texture[1]->Load("asset/texture/PreparationUI000.png");
 	m_Texture[2]->Load("asset/texture/PreparationUI001.png");
@@ -79,44 +86,53 @@ void CPreparationUI::Finalize()
 	}
 	m_Number->Finalize();
 	delete m_Number;
+
+	m_Emp->Finalize();
+	delete m_Emp;
 }
 
 void CPreparationUI::Update()
 {
-	if (CInput::GetKeyTrigger('W'))
+	if (m_Emp->GetPhase() == 0)
 	{
-		if (m_Cursol > 0)
+		if (CInput::GetKeyTrigger('W'))
 		{
-			m_Cursol = (SelectPre)(m_Cursol - 1);
+			if (m_Cursol > 0)
+			{
+				m_Cursol = (SelectPre)(m_Cursol - 1);
+			}
 		}
-	}
 
-	if (CInput::GetKeyTrigger('S'))
-	{
-		if (m_Cursol < 3)
+		if (CInput::GetKeyTrigger('S'))
 		{
-			m_Cursol = (SelectPre)(m_Cursol + 1);
+			if (m_Cursol < 3)
+			{
+				m_Cursol = (SelectPre)(m_Cursol + 1);
+			}
 		}
-	}
 
-	if (CInput::GetKeyTrigger(VK_SPACE))
-	{
-		switch (m_Cursol)
+		if (CInput::GetKeyTrigger(VK_SPACE))
 		{
-		case CPreparationUI::Start:
-			CPreparation::Change();
-			break;
-		case CPreparationUI::Arrangement:
-			
-			break;
-		case CPreparationUI::Employment:
-			
-			break;
-		case CPreparationUI::Strengthen:
-			
-			break;
+			switch (m_Cursol)
+			{
+			case CPreparationUI::Start:
+				if (WorldManager::GetParty().size() > 0)
+				{
+					CPreparation::Change();
+				}
+				break;
+			case CPreparationUI::Arrangement:
+				break;
+			case CPreparationUI::Employment:
+				m_Emp->StartEmp();
+				break;
+			case CPreparationUI::Strengthen:
+
+				break;
+			}
 		}
 	}
+	m_Emp->Update(frame);
 	frame++;
 }
 
@@ -212,20 +228,25 @@ void CPreparationUI::Draw()
 		pos += 0.5f / 30;
 	}
 
-	//カーソル羽ペン
-	switch (m_Cursol)
+	if (m_Emp->GetPhase() == 0)
 	{
-	case CPreparationUI::Start:
-		m_Texture[0]->Draw(frameX - FRAME_W / 2 - cursor / 3, enclosureY - cursor / 3 * pos, 0, 0, cursor, cursor, cursor, cursor, color);
-		break;
-	case CPreparationUI::Arrangement:
-		m_Texture[0]->Draw(frameX - FRAME_W / 2 - cursor / 3, enclosureY + enclosureAddY * 2 - cursor / 3 * pos, 0, 0, cursor, cursor, cursor, cursor, color);
-		break;
-	case CPreparationUI::Employment:
-		m_Texture[0]->Draw(frameX - FRAME_W / 2 - cursor / 3, enclosureY + enclosureAddY * 3 - cursor / 3 * pos, 0, 0, cursor, cursor, cursor, cursor, color);
-		break;
-	case CPreparationUI::Strengthen:
-		m_Texture[0]->Draw(frameX - FRAME_W / 2 - cursor / 3, enclosureY + enclosureAddY * 4 - cursor / 3 * pos, 0, 0, cursor, cursor, cursor, cursor, color);
-		break;
+		//カーソル羽ペン
+		switch (m_Cursol)
+		{
+		case CPreparationUI::Start:
+			m_Texture[0]->Draw(frameX - FRAME_W / 2 - cursor / 3, enclosureY - cursor / 3 * pos, 0, 0, cursor, cursor, cursor, cursor, color);
+			break;
+		case CPreparationUI::Arrangement:
+			m_Texture[0]->Draw(frameX - FRAME_W / 2 - cursor / 3, enclosureY + enclosureAddY * 2 - cursor / 3 * pos, 0, 0, cursor, cursor, cursor, cursor, color);
+			break;
+		case CPreparationUI::Employment:
+			m_Texture[0]->Draw(frameX - FRAME_W / 2 - cursor / 3, enclosureY + enclosureAddY * 3 - cursor / 3 * pos, 0, 0, cursor, cursor, cursor, cursor, color);
+			break;
+		case CPreparationUI::Strengthen:
+			m_Texture[0]->Draw(frameX - FRAME_W / 2 - cursor / 3, enclosureY + enclosureAddY * 4 - cursor / 3 * pos, 0, 0, cursor, cursor, cursor, cursor, color);
+			break;
+		}
 	}
+
+	m_Emp->Draw();
 }

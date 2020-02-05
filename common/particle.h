@@ -54,7 +54,7 @@ public:
 	void SetStartFrame(int* frame) {
 		m_startFrame = frame;
 		for (int i = 0; i < m_instanceCount; i++) {
-			m_instanceData[i].frame = m_startFrame[i];
+			m_instanceData[i].frame = (float)m_startFrame[i];
 		}
 	}
 	//n番目のインスタンスはどういう動きをするのかの設定する関数

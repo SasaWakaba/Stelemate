@@ -1,25 +1,30 @@
-﻿  CSystemBattle.cpp
-c:\users\nayup\documents\stelemate\gamesystem\cbattlecalculation.h(5): warning C4091: 'typedef ': 変数が何も宣言されていないときは、'STATUS' の左辺を無視します。
+﻿  Employment_UI.cpp
 c:\program files\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
 c:\program files\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
 c:\program files\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
 c:\program files\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(81): warning C4316: 'CSubCamera': ヒープで割り当てられたオブジェクトが 16 にアラインメントされていない可能性があります
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(152): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(167): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(181): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(182): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(183): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(246): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(247): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(248): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(310): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(320): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(464): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(468): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(472): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(498): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(502): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(506): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\nayup\documents\stelemate\gamesystem\csystembattle.cpp(508): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(301): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(305): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(307): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(309): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(311): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(313): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(315): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(321): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(323): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(324): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(325): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(327): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(342): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(347): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(352): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(357): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(362): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(368): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(377): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(379): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(381): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(385): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(387): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\nayup\documents\stelemate\ui\employment_ui.cpp(389): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
   Stalemate.vcxproj -> C:\Users\nayup\Documents\Stelemate\Debug\Stalemate.exe

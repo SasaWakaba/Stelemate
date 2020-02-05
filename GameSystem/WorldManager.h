@@ -5,6 +5,7 @@
 #include "../common/math.h"
 #include "../Charcter/CCharcterBase.h"
 #include "../Stage/CStage.h"
+#include "../Charcter/CPlayerManager.h"
 #include <list>
 
 
@@ -58,6 +59,9 @@ private:
 	static CMoveSearch* moveArea;
 
 public:
+	static void Initialize();
+	static void Finalize();
+
 	//ゲームモード設定
 	static void SetGameMode(GameMode mode);
 
@@ -76,6 +80,10 @@ public:
 	static void UseSoldierPoint(int use);
 	//SP取得
 	static int GetSoldierPoint();
+
+	//雇用
+	static STATUS* PlayerAdd(const char* characterName, PlayerData* menber);
+	static std::map<std::string, PlayerData*> GetParty();
 
 	//デバッグ用情報取得関数
 	static GameMode GetGameMode() { return Gamemode; }

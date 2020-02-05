@@ -38,7 +38,7 @@ void CDebugUI::Initialize()
 	const ImVec4 kColorAccentA99 =	{ kColorAccentBase.x , kColorAccentBase.y , kColorAccentBase.z , 0.600f };
 
 	const ImVec4 kColorWhite = { 0.866f , 0.866f , 0.866f , 0.800f };
-	const ImVec4 kColorBlackA55 = { 0.066, 0.066, 0.066, 0.333f};
+	const ImVec4 kColorBlackA55 = { 0.066f, 0.066f, 0.066f, 0.333f};
 
 	ImVec4 Base = { 0.031f,0.098f, 0.168f, 0.8f };
 	ImVec4 Line = { 0.427f,0.796f, 0.854f,1.000f };

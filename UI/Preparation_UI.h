@@ -3,6 +3,7 @@
 
 class CDrawText;
 class CNumber;
+class CEmploymentUI;
 
 class CPreparationUI : public CGameObject
 {
@@ -20,6 +21,7 @@ private:
 	CPolygon*	m_Texture[maxTex];
 	CDrawText*	m_Text[2];
 	CNumber*	m_Number;
+	CEmploymentUI* m_Emp;
 
 	SelectPre  m_Cursol;
 

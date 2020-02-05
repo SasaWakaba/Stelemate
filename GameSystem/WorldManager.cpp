@@ -25,6 +25,18 @@ void WorldManager::AddTurn() { ClearTurn++; }
 void WorldManager::AddSoldierPoint(int add){ SoldierPoint += add; }
 void WorldManager::UseSoldierPoint(int use) { SoldierPoint -= use; }
 int WorldManager::GetSoldierPoint() { return SoldierPoint; }
+STATUS* WorldManager::PlayerAdd(const char* characterName, PlayerData* menber) { return PlayerParty->CharacterAdd(characterName, menber); }
+std::map<std::string, PlayerData*> WorldManager::GetParty() { return PlayerParty->GetMenberData(); }
+
+void WorldManager::Initialize()
+{
+	PlayerParty = new CPlayerManager();
+	SoldierPoint = 3;
+}
+void WorldManager::Finalize()
+{
+	delete PlayerParty;
+}
 
 void WorldManager::StageStart(int stageNum)
 {
