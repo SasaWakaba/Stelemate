@@ -17,7 +17,7 @@
 
 #define ease_out(t, b, c, d) ((c) * (-(powf(2.0f, (-10.0f * (t) / (d)))) + 1) + (b))
 
-#define elastic_out(t, b, c, d) ((c) * (1 - powf(2, (-10.0f * (t) / (d))) * sinf(13 * (PI / 2) * ((t) / (d) + 1)) + (b))
+#define elastic_out(t, b, c, d) ((c) * (1 - powf(2, (-10.0f * (t) / (d))) * sinf(13 * (PI / 2) * ((t) / (d) + 1)) + (b)))
 
 #define TEXT_SIZE_BIG (90.0f)
 #define TEXT_SIZE_SMALL (70.0f)
@@ -85,12 +85,19 @@ void CEmploymentUI::Initialize()
 	m_Texture[2]->Load("asset/texture/PreparationUI007.png");
 	m_Texture[3]->Load("asset/texture/PreparationUI002.png");
 
+	m_Texture[4]->Load("asset/texture/PreparationUI008.png");
+
 	m_AddData = nullptr;
 	pos = 1.0f;
 	Frame = 0;
 	Phase = 0;
 	selectJob = 0;
 	uvc = 0.0f;
+
+	for (int i = 0; i < 7; i++)
+	{
+		m_JudgeScale[i] = 0.0f;
+	}
 }
 
 void CEmploymentUI::Finalize()
@@ -119,8 +126,8 @@ void CEmploymentUI::Update(int frame)
 	case notDraw:
 		break;
 	case moveSelect:
-		m_TexPos[0] = ease_out((age * (1.0f / 60)), SCREEN_HEIGHT + SCREEN_HEIGHT / 2, -SCREEN_HEIGHT, 1);
-		if (age == 60)
+		m_TexPos[0] = ease_out((age * (1.0f / 50)), SCREEN_HEIGHT + SCREEN_HEIGHT / 2, -SCREEN_HEIGHT, 1);
+		if (age == 50)
 		{
 			Phase++;
 		}
@@ -159,7 +166,7 @@ void CEmploymentUI::Update(int frame)
 					member->PosX = 0 + WorldManager::GetParty().size();
 					member->PosZ = 0;
 
-					WorldManager::PlayerAdd(member->name.c_str(), member);
+					m_AddStatus = WorldManager::PlayerAdd(member->name.c_str(), member);
 					WorldManager::UseSoldierPoint(1);
 					Phase = moveEmp;
 					StartFrame = Frame;
@@ -194,13 +201,26 @@ void CEmploymentUI::Update(int frame)
 		if (age == 60)
 		{
 			Phase++;
+			StartFrame = Frame;
 		}
 		break;
 	case Emp:
+
+		for (int i = 0; i < 7; i++)
+		{
+			m_JudgeScale[i] = elastic_out(age * (1.0f / 60), 0.0f, 1.0f, 1);
+			age -= 10;
+			if (age < 0) age = 0;
+		}
+
 		if (CInput::GetKeyTrigger(VK_SPACE))
 		{
 			Phase = backEmp;
 			StartFrame = Frame;
+			for (int i = 0; i < 7; i++)
+			{
+				m_JudgeScale[i] = 0.0f;
+			}
 		}
 		break;
 	case backEmp:
@@ -388,7 +408,61 @@ void CEmploymentUI::Draw()
 			text = "‘¬‚³";
 			m_Text[1]->DrawJpn(textX, m_TexPos[2] - (TEXTURE_HEI / 2) + TEXTURE_HEI / 7 * 5 - textY, TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
 
+			textX = texX - (TEXTURE_WID / 5);
+			float judgeY = m_TexPos[2] - (TEXTURE_HEI / 2);
+			float judgeH = 55.0f;
+			float judgeW = judgeH * 0.9f;
+			color.setAll(XMFLOAT4(1.0f - 1.0f / 12 * m_AddStatus->HP, 1.0f / 12 * m_AddStatus->HP, 0, 1.0f));
+			m_Texture[4]->Draw(textX, judgeY + TEXTURE_HEI / 7 * 3, (float)judgeW * m_JudgeScale[0] * AbilityJudge(m_AddStatus->HP),			0, judgeW * m_JudgeScale[0], judgeH * m_JudgeScale[0], judgeW * 6 * m_JudgeScale[0], judgeH * m_JudgeScale[0], color);
+			color.setAll(XMFLOAT4(1.0f - 1.0f / 12 * m_AddStatus->Attack, 1.0f / 12 * m_AddStatus->Attack, 0, 1.0f));
+			m_Texture[4]->Draw(textX, judgeY + TEXTURE_HEI / 7 * 4, (float)judgeW * m_JudgeScale[1] * AbilityJudge(m_AddStatus->Attack),		0, judgeW * m_JudgeScale[1], judgeH * m_JudgeScale[1], judgeW * 6 * m_JudgeScale[1], judgeH * m_JudgeScale[1], color);
+			color.setAll(XMFLOAT4(1.0f - 1.0f / 12 * m_AddStatus->Luck, 1.0f / 12 * m_AddStatus->Luck, 0, 1.0f));
+			m_Texture[4]->Draw(textX, judgeY + TEXTURE_HEI / 7 * 5, (float)judgeW * m_JudgeScale[2] * AbilityJudge(m_AddStatus->Luck),			0, judgeW * m_JudgeScale[2], judgeH * m_JudgeScale[2], judgeW * 6 * m_JudgeScale[2], judgeH * m_JudgeScale[2], color);
+			color.setAll(XMFLOAT4(1.0f - 1.0f / 12 * m_AddStatus->Dexterity, 1.0f / 12 * m_AddStatus->Dexterity, 0, 1.0f));
+			m_Texture[4]->Draw(textX, judgeY + TEXTURE_HEI / 7 * 6, (float)judgeW * m_JudgeScale[3] * AbilityJudge(m_AddStatus->Dexterity),		0, judgeW * m_JudgeScale[3], judgeH * m_JudgeScale[3], judgeW * 6 * m_JudgeScale[3], judgeH * m_JudgeScale[3], color);
+
+			textX = texX + (TEXTURE_WID / 5);
+			color.setAll(XMFLOAT4(1.0f - 1.0f / 12 * m_AddStatus->Defense, 1.0f / 12 * m_AddStatus->Defense, 0, 1.0f));
+			m_Texture[4]->Draw(textX, judgeY + TEXTURE_HEI / 7 * 3, (float)judgeW * m_JudgeScale[4] * AbilityJudge(m_AddStatus->Defense),		0, judgeW * m_JudgeScale[4], judgeH * m_JudgeScale[4], judgeW * 6 * m_JudgeScale[4], judgeH * m_JudgeScale[4], color);
+			color.setAll(XMFLOAT4(1.0f - 1.0f / 12 * m_AddStatus->MagicDefense, 1.0f / 12 * m_AddStatus->MagicDefense, 0, 1.0f));
+			m_Texture[4]->Draw(textX, judgeY + TEXTURE_HEI / 7 * 4, (float)judgeW * m_JudgeScale[5] * AbilityJudge(m_AddStatus->MagicDefense),	0, judgeW * m_JudgeScale[5], judgeH * m_JudgeScale[5], judgeW * 6 * m_JudgeScale[5], judgeH * m_JudgeScale[5], color);
+			color.setAll(XMFLOAT4(1.0f - 1.0f / 12 * m_AddStatus->Speed, 1.0f / 12 * m_AddStatus->Speed, 0, 1.0f));
+			m_Texture[4]->Draw(textX, judgeY + TEXTURE_HEI / 7 * 5, (float)judgeW * m_JudgeScale[6] * AbilityJudge(m_AddStatus->Speed),			0, judgeW * m_JudgeScale[6], judgeH * m_JudgeScale[6], judgeW * 6 * m_JudgeScale[6], judgeH * m_JudgeScale[6], color);
 		}
 		break;
 	}
+}
+
+
+int CEmploymentUI::AbilityJudge(int status)
+{
+	switch (status)
+	{
+	case 0:
+		return 5;
+		break;
+	case 1:
+	case 2:
+	case 3:
+		return 4;
+		break;
+	case 4:
+	case 5:
+	case 6:
+		return 3;
+		break;
+	case 7:
+	case 8:
+	case 9:
+		return 2;
+		break;
+	case 10:
+	case 11:
+		return 1;
+		break;
+	case 12:
+		return 0;
+		break;
+	}
+	return -1;
 }

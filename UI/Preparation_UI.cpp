@@ -26,6 +26,7 @@
 
 #define TEXT_SIZE_BIG (90.0f)
 #define TEXT_SIZE_SMALL (70.0f)
+#define TEXT_SIZE_DESC (40.0f)
 
 static float pos = 1.0f;
 static float star = 0;
@@ -34,9 +35,11 @@ CPreparationUI::CPreparationUI()
 {
 	m_Text[0] = new CDrawText();
 	m_Text[1] = new CDrawText();
+	m_Text[2] = new CDrawText();
 
 	m_Text[0]->Set((int)TEXT_SIZE_BIG);
 	m_Text[1]->Set((int)TEXT_SIZE_SMALL);
+	m_Text[2]->Set((int)TEXT_SIZE_DESC);
 }
 
 CPreparationUI::~CPreparationUI()
@@ -45,6 +48,8 @@ CPreparationUI::~CPreparationUI()
 	delete m_Text[0];
 	m_Text[1]->UnSet();
 	delete m_Text[1];
+	m_Text[2]->UnSet();
+	delete m_Text[2];
 }
 
 void CPreparationUI::Initialize()
@@ -70,6 +75,9 @@ void CPreparationUI::Initialize()
 	m_Texture[6]->Load("asset/texture/PreparationUI005.png");
 
 	m_Texture[7]->Load("asset/texture/titleUI008.png");
+
+	m_Texture[8]->Load("asset/texture/PreparationUI009.png");
+	m_Texture[9]->Load("asset/texture/PreparationUI010.png");
 
 	m_Cursol = Arrangement;
 	frame = 0;
@@ -144,7 +152,7 @@ void CPreparationUI::Draw()
 	float frameX = (SCREEN_WIDTH - FRAME_W / 2);
 
 
-
+	std::string text;
 	VertexColor_4 color;
 
 	color.setAll(XMFLOAT4(1.0f, 1.0f, 1.0f, 0.5f));
@@ -157,20 +165,36 @@ void CPreparationUI::Draw()
 
 	m_Texture[7]->Draw(SCREEN_WIDTH / 3, SCREEN_HEIGHT - (SCREEN_HEIGHT * 1.11f * 0.1f), 0, 0, SCREEN_HEIGHT * 1.11f, SCREEN_HEIGHT * 1.11f * 0.1f, SCREEN_HEIGHT * 1.11f, SCREEN_HEIGHT * 1.11f * 0.1f);
 
+	m_Texture[8]->Draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 6, 0, 0, SCREEN_WIDTH / 4, SCREEN_WIDTH / 4 / 3 * 2, SCREEN_WIDTH / 4, SCREEN_WIDTH / 4 / 3 * 2);
+	m_Texture[9]->Draw(SCREEN_WIDTH / 7, SCREEN_HEIGHT / 2, 0, 0, SCREEN_WIDTH / 4, SCREEN_WIDTH / 4 * 1.33f, SCREEN_WIDTH / 4, SCREEN_WIDTH / 4 * 1.33f);
+
+
 	//カーソル後ろの紫
 	switch (m_Cursol)
 	{
 	case CPreparationUI::Start:
 		m_Texture[3]->Draw(frameX, enclosureY, star, 0, SUBFRAME_W, SUBFRAME_H, SUBFRAME_W, SUBFRAME_H, color);
+		color.setAll(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+		text = "準備フェイズを終了して戦闘を開始します";
+		m_Text[2]->DrawJpn(SCREEN_WIDTH / 3 - (TEXT_SIZE_DESC / 3 * 2) * 19 / 2, SCREEN_HEIGHT - (SCREEN_HEIGHT * 1.11f * 0.1f) - TEXT_SIZE_DESC / 5, TEXT_SIZE_DESC, TEXT_SIZE_DESC / 3 * 2, text, color);
 		break;
 	case CPreparationUI::Arrangement:
 		m_Texture[3]->Draw(frameX, enclosureY + enclosureAddY * 2, star, 0, SUBFRAME_W, SUBFRAME_H, SUBFRAME_W, SUBFRAME_H, color);
+		color.setAll(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+		text = "味方兵士の初期位置を変更します";
+		m_Text[2]->DrawJpn(SCREEN_WIDTH / 3 - (TEXT_SIZE_DESC / 3 * 2) * 15 / 2, SCREEN_HEIGHT - (SCREEN_HEIGHT * 1.11f * 0.1f) - TEXT_SIZE_DESC / 5, TEXT_SIZE_DESC, TEXT_SIZE_DESC / 3 * 2, text, color);
 		break;
 	case CPreparationUI::Employment:
 		m_Texture[3]->Draw(frameX, enclosureY + enclosureAddY * 3, star, 0, SUBFRAME_W, SUBFRAME_H, SUBFRAME_W, SUBFRAME_H, color);
+		color.setAll(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+		text = "新しい兵士を仲間に加えます";
+		m_Text[2]->DrawJpn(SCREEN_WIDTH / 3 - (TEXT_SIZE_DESC / 3 * 2) * 13 / 2, SCREEN_HEIGHT - (SCREEN_HEIGHT * 1.11f * 0.1f) - TEXT_SIZE_DESC / 5, TEXT_SIZE_DESC, TEXT_SIZE_DESC / 3 * 2, text, color);
 		break;
 	case CPreparationUI::Strengthen:
 		m_Texture[3]->Draw(frameX, enclosureY + enclosureAddY * 4, star, 0, SUBFRAME_W, SUBFRAME_H, SUBFRAME_W, SUBFRAME_H, color);
+		color.setAll(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+		text = "味方兵士の武器やレベルを強化します";
+		m_Text[2]->DrawJpn(SCREEN_WIDTH / 3 - (TEXT_SIZE_DESC / 3 * 2) * 19 / 2, SCREEN_HEIGHT - (SCREEN_HEIGHT * 1.11f * 0.1f) - TEXT_SIZE_DESC / 5, TEXT_SIZE_DESC, TEXT_SIZE_DESC / 3 * 2, text, color);
 		break;
 	}
 	star+=2;
@@ -198,7 +222,7 @@ void CPreparationUI::Draw()
 	//メニュー文字
 	color.setAll(XMFLOAT4(0.662f, 0.647f, 0.615f, 1.0f));
 
-	std::string text = "戦闘開始";
+	text = "戦闘開始";
 	m_Text[0]->DrawJpn((int)(textX - TEXT_SIZE_BIG / 3 *2), (int)(enclosureY - textY), (int)TEXT_SIZE_BIG, (int)TEXT_SIZE_BIG / 3 * 2, text, color);
 
 	text = "配置";
@@ -214,6 +238,13 @@ void CPreparationUI::Draw()
 
 
 	m_Number->Draw((int)(frameX + FRAME_W / 4), (int)(enclosureY + enclosureAddY + FRAME_H / 4), TEXT_SIZE_SMALL, TEXT_SIZE_SMALL, WorldManager::GetSoldierPoint(), color);
+
+
+	text = "敵軍情報";
+	m_Text[1]->DrawJpn((int)(SCREEN_WIDTH / 2 - (TEXT_SIZE_SMALL / 3 * 2) * 2), (int)(SCREEN_HEIGHT / 6 - (SCREEN_WIDTH / 4 / 3 * 2) / 7 * 3 - (TEXT_SIZE_SMALL / 5 * 3) / 2), (int)TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+	
+	text = "自軍情報";
+	m_Text[1]->DrawJpn((int)(SCREEN_WIDTH / 7 - (TEXT_SIZE_SMALL / 3 * 2) * 2), (int)(SCREEN_HEIGHT / 2 - (SCREEN_WIDTH / 4 * 1.33f) / 11 * 5 - (TEXT_SIZE_SMALL / 5 * 3) / 2), (int)TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
 
 
 	color.setAll(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));

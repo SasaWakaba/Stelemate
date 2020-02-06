@@ -20,12 +20,13 @@ private:
 		end
 	};
 
-	static const int maxTex = 4;
+	static const int maxTex = 5;
 	CPolygon*	m_Texture[maxTex];
 	CPolygon*	m_Icon[5];
 	CDrawText*	m_Text[3];
 	CNumber*	m_Number;
 	PlayerData* m_AddData;
+	STATUS*		m_AddStatus;
 
 	float m_TexPos[maxTex];
 
@@ -34,6 +35,10 @@ private:
 
 	int Phase;
 	int selectJob;
+
+	float m_JudgeScale[7];
+
+	int AbilityJudge(int status);
 public:
 	CEmploymentUI();
 	~CEmploymentUI();
