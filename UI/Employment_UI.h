@@ -28,6 +28,8 @@ private:
 	PlayerData* m_AddData;
 	STATUS*		m_AddStatus;
 
+	StageInfo* m_stage;
+
 	float m_TexPos[maxTex];
 
 	int Frame;
@@ -51,6 +53,7 @@ public:
 	void StartEmp();
 
 	int GetPhase() { return Phase; }
+	void SetStage(StageInfo* stage) { m_stage = stage; }
 };
 
 #endif // !CEMPLOYMENT_UI_H_

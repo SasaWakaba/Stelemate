@@ -55,7 +55,7 @@ int CBattleCalculation::Damage(CCharcterBase* atk, CCharcterBase* def)
 	int damage = 0;
 	for (int i = 0; i < attacknum; i++)
 	{
-		int dam = atkStatus->Attack + (atk->GetWeapon()->Attack * myMath::Advantage(atk->m_JobClass, def->m_JobClass)) - defStatus->Defense;
+		int dam = (int)(atkStatus->Attack + (atk->GetWeapon()->Attack * myMath::Advantage(atk->m_JobClass, def->m_JobClass)) - defStatus->Defense);
 		if (myMath::Critical(atkStatus->Dexterity, atkStatus->Luck, atk->GetWeapon()->Cri) - defStatus->Luck > Random())
 		{
 			dam *= 2;
@@ -93,7 +93,7 @@ int CBattleCalculation::DamageMagic(CCharcterBase* atk, CCharcterBase* def)
 	int damage = 0;
 	for (int i = 0; i < attacknum; i++)
 	{
-		int dam = atkStatus->Attack + (atk->GetWeapon()->Attack * myMath::Advantage(atk->m_JobClass, def->m_JobClass)) - defStatus->MagicDefense;
+		int dam = (int)(atkStatus->Attack + (atk->GetWeapon()->Attack * myMath::Advantage(atk->m_JobClass, def->m_JobClass)) - defStatus->MagicDefense);
 		if (myMath::Critical(atkStatus->Dexterity, atkStatus->Luck, atk->GetWeapon()->Cri) - defStatus->Luck > Random())
 		{
 			dam *= 2;

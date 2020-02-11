@@ -4,6 +4,7 @@
 #include "../Stage/CStage.h"
 #include "../GameSystem/CMoveSearch.h"
 #include "../Charcter/CPlayerManager.h"
+#include "../Stage/CStageData.h"
 #include <list>
 
 #include "WorldManager.h"
@@ -15,7 +16,7 @@ int WorldManager::ClearTurnAll;
 int WorldManager::SoldierPoint;
 int WorldManager::turn;
 
-StageState WorldManager::StageStateAll[5];
+std::vector<StageInfo*> WorldManager::StageStateAll;
 EnemyMove WorldManager::enemyAction;
 CMoveSearch* WorldManager::moveArea;
 CPlayerManager* WorldManager::PlayerParty;
@@ -44,9 +45,7 @@ void WorldManager::StageStart(int stageNum)
 	ClearTurn = 0;
 }
 
-void WorldManager::SetStageState(PanelState* stage, int x, int z, int stageNum)
+void WorldManager::SetStageState(StageInfo* stage)
 {
-	StageStateAll[stageNum].Stage = stage;
-	StageStateAll[stageNum].numX = x;
-	StageStateAll[stageNum].numZ = z;
+	StageStateAll.push_back(stage);
 }

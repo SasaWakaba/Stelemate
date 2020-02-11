@@ -10,19 +10,39 @@
 
 #include "CAttackSearch.h"
 #include "CMoveSearch.h"
+#include "WorldManager.h"
 
-#include "CEnemyAI.h"
-#include "CEnemyAIMother.h"
+#include "../Charcter/EnemyStatePattern/EnemyPttern.h"
+#include "../Charcter/EnemyStatePattern/EnemyPatternNormal.h"
+
 #include "../common/math.h"
+#include "CEnemyAI.h"
 
 
+StageInfo* CEnemyAI::GetStageInfo() { return m_StageMap; }
+EnemyMove CEnemyAI::GetMove() { return m_EnemyMoving; }
+bool CEnemyAI::GetBattle() { return bBattle; }
+void CEnemyAI::SetBattle(bool bEneble) { bBattle = bEneble; }
+std::vector<Vector2_3D> CEnemyAI::GetSerchArea() { return m_SearchArea; }
+void CEnemyAI::ResetMove() { m_MoveSearch->Reset(); }
+void CEnemyAI::ResetAttack() { m_AtkSearch->Reset(); }
+void CEnemyAI::SetMove(EnemyMove move) { m_EnemyMoving = move; }
+std::vector<Vector2_3D> CEnemyAI::GetMoveSearch(Vector2_3D pos, int move) { return m_MoveSearch->Search(pos, move); }
+std::vector<Vector2_3D> CEnemyAI::GetAttackSearch(Vector2_3D pos, Weapontype Atk) { return m_AtkSearch->Search(pos, Atk); }
+
+
+void CEnemyAI::ChangeEnemyPattern(CEnemyPattern* pattern)
+{
+	delete m_pEnemyPattern;
+	m_pEnemyPattern = pattern;
+}
 
 bool CEnemyAI::Add(Vector2_3D pos)
 {
 	if (m_SearchArea.size() != 0)
 	{
 		bool re = false;
-		for (int i = 0; i < m_SearchArea.size(); i++)
+		for (unsigned int i = 0; i < m_SearchArea.size(); i++)
 		{
 			if (m_SearchArea[i].x == pos.x && m_SearchArea[i].z == pos.z)
 			{
@@ -78,23 +98,26 @@ Vector2_3D CEnemyAI::NearLocation(std::vector<Vector2_3D> max, Vector2_3D pos)
 
 void CEnemyAI::Initialize(int numX, int numZ, PanelState* Map)
 {
-	CEnemyAIMother::initialize(numX, numZ, Map);
-	m_X = numX;
-	m_Z = numZ;
-
-	m_StageMap = Map;
+	m_pEnemyPattern = new CEnemyPatternNormal();
+	m_StageMap = new StageInfo();
+	m_StageMap->stage = Map;
+	m_StageMap->StageXnum = numX;
+	m_StageMap->StageZnum = numZ;
 
 	m_AtkSearch = new CAttackSearch();
-	m_AtkSearch->Initialize(m_X, m_Z, Map);
+	m_AtkSearch->Initialize(numX, numZ, Map);
 
 	m_MoveSearch = new CMoveSearch();
-	m_MoveSearch->Initialize(m_X, m_Z, Map);
+	m_MoveSearch->Initialize(numX, numZ, Map);
 
-
+	bBattle = false;
 }
 
 void CEnemyAI::Finalize()
 {
+	delete m_pEnemyPattern;
+	m_StageMap->stage = nullptr;
+	delete m_StageMap;
 	m_AtkSearch->Finalize();
 	delete m_AtkSearch;
 
@@ -102,157 +125,8 @@ void CEnemyAI::Finalize()
 	delete m_MoveSearch;
 }
 
-std::vector<Vector2_3D> CEnemyAI::Move(Vector2_3D pos, int Move)
+void CEnemyAI::Update(Vector2_3D* cursol)
 {
-	Reset();
-	m_MoveSearch->Reset();
-	std::vector<Vector2_3D> Area;
-	Area = m_MoveSearch->Search(pos, Move);
-
-	std::vector<Vector2_3D> PL;
-	for (int z = 0; z < m_Z; z++)
-	{
-		for (int x = 0; x < m_X; x++)
-		{
-			if (m_StageMap[z * m_Z + x].bChar)
-			{
-				if (m_StageMap[z * m_Z + x].Charcter->GetAlly())
-				{
-					Vector2_3D add = { x,z };
-					PL.push_back(add);
-				}
-			}
-		}
-	}
-	
-	Vector2_3D Near = NearLocation(PL, pos);
-	int length_near = abs((pos.x - Near.x)) + abs((pos.z - Near.z));
-
-	PL.clear();
-
-
-
-	if (length_near != 1)
-	{
-		Vector2_3D Moving = pos;
-		for (int i = Move; i > 0;)
-		{
-			for (Vector2_3D movePos : Area)
-			{
-				if (Moving.z == movePos.z)
-				{
-					if (Moving.x + 1 == movePos.x)
-					{
-						PL.push_back(movePos);
-					}
-					if (Moving.x - 1 == movePos.x)
-					{
-						PL.push_back(movePos);
-					}
-				}
-				else if (Moving.x == movePos.x)
-				{
-					if (Moving.z + 1 == movePos.z)
-					{
-						PL.push_back(movePos);
-					}
-					if (Moving.z - 1 == movePos.z)
-					{
-						PL.push_back(movePos);
-					}
-				}
-			}
-			Moving = NearLocation(PL, Near);
-			Add(Moving);
-			if (Moving.x == Near.x)
-			{
-				if (Moving.z == Near.z + 1)
-				{
-					i = 0;
-				}
-				else if (Moving.z == Near.z - 1)
-				{
-					i = 0;
-				}
-				else
-				{
-					i--;
-				}
-			}
-			else if (Moving.z == Near.z)
-			{
-				if (Moving.x == Near.x + 1)
-				{
-					i = 0;
-				}
-				else if (Moving.x == Near.x - 1)
-				{
-					i = 0;
-				}
-				else
-				{
-					i--;
-				}
-			}
-			else
-			{
-				i--;
-			}
-		}
-	}
-	else
-	{
-		Add(pos);
-	}
-
-	
-
-
-	
-	//m_MoveSearch->Reset();
-	return m_SearchArea;
-}
-
-
-EnemyMove CEnemyAI::Select(Vector2_3D pos, Weapontype Atk)
-{
-	//m_AtkSearch->Reset();
-	switch (Atk)
-	{
-	case Sword:
-	case Lance:
-	case Bow:
-	case Magic:
-		for (Vector2_3D pl : m_AtkSearch->Search(pos, Atk))
-		{
-			PanelState panel = m_StageMap[pl.z * m_Z + pl.x];
-			if (panel.bChar)
-			{
-				if (panel.Charcter->GetAlly())
-				{
-					return attack;
-					break;
-				}
-			}
-		}
-	case Wand:
-		for (Vector2_3D pl : m_AtkSearch->Search(pos, Atk))
-		{
-			PanelState panel = m_StageMap[pl.z * m_Z + pl.x];
-			if (panel.bChar)
-			{
-				if (!panel.Charcter->GetAlly())
-				{
-					if(panel.Charcter->nowHP < panel.Charcter->GetStatus()->HP)
-					return heal;
-					break;
-				}
-			}
-		}
-		break;
-	default:
-		break;
-	}
-
-	return end;
+	m_pEnemyPattern->Update(this, cursol);
+	WorldManager::SetEnemyAction(m_EnemyMoving);
 }

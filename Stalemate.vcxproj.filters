@@ -88,12 +88,6 @@
     <Filter Include="ソース ファイル\Game\GameSystem\Enemy">
       <UniqueIdentifier>{f55542f1-4831-4ee6-8198-ef03016b3700}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\common\AI_Base">
-      <UniqueIdentifier>{40763121-8333-434c-a8f9-f69f9a684f5a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\common\AI_Base">
-      <UniqueIdentifier>{0110e220-7ba0-4a07-b6f1-737cf8c39d2e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\common\model">
       <UniqueIdentifier>{8bad9fb2-935f-4648-8fc2-ced19c8d35f6}</UniqueIdentifier>
     </Filter>
@@ -111,6 +105,12 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Game\GamaSystem\Preparate">
       <UniqueIdentifier>{7b0fa224-085a-4dcd-a285-40dd21934802}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Charcter\EnemyState">
+      <UniqueIdentifier>{3cc5cd0c-4fe3-420b-803a-8a19937912db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Charcter\EnemyState">
+      <UniqueIdentifier>{6faa3119-57f1-4e2a-8c61-7995a393b8d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -249,9 +249,6 @@
     <ClCompile Include="common\CDrawText.cpp">
       <Filter>ソース ファイル\common\base</Filter>
     </ClCompile>
-    <ClCompile Include="GameSystem\CEnemyAIMother.cpp">
-      <Filter>ソース ファイル\Game\GameSystem\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="UI\GameModeSelect.cpp">
       <Filter>ソース ファイル\Title\UI</Filter>
     </ClCompile>
@@ -305,6 +302,12 @@
     </ClCompile>
     <ClCompile Include="UI\Employment_UI.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Charcter\CCharacterBase.cpp">
+      <Filter>ソース ファイル\Game\Charcter</Filter>
+    </ClCompile>
+    <ClCompile Include="Charcter\EnemyStatePattern\EnemyPatternNormal.cpp">
+      <Filter>ヘッダー ファイル\Game\Charcter\EnemyState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -416,21 +419,6 @@
     <ClInclude Include="common\CFade.h">
       <Filter>ヘッダー ファイル\common</Filter>
     </ClInclude>
-    <ClInclude Include="common\AI_Base\CAI_Base.h">
-      <Filter>ヘッダー ファイル\common\AI_Base</Filter>
-    </ClInclude>
-    <ClInclude Include="common\AI_Base\CDecorator.h">
-      <Filter>ヘッダー ファイル\common\AI_Base</Filter>
-    </ClInclude>
-    <ClInclude Include="common\AI_Base\CBlackBoard.h">
-      <Filter>ヘッダー ファイル\common\AI_Base</Filter>
-    </ClInclude>
-    <ClInclude Include="common\AI_Base\CTask.h">
-      <Filter>ヘッダー ファイル\common\AI_Base</Filter>
-    </ClInclude>
-    <ClInclude Include="common\AI_Base\CComposite.h">
-      <Filter>ヘッダー ファイル\common\AI_Base</Filter>
-    </ClInclude>
     <ClInclude Include="Charcter\CCharacterData.h">
       <Filter>ヘッダー ファイル\Game\Charcter</Filter>
     </ClInclude>
@@ -472,9 +460,6 @@
     </ClInclude>
     <ClInclude Include="common\CDrawText.h">
       <Filter>ヘッダー ファイル\common\base</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSystem\CEnemyAIMother.h">
-      <Filter>ヘッダー ファイル\Game\GamaSystem\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="common\math.h">
       <Filter>ヘッダー ファイル\common</Filter>
@@ -544,6 +529,12 @@
     </ClInclude>
     <ClInclude Include="UI\Employment_UI.h">
       <Filter>ヘッダー ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Charcter\EnemyStatePattern\EnemyPttern.h">
+      <Filter>ヘッダー ファイル\Game\Charcter\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Charcter\EnemyStatePattern\EnemyPatternNormal.h">
+      <Filter>ヘッダー ファイル\Game\Charcter\EnemyState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 #define CBATTLE_CALCULATION_H_
 
 class CCharcterBase;
-typedef STATUS;
+//typedef STATUS;
 enum JOBCLASS;
 
 

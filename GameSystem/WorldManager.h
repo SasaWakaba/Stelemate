@@ -6,6 +6,7 @@
 #include "../Charcter/CCharcterBase.h"
 #include "../Stage/CStage.h"
 #include "../Charcter/CPlayerManager.h"
+#include "../Stage/CStageData.h"
 #include <list>
 
 
@@ -16,13 +17,6 @@ enum GameMode
 	Casual = 0,
 	Classic,
 };
-
-typedef struct
-{
-	PanelState* Stage;
-	int			numX;
-	int			numZ;
-}StageState;
 
 class CMoveSearch;
 
@@ -36,7 +30,7 @@ private:
 	static CPlayerManager* PlayerParty;
 
 	//ステージデータ
-	static StageState	StageStateAll[5];
+	static std::vector<StageInfo*>	StageStateAll;
 
 	//今のステージ
 	static int NowStage;
@@ -69,7 +63,13 @@ public:
 	static void StageStart(int stageNum);
 
 	//ステージ情報格納
-	static void SetStageState(PanelState* stage, int x, int z, int stageNum);
+	static void SetStageState(StageInfo* stage);
+
+	//ステージ情報取得
+	static std::vector<StageInfo*> GetStageInfo() { return StageStateAll; }
+
+	//レベルアップ(プレイヤー)
+	static int LevelUpMember(const char* characterName, int EnemyLevel) { return PlayerParty->CharacterGetExperience(characterName, EnemyLevel); }
 
 	//ターン経過
 	static void AddTurn();
@@ -88,7 +88,7 @@ public:
 	//デバッグ用情報取得関数
 	static GameMode GetGameMode() { return Gamemode; }
 	static int GetNowStageNum() { return NowStage; }
-	static StageState GetNowStage() { return StageStateAll[NowStage]; }
+	static StageInfo GetNowStage() { return *StageStateAll[NowStage]; }
 	static int GetTurn() { return ClearTurn; }
 	static void SetTurn(int Nowturn) { turn = Nowturn; }
 	static int GetActionTurn() { return turn; }

@@ -87,6 +87,57 @@ void CBillboard::Draw(XMMATRIX world)
 	
 }
 
+void CBillboard::Draw(XMMATRIX world, VertexColor_4 color)
+{
+	VERTEX_3D vertex[4];
+	vertex[0].Position = XMFLOAT3(-0.5f, 0.5f, 0.0f);
+	vertex[0].Normal = XMFLOAT3(0.0f, 1.0f, 0.0f);
+	vertex[0].Diffuse = color.a;
+	vertex[0].TexCoord = XMFLOAT2(0.0f, 0.0f);
+
+	vertex[1].Position = XMFLOAT3(0.5f, 0.5f, 0.0f);
+	vertex[1].Normal = XMFLOAT3(0.0f, 1.0f, 0.0f);
+	vertex[1].Diffuse = color.b;
+	vertex[1].TexCoord = XMFLOAT2(1.0f, 0.0f);
+
+	vertex[2].Position = XMFLOAT3(-0.5f, -0.5f, 0.0f);
+	vertex[2].Normal = XMFLOAT3(0.0f, 1.0f, 0.0f);
+	vertex[2].Diffuse = color.c;
+	vertex[2].TexCoord = XMFLOAT2(0.0f, 1.0f);
+
+	vertex[3].Position = XMFLOAT3(0.5f, -0.5f, 0.0f);
+	vertex[3].Normal = XMFLOAT3(0.0f, 1.0f, 0.0f);
+	vertex[3].Diffuse = color.d;
+	vertex[3].TexCoord = XMFLOAT2(1.0f, 1.0f);
+
+	D3D11_MAPPED_SUBRESOURCE msr;
+	CRenderer::GetDeviceContext()->Map(m_VertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
+	memcpy(msr.pData, vertex, sizeof(VERTEX_3D) * 4); // 
+	CRenderer::GetDeviceContext()->Unmap(m_VertexBuffer, 0);
+
+	XMMATRIX* view = CRenderer::GetViewMatrix();
+
+
+	XMMATRIX mOffset = ExtractOffset(*view);
+	XMMATRIX mScaling = ExtractScaling(*view);
+	XMMATRIX MatrixWorld;
+	XMVECTOR det;
+	MatrixWorld = XMMatrixInverse(&det, mScaling) * (*view) * XMMatrixInverse(&det, mOffset);
+	MatrixWorld = XMMatrixInverse(&det, MatrixWorld) * world;
+
+	UINT stride = sizeof(VERTEX_3D);
+	UINT offset = 0;
+	CRenderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset); //頂点バッファ設定
+	CRenderer::SetTexture(m_Texture);	//テクスチャ設定
+
+
+	CRenderer::SetWorldMatrix(&MatrixWorld);
+
+
+	CRenderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);	//トポロジ設定
+	CRenderer::GetDeviceContext()->Draw(4, 0);		//ポリゴン描画
+}
+
 void CBillboard::Load(const char* filename)
 {
 	m_Texture->LoadTex(filename);

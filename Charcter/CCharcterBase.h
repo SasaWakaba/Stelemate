@@ -29,6 +29,8 @@ protected:
 	bool			bAlly;
 
 	bool			bMoveLocation = false;
+
+	std::string		name;
 public:
 	JOBCLASS		m_JobClass;
 	int				nowHP = 0;
@@ -40,75 +42,48 @@ public:
 
 	virtual void Initialize() {}
 	virtual void Finalize() {}
-	virtual void Update() 
-	{
-		if (bMoveLocation)
-		{
-			if (cnt < 15)
-			{
-				m_Location.x += m_MoveLocation.x / 15.0f;
-				m_Location.y += m_MoveLocation.y / 15.0f;
-				m_Location.z += m_MoveLocation.z / 15.0f;
-				cnt++;
-			}
-			else
-			{
-				bMoveLocation = false;
-			}
-		}
-	}
+	virtual void Update();
 	virtual void Draw() {}
 
 	//描画場所取得
-	XMFLOAT3 GetLocation() { return m_Location; }
+	XMFLOAT3 GetLocation();
 
 	//描画場所設定
-	void SetLocation(XMFLOAT3 pos) { m_Location = pos; }
+	void SetLocation(XMFLOAT3 pos);
 
 	//描画場所移動開始
-	void MoveLocation(XMFLOAT3 pos) 
-	{
-		m_MoveLocation = XMFLOAT3(pos.x - m_Location.x, pos.y - m_Location.y, pos.z - m_Location.z);
-		bMoveLocation = true;
-		cnt = 0;
-	}
+	void MoveLocation(XMFLOAT3 pos);
 
 	//ステータス取得
-	STATUS* GetStatus() { return &m_Status; }
+	STATUS* GetStatus();
 
 	//死亡セット
-	void SetDestroy() { bDead = true; }
+	void SetDestroy();
 
 	//ターン行動設定
-	void SetTurnMove(bool bEnable) { bTurnMove = bEnable; }
+	void SetTurnMove(bool bEnable);
 
-	bool GetTurnMove() { return bTurnMove; }
+	bool GetTurnMove();
 
 	//味方ユニットか否か設定
-	void SetAlly(bool bEnable) { bAlly = bEnable; }
+	void SetAlly(bool bEnable);
 
 	//味方ユニットか否か取得
-	bool GetAlly() { return bAlly; }
+	bool GetAlly();
 
-	bool Destroy()
-	{
-		if (bDead)
-		{
-			Finalize();
-			delete this;
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+	bool Destroy();
 
 	//武器設定
-	void SetWeapon(WeaponStatus* weapon) { m_Weapon = weapon; }
+	void SetWeapon(WeaponStatus* weapon);
 
 	//武器取得
-	WeaponStatus* GetWeapon() { return m_Weapon; }
+	WeaponStatus* GetWeapon();
+
+	//名前設定(プレイヤー用)
+	void SetName(std::string name);
+
+	//名前取得(プレイヤー用)
+	std::string GetName();
 };
 
 

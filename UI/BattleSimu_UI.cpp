@@ -14,7 +14,7 @@
 
 #define TEXT_BIG (TEX_WIDTH * 0.1f)
 #define TEXT_SMALL (TEXT_BIG * 0.6f)
-
+static float alpha = 0.8f;
 
 void CBattleSimu::Initialize()
 {
@@ -51,6 +51,8 @@ void CBattleSimu::Initialize()
 
 	bDraw = false;
 	frame = 0;
+
+	alpha = 0.8f;
 }
 
 void CBattleSimu::Finalize()
@@ -74,7 +76,7 @@ void CBattleSimu::Draw()
 {
 	if (bDraw)
 	{
-		static float alpha = 0.8f;
+
 		if (frame % 60 < 30)
 		{
 			alpha -= 0.5f / 30;
@@ -122,6 +124,16 @@ void CBattleSimu::Draw()
 				case Wand:
 					break;
 				}
+
+				if (m_Char[1]->nowHP - plDamage < 0)
+				{
+					plDamage = m_Char[1]->nowHP;
+				}
+				if (m_Char[0]->nowHP - eneDamage < 0)
+				{
+					eneDamage = m_Char[0]->nowHP;
+				}
+
 			}
 
 			//HPバーのベース
@@ -129,18 +141,21 @@ void CBattleSimu::Draw()
 
 			//ダメージ受ける前のHP描画
 			color.setAll(XMFLOAT4(1.0f, 1.0f, 1.0f, alpha));
-			m_Texture[0]->Draw(m_Pos.x - (TEX_WIDTH * 0.208f) / pl->HP * m_Char[0]->nowHP, BarY, 0, 0, TEX_WIDTH * 0.3f / pl->HP * m_Char[0]->nowHP, TEX_HEIGHT * 0.04f, TEX_WIDTH * 0.3f, TEX_HEIGHT * 0.04f, color);
-			m_Texture[0]->Draw(m_Pos.x + (TEX_WIDTH * 0.208f) / ene->HP * m_Char[1]->nowHP, BarY, 0, 0, TEX_WIDTH * 0.3f / ene->HP * m_Char[1]->nowHP, TEX_HEIGHT * 0.04f, TEX_WIDTH * 0.3f, TEX_HEIGHT * 0.04f, color);
+			float plBarX = (m_Pos.x - ((TEX_WIDTH * 0.72f) * 0.29f)) + (TEX_WIDTH * 0.3f) / pl->HP * (pl->HP - m_Char[0]->nowHP) / 2;
+			float eneBarX = (m_Pos.x + ((TEX_WIDTH * 0.72f) * 0.29f)) - (TEX_WIDTH * 0.3f) / ene->HP * (ene->HP - m_Char[1]->nowHP) / 2;
+			m_Texture[0]->Draw(plBarX, BarY, 0, 0, TEX_WIDTH * 0.3f / pl->HP * m_Char[0]->nowHP, TEX_HEIGHT * 0.04f, TEX_WIDTH * 0.3f, TEX_HEIGHT * 0.04f, color);
+			m_Texture[0]->Draw(eneBarX, BarY, 0, 0, TEX_WIDTH * 0.3f / ene->HP * m_Char[1]->nowHP, TEX_HEIGHT * 0.04f, TEX_WIDTH * 0.3f, TEX_HEIGHT * 0.04f, color);
 
 			//ダメージ受けた後のHP描画
 			color.a = color.c = { 0.0f, 0.0f, 0.8f, 1.0f };
 			color.b = color.d = { 0.0f, 0.0f, 0.1f, 1.0f };
-			float plBarX = m_Pos.x - (TEX_WIDTH * 0.208f) / pl->HP * (m_Char[0]->nowHP - plDamage);
-			float eneBarX = m_Pos.x + (TEX_WIDTH * 0.208f) / ene->HP * (m_Char[1]->nowHP - eneDamage);
-			m_Texture[0]->Draw(plBarX, BarY, 0, 0, TEX_WIDTH * 0.3f  / pl->HP * (m_Char[0]->nowHP - plDamage), TEX_HEIGHT * 0.04f, TEX_WIDTH * 0.3f, TEX_HEIGHT * 0.04f, color);
+
+			plBarX = (m_Pos.x - ((TEX_WIDTH * 0.72f) * 0.29f)) + (TEX_WIDTH * 0.3f) / pl->HP * (pl->HP - (m_Char[0]->nowHP - eneDamage)) / 2;
+			eneBarX = (m_Pos.x + ((TEX_WIDTH * 0.72f) * 0.29f)) - (TEX_WIDTH * 0.3f) / ene->HP * (ene->HP - (m_Char[1]->nowHP - plDamage)) / 2;
+			m_Texture[0]->Draw(plBarX, BarY, 0, 0, TEX_WIDTH * 0.3f  / pl->HP * (m_Char[0]->nowHP - eneDamage), TEX_HEIGHT * 0.04f, TEX_WIDTH * 0.3f, TEX_HEIGHT * 0.04f, color);
 			color.a = color.c = { 0.1f, 0.0f, 0.0f, 1.0f };
 			color.b = color.d = { 0.8f, 0.0f, 0.0f, 1.0f };
-			m_Texture[0]->Draw(eneBarX, BarY, 0, 0, TEX_WIDTH * 0.3f / ene->HP *(m_Char[1]->nowHP - eneDamage), TEX_HEIGHT * 0.04f, TEX_WIDTH * 0.3f, TEX_HEIGHT * 0.04f, color);
+			m_Texture[0]->Draw(eneBarX, BarY, 0, 0, TEX_WIDTH * 0.3f / ene->HP * (m_Char[1]->nowHP - plDamage), TEX_HEIGHT * 0.04f, TEX_WIDTH * 0.3f, TEX_HEIGHT * 0.04f, color);
 
 			m_Texture[2]->Draw(m_Pos.x, BarY, 0, 0, TEX_WIDTH * 0.72f, TEX_HEIGHT * 0.044f, TEX_WIDTH * 0.72f, TEX_HEIGHT * 0.044f);
 		
@@ -194,11 +209,11 @@ void CBattleSimu::Draw()
 				m_Text[1]->DrawEng(m_Pos.x + TEX_WIDTH / 3.0f, m_Pos.y + TEX_HEIGHT / 2.5f, TEXT_SMALL, TEXT_SMALL / 1.2f, std::to_string(m_Char[1]->GetWeapon()->Attack), color);
 			}
 
-			m_Texture[3]->Draw(plBarX - (TEX_WIDTH * 0.3f / pl->HP * (m_Char[0]->nowHP - plDamage)) / 2, BarY - TEXT_SMALL * 1.2f, 0, 0, TEXT_SMALL * 2.0f, TEXT_SMALL * 2.32f, TEXT_SMALL * 2.0f, TEXT_SMALL *2.32f);
-			m_Texture[3]->Draw(eneBarX + (TEX_WIDTH * 0.3f / ene->HP *(m_Char[1]->nowHP - eneDamage)) / 2, BarY - TEXT_SMALL * 1.2f, 0, 0, TEXT_SMALL * 2.0f, TEXT_SMALL * 2.32f, TEXT_SMALL * 2.0f, TEXT_SMALL *2.32f);
+			m_Texture[3]->Draw(plBarX - (TEX_WIDTH * 0.3f / pl->HP * (m_Char[0]->nowHP - eneDamage) / 2), BarY - TEXT_SMALL * 1.2f, 0, 0, TEXT_SMALL * 2.0f, TEXT_SMALL * 2.32f, TEXT_SMALL * 2.0f, TEXT_SMALL *2.32f);
+			m_Texture[3]->Draw(eneBarX + (TEX_WIDTH * 0.3f / ene->HP * (m_Char[1]->nowHP - plDamage) / 2), BarY - TEXT_SMALL * 1.2f, 0, 0, TEXT_SMALL * 2.0f, TEXT_SMALL * 2.32f, TEXT_SMALL * 2.0f, TEXT_SMALL *2.32f);
 
-			m_Number->Draw(plBarX - (TEX_WIDTH * 0.3f / pl->HP * (m_Char[0]->nowHP - plDamage)) / 2 - TEXT_SMALL / 3, BarY - TEXT_SMALL * 1.4f, m_Char[0]->nowHP - plDamage);
-			m_Number->Draw(eneBarX + (TEX_WIDTH * 0.3f / ene->HP *(m_Char[1]->nowHP - eneDamage)) / 2 - TEXT_SMALL / 3, BarY - TEXT_SMALL * 1.4f, m_Char[1]->nowHP - eneDamage);
+			m_Number->Draw(plBarX - (TEX_WIDTH * 0.3f / pl->HP * (m_Char[0]->nowHP - eneDamage) / 2) - TEXT_SMALL / 3, BarY - TEXT_SMALL * 1.4f, m_Char[0]->nowHP - plDamage);
+			m_Number->Draw(eneBarX + (TEX_WIDTH * 0.3f / ene->HP * (m_Char[1]->nowHP - plDamage) / 2) - TEXT_SMALL / 3, BarY - TEXT_SMALL * 1.4f, m_Char[1]->nowHP - eneDamage);
 
 			m_Number->Draw(m_Pos.x - TEX_WIDTH / 2.4f, BarY, m_Char[0]->nowHP);
 			m_Number->Draw(m_Pos.x + TEX_WIDTH / 2.6f, BarY, m_Char[1]->nowHP);

@@ -27,7 +27,7 @@
 #include "../UI/BattleSimu_UI.h"
 #include "WorldManager.h"
 
-
+static float cGap;
 
 void CSystemMain::Initialize(int x, int z, PanelState* Map)
 {
@@ -78,18 +78,19 @@ void CSystemMain::Initialize(int x, int z, PanelState* Map)
 	m_Frame = 0;
 	m_FrameEnemy = 0;
 
-	m_EnemyMoving = wait;
 	PlayerSelection = NotSelect;
 
-	WorldManager::SetEnemyAction(m_EnemyMoving);
+	WorldManager::SetEnemyAction(wait);
 
 	CCharcterBase* SelectEnemy = nullptr;
 	Vector2_3D SelectEnemyPos = {0, 0};
 
 
 	//===============
-	m_StageMap[0].Charcter->GetStatus()->HP = 20;
-	m_StageMap[0].Charcter->nowHP = 20;
+	//m_StageMap[0].Charcter->GetStatus()->HP = 20;
+	//m_StageMap[0].Charcter->nowHP = 20;
+
+	cGap = 0.0f;
 }
 
 void CSystemMain::Finalize()
@@ -259,7 +260,6 @@ void CSystemMain::Update()
 				if (m_StageMap[z * m_X + x].Charcter->GetAlly())
 				{
 					preCnt++;
-
 				}
 			}
 		}
@@ -295,8 +295,18 @@ void CSystemMain::Draw()
 			m_Arrow->Draw(m_X, m_Z);
 		}
 
+
+		if (m_Frame % 60 < 30)
+		{
+			cGap += 0.3f / 30.0f;
+		}
+		else
+		{
+			cGap -= 0.3f / 30.0f;
+		}
+
 		//カーソルの描画
-		world = XMMatrixTranslation((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 3.5f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2));
+		world = XMMatrixTranslation((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 3.5f + cGap, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2));
 		m_Yazirushi->Draw(world);
 	}
 }
@@ -500,6 +510,9 @@ void CSystemMain::TurnPlayer()
 			m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter = m_SelectChar;
 			m_SelectChar->MoveLocation(XMFLOAT3((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 0.0f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
 
+			WorldManager::GetParty()[m_SelectChar->GetName()]->PosX = m_CursorLocation.x;
+			WorldManager::GetParty()[m_SelectChar->GetName()]->PosZ = m_CursorLocation.z;
+
 			CScene* scene;
 			scene = CManager::GetScene();
 
@@ -601,6 +614,8 @@ void CSystemMain::TurnPlayer()
 			m_StageMap[m_SelectLocation.z * m_X + m_SelectLocation.x].Charcter = m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter;
 			m_StageMap[m_SelectLocation.z * m_X + m_SelectLocation.x].Charcter->MoveLocation(XMFLOAT3((m_SelectLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 0.0f, (m_SelectLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
 
+			WorldManager::GetParty()[m_SelectChar->GetName()]->PosX = m_SelectLocation.x;
+			WorldManager::GetParty()[m_SelectChar->GetName()]->PosZ = m_SelectLocation.z;
 			if (m_SelectLocation != m_CursorLocation)
 			{
 				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar = false;
@@ -817,7 +832,7 @@ void CSystemMain::TurnEnemy()
 {
 	{
 		//行動していないキャラがいるか
-		if (m_EnemyMoving == wait)
+		if (m_Enemy->GetMove() == wait)
 		{
 			int notMove = 0;
 			for (int z = 0; z < m_Z; z++)
@@ -883,119 +898,7 @@ void CSystemMain::TurnEnemy()
 	int age = m_Frame - m_FrameEnemy;
 	if (age % 15 == 0)
 	{
-		switch (m_EnemyMoving)
-		{
-		case wait:
-			for (int z = 0; z < m_Z; z++)
-			{
-				for (int x = 0; x < m_X; x++)
-				{
-					if (m_StageMap[z * m_X + x].bChar)
-					{
-						if (!m_StageMap[z * m_X + x].Charcter->GetAlly())
-						{
-							if (!m_StageMap[z * m_X + x].Charcter->GetTurnMove())
-							{
-								SelectEnemy = m_StageMap[z * m_X + x].Charcter;
-								SelectEnemyPos = { x, z };
-								m_EnemyMoving = move;
-								m_CursorLocation = SelectEnemyPos;
-
-								WorldManager::SetEnemyAction(m_EnemyMoving);
-
-								break;
-							}
-						}
-					}
-				}
-			}
-			break;
-		case move:
-			if (SelectEnemy != nullptr)
-			{
-				m_CursorLocation = m_Enemy->Move(SelectEnemyPos, SelectEnemy->GetStatus()->MovePoint).back();
-				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar = true;
-				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter = SelectEnemy;
-				SelectEnemy->MoveLocation(XMFLOAT3((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 0.0f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
-
-				if (m_CursorLocation != SelectEnemyPos)
-				{
-					m_StageMap[SelectEnemyPos.z * m_X + SelectEnemyPos.x].bChar = false;
-					m_StageMap[SelectEnemyPos.z * m_X + SelectEnemyPos.x].Charcter = nullptr;
-				}
-
-				SelectEnemyPos = m_CursorLocation;
-			}
-			m_EnemyMoving = m_Enemy->Select(m_CursorLocation, SelectEnemy->GetWeapon()->WeaponType);
-
-			WorldManager::SetEnemyAction(m_EnemyMoving);
-
-			break;
-		case attack:
-			if (!m_bBattle)
-			{
-				for (Vector2_3D pos : m_AttackSearch->Search(m_CursorLocation, SelectEnemy->GetWeapon()->WeaponType))
-				{
-					if (m_StageMap[pos.z * m_X + pos.x].bChar)
-					{
-						if (m_StageMap[pos.z * m_X + pos.x].Charcter->GetAlly())
-						{
-							CSystemBattle::Battle(&m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x], &m_StageMap[pos.z * m_X + pos.x]);
-							m_bBattle = true;
-							break;
-						}
-					}
-				}
-			}
-
-			if (m_bBattle)
-			{
-				if (!CSystemBattle::BattleEnd())
-				{
-					m_EnemyMoving = end;
-					m_bBattle = false;
-					if (SelectEnemy->nowHP <= 0)
-					{
-						m_StageMap[SelectEnemyPos.z * m_X + SelectEnemyPos.x].bChar = false;
-						m_StageMap[SelectEnemyPos.z * m_X + SelectEnemyPos.x].Charcter = nullptr;
-					}
-				}
-			}
-			else
-			{
-				m_EnemyMoving = end;
-			}
-
-			WorldManager::SetEnemyAction(m_EnemyMoving);
-
-			break;
-		case heal:
-			for (Vector2_3D pos : m_AttackSearch->Search(m_CursorLocation, SelectEnemy->GetWeapon()->WeaponType))
-			{
-				if (m_StageMap[pos.z * m_X + pos.x].bChar)
-				{
-					if (!m_StageMap[pos.z * m_X + pos.x].Charcter->GetAlly())
-					{
-						//CSystemBattle::Battle(SelectEnemy, m_StageMap[pos.z * m_X + pos.x].Charcter);
-						break;
-					}
-				}
-			}
-
-			WorldManager::SetEnemyAction(m_EnemyMoving);
-
-			break;
-		case end:
-			SelectEnemy->SetTurnMove(true);
-			SelectEnemy = nullptr;
-			m_EnemyMoving = wait;
-
-			WorldManager::SetEnemyAction(m_EnemyMoving);
-
-			break;
-		default:
-			break;
-		}
+		m_Enemy->Update(&m_CursorLocation);
 	}
 
 

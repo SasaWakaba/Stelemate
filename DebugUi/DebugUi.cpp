@@ -239,33 +239,33 @@ void CDebugUI::Draw()
 			height = width;
 		}
 
-		StageState nowStage = WorldManager::GetNowStage();
+		StageInfo nowStage = WorldManager::GetNowStage();
 		ImColor color = {0.968f, 0.933f, 0.396f};
-		for (int i = 0; i < nowStage.numZ + 1; i++)
+		for (int i = 0; i < nowStage.StageZnum + 1; i++)
 		{
-			ImVec2 linePosA = { pos.x,			pos.y + (height / (nowStage.numZ) * i) };
-			ImVec2 linePosB = { pos.x + width,	pos.y + (height / (nowStage.numZ) * i) };
+			ImVec2 linePosA = { pos.x,			pos.y + (height / (nowStage.StageZnum) * i) };
+			ImVec2 linePosB = { pos.x + width,	pos.y + (height / (nowStage.StageZnum) * i) };
 			ImGui::GetWindowDrawList()->AddLine(linePosA, linePosB, color, 1.0f);
 		}
 
-		for (int i = 0; i < nowStage.numX + 1; i++)
+		for (int i = 0; i < nowStage.StageXnum + 1; i++)
 		{
-			ImVec2 linePosA = { pos.x + width / (nowStage.numX) * i, pos.y };
-			ImVec2 linePosB = { pos.x + width / (nowStage.numX) * i, pos.y + height };
+			ImVec2 linePosA = { pos.x + width / (nowStage.StageXnum) * i, pos.y };
+			ImVec2 linePosB = { pos.x + width / (nowStage.StageXnum) * i, pos.y + height };
 			ImGui::GetWindowDrawList()->AddLine(linePosA, linePosB, color, 1.0f);
 		}
 
-		for (int z = 0; z < nowStage.numZ; z++)
+		for (int z = 0; z < nowStage.StageZnum; z++)
 		{
-			for (int x = 0; x < nowStage.numX; x++)
+			for (int x = 0; x < nowStage.StageXnum; x++)
 			{
-				if (nowStage.Stage[z * nowStage.numX + x].bChar)
+				if (nowStage.stage[z * nowStage.StageXnum + x].bChar)
 				{
-					float w = width - width / nowStage.numX;
-					float h = height - height / nowStage.numZ;
-					ImVec2 Diffpos = { pos.x + (width / nowStage.numX / 2), pos.y + (height / nowStage.numZ / 2) };
-					ImVec2 Pos2 = { Diffpos.x + w / (nowStage.numX - 1) * x, Diffpos.y + h / (nowStage.numZ - 1) * (nowStage.numZ - 1 - z) };
-					if (!nowStage.Stage[z * nowStage.numX + x].Charcter->GetAlly())
+					float w = width - width / nowStage.StageXnum;
+					float h = height - height / nowStage.StageZnum;
+					ImVec2 Diffpos = { pos.x + (width / nowStage.StageXnum / 2), pos.y + (height / nowStage.StageZnum / 2) };
+					ImVec2 Pos2 = { Diffpos.x + w / (nowStage.StageXnum - 1) * x, Diffpos.y + h / (nowStage.StageZnum - 1) * (nowStage.StageZnum - 1 - z) };
+					if (!nowStage.stage[z * nowStage.StageXnum + x].Charcter->GetAlly())
 					{
 						color = {1.0f, 0.0f, 0.0f};
 					}
@@ -273,7 +273,7 @@ void CDebugUI::Draw()
 					{
 						color = { 0.109f, 0.996f, 1.000f };
 					}
-					ImGui::GetWindowDrawList()->AddCircleFilled(Pos2, (width / (nowStage.numX)) / 3, color, 12);
+					ImGui::GetWindowDrawList()->AddCircleFilled(Pos2, (width / (nowStage.StageXnum)) / 3, color, 12);
 				}
 			}
 		}

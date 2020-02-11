@@ -8,7 +8,6 @@ typedef struct
 	int				m_NextExp;
 	int				PosX;
 	int				PosZ;
-	std::string		name;
 }PlayerData;
 
 #define EXP_BONUS_1 (1.1f)

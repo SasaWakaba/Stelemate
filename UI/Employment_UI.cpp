@@ -10,6 +10,7 @@
 #include "../Charcter/CPlayerManager.h"
 #include "../Charcter/CCharacterData.h"
 #include "../Charcter/CJob.h"
+#include "../Stage/CStageData.h"
 
 #include <iostream>
 
@@ -159,14 +160,37 @@ void CEmploymentUI::Update(int frame)
 					PlayerData* member;
 					member = new PlayerData();
 					member->m_Character = new CSwordsman();
+					member->m_Character->Initialize();
 					member->m_Character->SetAlly(true);
 					member->m_Exp = 0;
 					member->m_NextExp = FIRST_LEVELUP;
-					member->name = "swordsman";
-					member->PosX = 0 + WorldManager::GetParty().size();
-					member->PosZ = 0;
+					member->m_Character->SetName(std::string("Œ•Žm"));
 
-					m_AddStatus = WorldManager::PlayerAdd(member->name.c_str(), member);
+					
+					member->PosX = 0;
+					member->PosZ = 0;
+					while (1)
+					{
+						if (m_stage->stage[member->PosZ * m_stage->StageZnum + member->PosX].bChar != true)
+						{
+							break;
+						}
+						else
+						{
+							if (member->PosX > m_stage->StageXnum - 1)
+							{
+								member->PosX = 0;
+								member->PosZ++;
+							}
+							else
+							{
+								member->PosX++;
+							}
+						}
+					}
+					member->m_Character->SetLocation(XMFLOAT3((member->PosX * SPACE_SIZE) - (SPACE_SIZE * m_stage->StageXnum / 2), 0.0f, (member->PosZ * SPACE_SIZE) - (SPACE_SIZE * m_stage->StageZnum / 2)));
+
+					m_AddStatus = WorldManager::PlayerAdd(member->m_Character->GetName().c_str(), member);
 					WorldManager::UseSoldierPoint(1);
 					Phase = moveEmp;
 					StartFrame = Frame;
@@ -318,33 +342,33 @@ void CEmploymentUI::Draw()
 			//ƒeƒLƒXƒg
 			text = "•ºŽí‘I‘ð";
 			color.setAll(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
-			m_Text[0]->DrawJpn(texX - ((TEXT_SIZE_BIG / 3 * 2) * 4 / 2), m_TexPos[0] - TEXTURE_HEI_2 / 2.9f - textY, TEXT_SIZE_BIG, (int)TEXT_SIZE_BIG / 3 * 2, text, color);
+			m_Text[0]->DrawJpn((int)(texX - ((TEXT_SIZE_BIG / 3 * 2) * 4 / 2)), (int)(m_TexPos[0] - TEXTURE_HEI_2 / 2.9f - textY), (int)TEXT_SIZE_BIG, (int)(TEXT_SIZE_BIG / 3 * 2), text, color);
 			textY = TEXT_SIZE_SMALL / 5 * 3;
 			color.setAll(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 			text = "Œ•Žm";
-			m_Text[1]->DrawJpn(texX - ((TEXT_SIZE_SMALL / 3 * 2) * 2 / 2), m_TexPos[0] - TEXTURE_HEI_2 / 9 * 2 - textY, TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+			m_Text[1]->DrawJpn((int)(texX - ((TEXT_SIZE_SMALL / 3 * 2) * 2 / 2)), (int)(m_TexPos[0] - TEXTURE_HEI_2 / 9 * 2 - textY),	(int)TEXT_SIZE_SMALL, (int)(TEXT_SIZE_SMALL / 3 * 2), text, color);
 			text = "‹|Žg‚¢";
-			m_Text[1]->DrawJpn(texX - ((TEXT_SIZE_SMALL / 3 * 2) * 3 / 2), m_TexPos[0] - TEXTURE_HEI_2 / 9 - textY, TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+			m_Text[1]->DrawJpn((int)(texX - ((TEXT_SIZE_SMALL / 3 * 2) * 3 / 2)), (int)(m_TexPos[0] - TEXTURE_HEI_2 / 9 - textY),		(int)TEXT_SIZE_SMALL, (int)(TEXT_SIZE_SMALL / 3 * 2), text, color);
 			text = "–‚“±Žm";
-			m_Text[1]->DrawJpn(texX - ((TEXT_SIZE_SMALL / 3 * 2) * 3 / 2), m_TexPos[0] - textY, TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+			m_Text[1]->DrawJpn((int)(texX - ((TEXT_SIZE_SMALL / 3 * 2) * 3 / 2)), (int)(m_TexPos[0] - textY),							(int)TEXT_SIZE_SMALL, (int)(TEXT_SIZE_SMALL / 3 * 2), text, color);
 			text = "C“¹Žm";
-			m_Text[1]->DrawJpn(texX - ((TEXT_SIZE_SMALL / 3 * 2) * 3 / 2), m_TexPos[0] + TEXTURE_HEI_2 / 9 - textY, TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+			m_Text[1]->DrawJpn((int)(texX - ((TEXT_SIZE_SMALL / 3 * 2) * 3 / 2)), (int)(m_TexPos[0] + TEXTURE_HEI_2 / 9 - textY),		(int)TEXT_SIZE_SMALL, (int)(TEXT_SIZE_SMALL / 3 * 2), text, color);
 			text = "‘„•º";
-			m_Text[1]->DrawJpn(texX - ((TEXT_SIZE_SMALL / 3 * 2) * 2 / 2), m_TexPos[0] + TEXTURE_HEI_2 / 9 * 2 - textY, TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+			m_Text[1]->DrawJpn((int)(texX - ((TEXT_SIZE_SMALL / 3 * 2) * 2 / 2)), (int)(m_TexPos[0] + TEXTURE_HEI_2 / 9 * 2 - textY),	(int)TEXT_SIZE_SMALL, (int)(TEXT_SIZE_SMALL / 3 * 2), text, color);
 			text = "‚â‚ß‚é";
-			m_Text[1]->DrawJpn(texX - ((TEXT_SIZE_SMALL / 3 * 2) * 3 / 2), m_TexPos[0] + TEXTURE_HEI_2 / 9 * 3.2f - textY, TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+			m_Text[1]->DrawJpn((int)(texX - ((TEXT_SIZE_SMALL / 3 * 2) * 3 / 2)), (int)(m_TexPos[0] + TEXTURE_HEI_2 / 9 * 3.2f - textY), (int)TEXT_SIZE_SMALL, (int)(TEXT_SIZE_SMALL / 3 * 2), text, color);
 
 			color.setAll(XMFLOAT4(0.35f, 0.35f, 0.35f, 1.0f));
 			textY = TEXT_SIZE_ENG / 2;
 			textX = texX + (TEXT_SIZE_ENG / 3 * 2) * 3;
 			text = "SP:1";
-			m_Text[2]->DrawEng(textX, m_TexPos[0] - TEXTURE_HEI_2 / 9 * 2 - textY, TEXT_SIZE_ENG, (int)TEXT_SIZE_ENG / 3 * 2, text, color);
+			m_Text[2]->DrawEng((int)textX, (int)(m_TexPos[0] - TEXTURE_HEI_2 / 9 * 2 - textY), (int)TEXT_SIZE_ENG, (int)(TEXT_SIZE_ENG / 3 * 2), text, color);
 			text = "SP:2";
-			m_Text[2]->DrawEng(textX, m_TexPos[0] - TEXTURE_HEI_2 / 9 - textY, TEXT_SIZE_ENG, (int)TEXT_SIZE_ENG / 3 * 2, text, color);
-			m_Text[2]->DrawEng(textX, m_TexPos[0] - textY, TEXT_SIZE_ENG, (int)TEXT_SIZE_ENG / 3 * 2, text, color);
-			m_Text[2]->DrawEng(textX, m_TexPos[0] + TEXTURE_HEI_2 / 9 - textY, TEXT_SIZE_ENG, (int)TEXT_SIZE_ENG / 3 * 2, text, color);
+			m_Text[2]->DrawEng((int)textX, (int)(m_TexPos[0] - TEXTURE_HEI_2 / 9 - textY),		(int)TEXT_SIZE_ENG, (int)(TEXT_SIZE_ENG / 3 * 2), text, color);
+			m_Text[2]->DrawEng((int)textX, (int)(m_TexPos[0] - textY),							(int)TEXT_SIZE_ENG, (int)(TEXT_SIZE_ENG / 3 * 2), text, color);
+			m_Text[2]->DrawEng((int)textX, (int)(m_TexPos[0] + TEXTURE_HEI_2 / 9 - textY),		(int)TEXT_SIZE_ENG, (int)(TEXT_SIZE_ENG / 3 * 2), text, color);
 			text = "SP:3";
-			m_Text[2]->DrawEng(textX, m_TexPos[0] + TEXTURE_HEI_2 / 9 * 2 - textY, TEXT_SIZE_ENG, (int)TEXT_SIZE_ENG / 3 * 2, text, color);
+			m_Text[2]->DrawEng((int)textX, (int)(m_TexPos[0] + TEXTURE_HEI_2 / 9 * 2 - textY), (int)TEXT_SIZE_ENG, (int)(TEXT_SIZE_ENG / 3 * 2), text, color);
 		}
 
 		if (Phase >= moveEmp)
@@ -359,33 +383,33 @@ void CEmploymentUI::Draw()
 			case Swordman:
 				m_Icon[0]->Draw(iconX, iconY, 0, 0, ICON_SIZE, ICON_SIZE, ICON_SIZE, ICON_SIZE);
 				text = "Œ•Žm";
-				m_Text[0]->DrawJpn(texX - ((TEXT_SIZE_BIG / 3 * 2) * 2 / 2), iconY - textY, (int)TEXT_SIZE_BIG, (int)TEXT_SIZE_BIG / 3 * 2, text, color);
+				m_Text[0]->DrawJpn((int)(texX - ((TEXT_SIZE_BIG / 3 * 2) * 2 / 2)), (int)(iconY - textY), (int)TEXT_SIZE_BIG, (int)(TEXT_SIZE_BIG / 3 * 2), text, color);
 				break;
 			case Archer:
 				m_Icon[1]->Draw(iconX, iconY, 0, 0, ICON_SIZE, ICON_SIZE, ICON_SIZE, ICON_SIZE);
 				text = "‹|Žg‚¢";
-				m_Text[0]->DrawJpn(texX - ((TEXT_SIZE_BIG / 3 * 2) * 3 / 2), iconY - textY, (int)TEXT_SIZE_BIG, (int)TEXT_SIZE_BIG / 3 * 2, text, color);
+				m_Text[0]->DrawJpn((int)(texX - ((TEXT_SIZE_BIG / 3 * 2) * 3 / 2)), (int)(iconY - textY), (int)TEXT_SIZE_BIG, (int)(TEXT_SIZE_BIG / 3 * 2), text, color);
 				break;
 			case Sorcerer:
 				m_Icon[2]->Draw(iconX, iconY, 0, 0, ICON_SIZE, ICON_SIZE, ICON_SIZE, ICON_SIZE);
 				text = "–‚“±Žm";
-				m_Text[0]->DrawJpn(texX - ((TEXT_SIZE_BIG / 3 * 2) * 3 / 2), iconY - textY, (int)TEXT_SIZE_BIG, (int)TEXT_SIZE_BIG / 3 * 2, text, color);
+				m_Text[0]->DrawJpn((int)(texX - ((TEXT_SIZE_BIG / 3 * 2) * 3 / 2)), (int)(iconY - textY), (int)TEXT_SIZE_BIG, (int)(TEXT_SIZE_BIG / 3 * 2), text, color);
 				break;
 			case Healer:
 				m_Icon[3]->Draw(iconX, iconY, 0, 0, ICON_SIZE, ICON_SIZE, ICON_SIZE, ICON_SIZE);
 				text = "C“¹Žm";
-				m_Text[0]->DrawJpn(texX - ((TEXT_SIZE_BIG / 3 * 2) * 3 / 2), iconY - textY, (int)TEXT_SIZE_BIG, (int)TEXT_SIZE_BIG / 3 * 2, text, color);
+				m_Text[0]->DrawJpn((int)(texX - ((TEXT_SIZE_BIG / 3 * 2) * 3 / 2)), (int)(iconY - textY), (int)TEXT_SIZE_BIG, (int)(TEXT_SIZE_BIG / 3 * 2), text, color);
 				break;
 			case Lancer:
 				m_Icon[4]->Draw(iconX, iconY, 0, 0, ICON_SIZE, ICON_SIZE, ICON_SIZE, ICON_SIZE);
 				text = "‘„•º";
-				m_Text[0]->DrawJpn(texX - ((TEXT_SIZE_BIG / 3 * 2) * 2 / 2), iconY - textY, (int)TEXT_SIZE_BIG, (int)TEXT_SIZE_BIG / 3 * 2, text, color);
+				m_Text[0]->DrawJpn((int)(texX - ((TEXT_SIZE_BIG / 3 * 2) * 2 / 2)), (int)(iconY - textY), (int)TEXT_SIZE_BIG, (int)(TEXT_SIZE_BIG / 3 * 2), text, color);
 				break;
 			}
 			textX = texX - (TEXTURE_WID / 5 * 2) - ((TEXT_SIZE_SMALL / 3 * 2) / 2);
 			textY = TEXT_SIZE_SMALL / 5 * 3;
 			text = "HP";
-			m_Text[1]->DrawEng(textX, m_TexPos[2] - (TEXTURE_HEI / 2) + TEXTURE_HEI / 7 * 3 - textY, TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+			m_Text[1]->DrawEng((int)textX, (int)(m_TexPos[2] - (TEXTURE_HEI / 2) + TEXTURE_HEI / 7 * 3 - textY), (int)TEXT_SIZE_SMALL, (int)(TEXT_SIZE_SMALL / 3 * 2), text, color);
 			if (m_AddData->m_Character->GetStatus()->type == Sword || m_AddData->m_Character->GetStatus()->type == Lance || m_AddData->m_Character->GetStatus()->type == Bow)
 			{
 				text = "—Í";
@@ -394,19 +418,19 @@ void CEmploymentUI::Draw()
 			{
 				text = "–‚—Í";
 			}
-			m_Text[1]->DrawJpn(textX, m_TexPos[2] - (TEXTURE_HEI / 2) + TEXTURE_HEI / 7 * 4 - textY, TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+			m_Text[1]->DrawJpn((int)textX, (int)(m_TexPos[2] - (TEXTURE_HEI / 2) + TEXTURE_HEI / 7 * 4 - textY), (int)TEXT_SIZE_SMALL, (int)(TEXT_SIZE_SMALL / 3 * 2), text, color);
 			text = "K‰^";
-			m_Text[1]->DrawJpn(textX, m_TexPos[2] - (TEXTURE_HEI / 2) + TEXTURE_HEI / 7 * 5 - textY, TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+			m_Text[1]->DrawJpn((int)textX, (int)(m_TexPos[2] - (TEXTURE_HEI / 2) + TEXTURE_HEI / 7 * 5 - textY), (int)TEXT_SIZE_SMALL, (int)(TEXT_SIZE_SMALL / 3 * 2), text, color);
 			text = "‹Z";
-			m_Text[1]->DrawJpn(textX, m_TexPos[2] - (TEXTURE_HEI / 2) + TEXTURE_HEI / 7 * 6 - textY, TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+			m_Text[1]->DrawJpn((int)textX, (int)(m_TexPos[2] - (TEXTURE_HEI / 2) + TEXTURE_HEI / 7 * 6 - textY), (int)TEXT_SIZE_SMALL, (int)(TEXT_SIZE_SMALL / 3 * 2), text, color);
 
 			textX = texX;
 			text = "–hŒä";
-			m_Text[1]->DrawJpn(textX, m_TexPos[2] - (TEXTURE_HEI / 2) + TEXTURE_HEI / 7 * 3 - textY, TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+			m_Text[1]->DrawJpn((int)textX, (int)(m_TexPos[2] - (TEXTURE_HEI / 2) + TEXTURE_HEI / 7 * 3 - textY), (int)TEXT_SIZE_SMALL, (int)(TEXT_SIZE_SMALL / 3 * 2), text, color);
 			text = "–‚–h";
-			m_Text[1]->DrawJpn(textX, m_TexPos[2] - (TEXTURE_HEI / 2) + TEXTURE_HEI / 7 * 4 - textY, TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+			m_Text[1]->DrawJpn((int)textX, (int)(m_TexPos[2] - (TEXTURE_HEI / 2) + TEXTURE_HEI / 7 * 4 - textY), (int)TEXT_SIZE_SMALL, (int)(TEXT_SIZE_SMALL / 3 * 2), text, color);
 			text = "‘¬‚³";
-			m_Text[1]->DrawJpn(textX, m_TexPos[2] - (TEXTURE_HEI / 2) + TEXTURE_HEI / 7 * 5 - textY, TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+			m_Text[1]->DrawJpn((int)textX, (int)(m_TexPos[2] - (TEXTURE_HEI / 2) + TEXTURE_HEI / 7 * 5 - textY), (int)TEXT_SIZE_SMALL, (int)(TEXT_SIZE_SMALL / 3 * 2), text, color);
 
 			textX = texX - (TEXTURE_WID / 5);
 			float judgeY = m_TexPos[2] - (TEXTURE_HEI / 2);

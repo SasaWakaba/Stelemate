@@ -14,7 +14,7 @@ public:
 	void Update(){}
 	void Draw(XMMATRIX world);
 	
-
+	void Draw(XMMATRIX world, VertexColor_4 color);
 
 	void Load(const char* filename);
 

@@ -19,12 +19,23 @@ typedef struct
 	int StageZnum;
 }StageInfo;
 
+typedef struct
+{
+	int EnemyNum;
+	int SwordmanNum;
+	int ArcherNum;
+	int SorcererNum;
+	int HealerNum;
+	int LancerNum;
+}StageEnemy;
+
 class CStageData
 {
 private:
 	static void Load(const char* filename);
 public:
 	static std::map<std::string, StageInfo*> m_StageData;
+	static std::map<std::string, StageEnemy> m_StageEnemy;
 
 	static void Initialize();
 	static void Finalize();

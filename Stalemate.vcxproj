@@ -20,9 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio\audio_clip.cpp" />
+    <ClCompile Include="Charcter\CCharacterBase.cpp" />
     <ClCompile Include="Charcter\CCharacterData.cpp" />
     <ClCompile Include="Charcter\CPlayerManager.cpp" />
     <ClCompile Include="Charcter\CWeaponData.cpp" />
+    <ClCompile Include="Charcter\EnemyStatePattern\EnemyPatternNormal.cpp" />
     <ClCompile Include="common\Billboard.cpp" />
     <ClCompile Include="common\camera.cpp" />
     <ClCompile Include="common\CCircleShadow.cpp" />
@@ -54,7 +56,6 @@
     <ClCompile Include="GameSystem\CBattleCalculation.cpp" />
     <ClCompile Include="GameSystem\CCursor.cpp" />
     <ClCompile Include="GameSystem\CEnemyAI.cpp" />
-    <ClCompile Include="GameSystem\CEnemyAIMother.cpp" />
     <ClCompile Include="GameSystem\CMoveSearch.cpp" />
     <ClCompile Include="GameSystem\CPreparation.cpp" />
     <ClCompile Include="GameSystem\CSubCamera.cpp" />
@@ -92,11 +93,8 @@
     <ClInclude Include="Charcter\CJob.h" />
     <ClInclude Include="Charcter\CPlayerManager.h" />
     <ClInclude Include="Charcter\CWeaponData.h" />
-    <ClInclude Include="common\AI_Base\CAI_Base.h" />
-    <ClInclude Include="common\AI_Base\CBlackBoard.h" />
-    <ClInclude Include="common\AI_Base\CComposite.h" />
-    <ClInclude Include="common\AI_Base\CDecorator.h" />
-    <ClInclude Include="common\AI_Base\CTask.h" />
+    <ClInclude Include="Charcter\EnemyStatePattern\EnemyPatternNormal.h" />
+    <ClInclude Include="Charcter\EnemyStatePattern\EnemyPttern.h" />
     <ClInclude Include="common\Billboard.h" />
     <ClInclude Include="common\camera.h" />
     <ClInclude Include="common\CCircleShadow.h" />
@@ -131,7 +129,6 @@
     <ClInclude Include="GameSystem\CBattleCalculation.h" />
     <ClInclude Include="GameSystem\CCursor.h" />
     <ClInclude Include="GameSystem\CEnemyAI.h" />
-    <ClInclude Include="GameSystem\CEnemyAIMother.h" />
     <ClInclude Include="GameSystem\CMoveSearch.h" />
     <ClInclude Include="GameSystem\CPreparation.h" />
     <ClInclude Include="GameSystem\CSubCamera.h" />

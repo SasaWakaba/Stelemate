@@ -55,7 +55,7 @@ void CGame::Init()
 	bChange = false;
 	m_BGM = new CAudioClip();
 	m_BGM->Load("asset/audio/tw040.wav");
-	m_BGM->Play(true);
+	//m_BGM->Play(true);
 
 
 

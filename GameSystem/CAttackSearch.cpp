@@ -12,7 +12,7 @@ void CAttackSearch::Add(Vector2_3D pos)
 	if (m_AtkArea.size() != 0)
 	{
 		bool re = false;
-		for (int i = 0; i < m_AtkArea.size(); i++)
+		for (unsigned int i = 0; i < m_AtkArea.size(); i++)
 		{
 			if (m_AtkArea[i].x == pos.x && m_AtkArea[i].z == pos.z)
 			{

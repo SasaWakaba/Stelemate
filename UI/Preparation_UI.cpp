@@ -8,6 +8,7 @@
 #include "../common/number.h"
 #include "../Charcter/CPlayerManager.h"
 #include "../Charcter/CJob.h"
+#include "../Stage/CStageSetting.h"
 
 #include "../common/Scene.h"
 #include "../GameSystem/CPreparation.h"
@@ -66,6 +67,9 @@ void CPreparationUI::Initialize()
 	m_Emp = new CEmploymentUI();
 	m_Emp->Initialize();
 
+	m_Arrangement = new CStageSetting();
+	m_Arrangement->Initialize(1);
+
 	m_Texture[0]->Load("asset/texture/select.png");
 	m_Texture[1]->Load("asset/texture/PreparationUI000.png");
 	m_Texture[2]->Load("asset/texture/PreparationUI001.png");
@@ -97,11 +101,14 @@ void CPreparationUI::Finalize()
 
 	m_Emp->Finalize();
 	delete m_Emp;
+
+	m_Arrangement->Finalize();
+	delete m_Arrangement;
 }
 
 void CPreparationUI::Update()
 {
-	if (m_Emp->GetPhase() == 0)
+	if (m_Emp->GetPhase() == 0 && m_Arrangement->GetEdit() == false)
 	{
 		if (CInput::GetKeyTrigger('W'))
 		{
@@ -130,6 +137,7 @@ void CPreparationUI::Update()
 				}
 				break;
 			case CPreparationUI::Arrangement:
+				m_Arrangement->Edit();
 				break;
 			case CPreparationUI::Employment:
 				m_Emp->StartEmp();
@@ -140,7 +148,10 @@ void CPreparationUI::Update()
 			}
 		}
 	}
+
+	m_Emp->SetStage(m_Arrangement->GetSettingStage());
 	m_Emp->Update(frame);
+	m_Arrangement->Update();
 	frame++;
 }
 
@@ -259,7 +270,7 @@ void CPreparationUI::Draw()
 		pos += 0.5f / 30;
 	}
 
-	if (m_Emp->GetPhase() == 0)
+	if (m_Emp->GetPhase() == 0 && m_Arrangement->GetEdit() == false)
 	{
 		//カーソル羽ペン
 		switch (m_Cursol)
@@ -279,5 +290,6 @@ void CPreparationUI::Draw()
 		}
 	}
 
+	m_Arrangement->Draw();
 	m_Emp->Draw();
 }

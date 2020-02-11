@@ -56,9 +56,8 @@ private:
 	std::vector<Vector2_3D>		m_AtkArea;
 
 	CEnemyAI*					m_Enemy;
-	EnemyMove					m_EnemyMoving;
-	CCharcterBase* SelectEnemy;
-	Vector2_3D SelectEnemyPos;
+
+
 
 	//ステージの縦と横の最大サイズ
 	int m_X, m_Z;

@@ -12,7 +12,7 @@ void CMoveSearch::Add(Vector2_3D pos)
 	if (m_MoveArea.size() != 0)
 	{
 		bool re = false;
-		for (int i = 0; i < m_MoveArea.size(); i++)
+		for (unsigned int i = 0; i < m_MoveArea.size(); i++)
 		{
 			if (m_MoveArea[i].x == pos.x && m_MoveArea[i].z == pos.z)
 			{

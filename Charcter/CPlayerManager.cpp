@@ -120,6 +120,7 @@ STATUS* CPlayerManager::CharacterAdd(const char* characterName, PlayerData* menb
 			if (m_PlayerTeam[neme] == nullptr)
 			{
 				m_PlayerTeam[neme] = menber;
+				m_PlayerTeam[neme]->m_Character->SetName(neme);
 				m_PlayerGlaw[neme] = new STATUS[2];
 				STATUS* glow = m_PlayerGlaw[neme];
 				glow[0].Attack = rand() % 13;

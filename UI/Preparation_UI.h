@@ -4,6 +4,7 @@
 class CDrawText;
 class CNumber;
 class CEmploymentUI;
+class CStageSetting;
 
 class CPreparationUI : public CGameObject
 {
@@ -22,6 +23,7 @@ private:
 	CDrawText*	m_Text[3];
 	CNumber*	m_Number;
 	CEmploymentUI* m_Emp;
+	CStageSetting* m_Arrangement;
 
 	SelectPre  m_Cursol;
 

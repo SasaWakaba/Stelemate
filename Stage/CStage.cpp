@@ -84,10 +84,18 @@ void CStage::Finalize()
 		{
 			if (m_StageMap[z * m_Xnum + x].bChar)
 			{
-				m_StageMap[z * m_Xnum + x].Charcter->Finalize();
-				delete m_StageMap[z * m_Xnum + x].Charcter;
-				m_StageMap[z * m_Xnum + x].Charcter = nullptr;
-				m_StageMap[z * m_Xnum + x].bChar = false;
+				if (!m_StageMap[z * m_Xnum + x].Charcter->GetAlly())
+				{
+					m_StageMap[z * m_Xnum + x].Charcter->Finalize();
+					delete m_StageMap[z * m_Xnum + x].Charcter;
+					m_StageMap[z * m_Xnum + x].Charcter = nullptr;
+					m_StageMap[z * m_Xnum + x].bChar = false;
+				}
+				else
+				{
+					m_StageMap[z * m_Xnum + x].Charcter = nullptr;
+					m_StageMap[z * m_Xnum + x].bChar = false;
+				}
 			}
 		}
 	}
@@ -133,10 +141,10 @@ void CStage::Update()
 
 void CStage::Draw()
 {
-	for (CStagePanel* panel : m_StagePanel)
-	{
-		panel->Draw();
-	}
+	//for (CStagePanel* panel : m_StagePanel)
+	//{
+	//	panel->Draw();
+	//}
 
 	XMMATRIX world;
 
