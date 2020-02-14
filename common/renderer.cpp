@@ -13,7 +13,7 @@ IDXGISwapChain*         CRenderer::m_SwapChain = NULL;
 ID3D11RenderTargetView* CRenderer::m_RenderTargetView = NULL;
 ID3D11DepthStencilView* CRenderer::m_DepthStencilView = NULL;
 
-
+float CRenderer::ClearColor[4];
 
 ID3D11VertexShader*     CRenderer::m_VertexShader = NULL;
 ID3D11PixelShader*      CRenderer::m_PixelShader = NULL;
@@ -313,6 +313,11 @@ void CRenderer::Init()
 	material.Ambient = COLOR( 1.0f, 1.0f, 1.0f, 1.0f );
 	SetMaterial( material );
 
+	ClearColor[0] = 0.0f;
+	ClearColor[1] = 0.3f;
+	ClearColor[2] = 0.4f;
+	ClearColor[3] = 1.0f;
+
 }
 
 
@@ -342,7 +347,6 @@ void CRenderer::Uninit()
 void CRenderer::Begin()
 {
 	// バックバッファクリア
-	float ClearColor[4] = { 0.0f, 0.3f, 0.4f, 1.0f };
 	m_ImmediateContext->ClearRenderTargetView( m_RenderTargetView, ClearColor );
 	m_ImmediateContext->ClearDepthStencilView( m_DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
@@ -499,4 +503,12 @@ void CRenderer::SetDefaultShader()
 	// シェーダ設定
 	m_ImmediateContext->VSSetShader(m_VertexShader, NULL, 0);
 	m_ImmediateContext->PSSetShader(m_PixelShader, NULL, 0);
+}
+
+void CRenderer::SetClearColor(float color[4]) 
+{
+	ClearColor[0] = color[0]; 
+	ClearColor[1] = color[1];
+	ClearColor[2] = color[2];
+	ClearColor[3] = color[3];
 }

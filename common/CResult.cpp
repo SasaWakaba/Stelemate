@@ -24,16 +24,14 @@
 
 #include "camera.h"
 #include "CSkyBox.h"
+#include "../UI/Result_UI.h"
 
 bool CResult::bChange;
-
+int CResult::Select;
 
 void CResult::Init()
 {
-
-
-	AddGameObject<CCamera>(0)->SetAt(XMFLOAT3(0.0f, 0.0f, 0.0f));
-	AddGameObject<CSkyBox>(0)->SetNight(true);
+	AddGameObject<CResultUI>(0);
 	bChange = false;
 	CFade::EndFade();
 }
@@ -43,20 +41,34 @@ void CResult::UnInit()
 	CScene::UnInit();
 }
 
+void CResult::Change(int select) 
+{
+	bChange = true; 
+	CFade::StartFade();
+	Select = select;
+}
+
 void CResult::Update()
 {
 	CScene::Update();
-	if (CInput::GetKeyTrigger(VK_SPACE))
-	{
-		Change();
-	}
+	//if (CInput::GetKeyTrigger(VK_SPACE))
+	//{
+	//	Change();
+	//}
 
 	if (bChange)
 	{
 		if (CFade::startFin())
 		{
-			WorldManager::Finalize();
-			CManager::SetScene<CTitle>();
+			if (Select == 0)
+			{
+				CManager::SetScene<CPreparation>();
+			}
+			else
+			{
+				WorldManager::Finalize();
+				CManager::SetScene<CTitle>();
+			}
 		}
 	}
 }

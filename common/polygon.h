@@ -27,6 +27,8 @@ public:
 
 	void Draw(float dx, float dy, float tx, float ty, float tw, float th, float w, float h, VertexColor_4 color);
 
+	void Draw(float dx, float dy, float tx, float ty, float tw, float th, float w, float h, float rot, VertexColor_4 color);
+
 	void DrawDia(float dx, float dy, float tx, float ty, float tw, float th, float w, float h, VertexColor_4 color);
 };
 

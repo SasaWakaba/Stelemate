@@ -9,6 +9,7 @@
 #include "../imgui/imgui_impl_dx11.h"
 
 #include "DebugUI.h"
+#include "../common/CFade.h"
 
 #include "../common/Game_Object.h"
 #include "../common/model.h"
@@ -18,7 +19,11 @@
 
 bool show_another_window = false;
 
-bool CDebugUI::bAI_Window = true;
+bool CDebugUI::bAI_Window = false;
+
+bool changescene = false;
+
+int Wscene;
 
 void CDebugUI::Initialize()
 {
@@ -80,7 +85,8 @@ void CDebugUI::Initialize()
 	ImGui::GetStyle().WindowRounding = 0.0f;
 	ImGui::GetStyle().FrameRounding = 0.0f;
 
-
+	changescene = false;
+	Wscene = 0;
 }
 
 void CDebugUI::Finalize()
@@ -100,7 +106,7 @@ void CDebugUI::Update()
 void CDebugUI::Draw()
 {
 	CScene* scene = CManager::GetScene();
-	static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	static ImVec4 clear_color = ImVec4(0.0f, 0.0f, 0.0f, 1.00f);
 	XMFLOAT3 pos(0,0,0);
 	//if(scene != nullptr) pos = scene->GetGameObject<CPlayer>(2)->GetPosition();
 
@@ -175,13 +181,62 @@ void CDebugUI::Draw()
 			}
 		}
 
-
-		
+		if (changescene == false)
+		{
+			if (ImGui::Button("Title"))
+			{
+				changescene = true;
+				CFade::StartFade();
+				Wscene = 0;
+			}
+			if (ImGui::Button("Preparation"))
+			{
+				changescene = true;
+				CFade::StartFade();
+				Wscene = 1;
+			}
+			if (ImGui::Button("Game"))
+			{
+				changescene = true;
+				CFade::StartFade();
+				Wscene = 2;
+			}
+			if (ImGui::Button("Result"))
+			{
+				changescene = true;
+				CFade::StartFade();
+				Wscene = 3;
+			}
+		}
+		else
+		{
+			if (CFade::startFin())
+			{
+				switch (Wscene)
+				{
+				case 0:
+					CManager::SetScene<CTitle>();
+					break;
+				case 1:
+					CManager::SetScene<CPreparation>();
+					break;
+				case 2:
+					CManager::SetScene<CGame>();
+					break;
+				case 3:
+					CManager::SetScene<CResult>();
+					break;
+				}
+				changescene = false;
+			}
+		}
 		
 		ImGui::Checkbox("Another Window", &show_another_window);
 		
 		ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
 		ImGui::ColorEdit3("clear color", (float*)&clear_color);
+		float color[4] = { clear_color.x, clear_color.y, clear_color.z, clear_color.w };
+		CRenderer::SetClearColor(color);
 
 		if (ImGui::Button("Button"))
 			counter++;

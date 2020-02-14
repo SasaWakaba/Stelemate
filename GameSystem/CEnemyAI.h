@@ -24,6 +24,9 @@ private:
 
 	EnemyMove					m_EnemyMoving;
 
+	CCharcterBase*				MoveEnemy;
+	Vector2_3D					SelectEnemyPos;
+
 	bool bBattle;
 
 public:
@@ -45,6 +48,10 @@ public:
 	std::vector<Vector2_3D> GetMoveSearch(Vector2_3D pos, int move);
 	std::vector<Vector2_3D> GetAttackSearch(Vector2_3D pos, Weapontype Atk);
 	std::vector<Vector2_3D> GetSerchArea();
+	CCharcterBase* GetMoveEnemy();
+	Vector2_3D	   GetMoveEnemyPos();
+	void SetMoveEnemy(CCharcterBase* ene);
+	void SetMoveEnemyPos(Vector2_3D pos);
 	void ResetMove();
 	void ResetAttack();
 	EnemyMove GetMove();

@@ -255,10 +255,12 @@ void CSystemBattle::Update()
 									m_Char_B->bChar = false;
 									//m_Char_B->Charcter = nullptr;
 								}
+								WorldManager::AddDeadCount();
 							}
 							else
 							{
 								m_Char_B->Charcter->SetDestroy();
+								WorldManager::AddSubjugation();
 							}
 							Fase = End;
 						}
@@ -336,10 +338,12 @@ void CSystemBattle::Update()
 									m_Char_A->bChar = false;
 									//m_Char_A->Charcter = nullptr;
 								}
+								WorldManager::AddDeadCount();
 							}
 							else
 							{
 								m_Char_A->Charcter->SetDestroy();
+								WorldManager::AddSubjugation();
 							}
 
 							Fase = End;

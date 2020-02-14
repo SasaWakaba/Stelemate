@@ -18,6 +18,7 @@
 #define TEXT_BIG_SIZE (70)
 #define TEXT_SMALL_SIZE (30)
 
+static float alpha = 1.0f;
 
 CGameModeSelect::CGameModeSelect()
 {
@@ -40,6 +41,8 @@ CGameModeSelect::CGameModeSelect()
 
 	m_select = Casual;
 	frame = 0;
+
+	alpha = 1.0f;
 }
 
 CGameModeSelect::~CGameModeSelect()
@@ -118,7 +121,6 @@ void CGameModeSelect::Draw()
 
 	//‘I‘ðŽˆ‚ÌˆÍ‚¢‚Æ–îˆó
 	{
-		static float alpha = 1.0f;
 		if (frame % 60 < 30)
 		{
 			alpha -= 0.5f / 30;
@@ -131,11 +133,11 @@ void CGameModeSelect::Draw()
 		switch (m_select)
 		{
 		case Casual:
-			m_Texture[3]->Draw(PosX, AposY, 0, 0, SELECT_W + ENCLOSUE, SELECT_H + ENCLOSUE, SELECT_W + ENCLOSUE, SELECT_H + ENCLOSUE, color);
+			m_Texture[3]->Draw(PosX, AposY, 0, 0, SELECT_W * 1.04f, SELECT_H * 1.2f, SELECT_W * 1.04f, SELECT_H * 1.2f, color);
 			m_Texture[0]->Draw(PosX - SELECT_W / 2 - ICON_SIZE / 3, AposY - ICON_SIZE / 2 + 30 * alpha, 0, 0, ICON_SIZE, ICON_SIZE, ICON_SIZE, ICON_SIZE);
 			break;
 		case Classic:
-			m_Texture[3]->Draw(PosX, BposY, 0, 0, SELECT_W + ENCLOSUE, SELECT_H + ENCLOSUE, SELECT_W + ENCLOSUE, SELECT_H + ENCLOSUE, color);
+			m_Texture[3]->Draw(PosX, BposY, 0, 0, SELECT_W * 1.04f, SELECT_H * 1.2f, SELECT_W * 1.04f, SELECT_H * 1.2f, color);
 			m_Texture[0]->Draw(PosX - SELECT_W / 2 - ICON_SIZE / 3, BposY - ICON_SIZE / 2 + 30 * alpha, 0, 0, ICON_SIZE, ICON_SIZE, ICON_SIZE, ICON_SIZE);
 			break;
 		}

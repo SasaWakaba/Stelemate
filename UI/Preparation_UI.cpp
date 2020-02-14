@@ -68,7 +68,7 @@ void CPreparationUI::Initialize()
 	m_Emp->Initialize();
 
 	m_Arrangement = new CStageSetting();
-	m_Arrangement->Initialize(1);
+	m_Arrangement->Initialize(WorldManager::GetNowStageNum() + 1);
 
 	m_Texture[0]->Load("asset/texture/select.png");
 	m_Texture[1]->Load("asset/texture/PreparationUI000.png");

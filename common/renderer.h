@@ -109,6 +109,8 @@ private:
 	static ID3D11BlendState* blendState;
 	static ID3D11BlendState* AlphaTestblendState;
 
+	static float ClearColor[4];
+
 public:
 	static void Init();
 	static void Uninit();
@@ -139,4 +141,6 @@ public:
 
 	static void SetCustomShader(ID3D11VertexShader* vs, ID3D11InputLayout* inputlayout, ID3D11PixelShader* ps);
 	static void SetDefaultShader();
+
+	static void SetClearColor(float color[4]);
 };

@@ -7,13 +7,15 @@ class CEnemyPatternNormal : public CEnemyPattern
 {
 private:
 	CCharcterBase*				MoveEnemy;
-	Vector2_3D SelectEnemyPos;
+	Vector2_3D					SelectEnemyPos;
 public:
 	virtual ~CEnemyPatternNormal() {}
 	virtual void Update(CEnemyAI* pEnemy, Vector2_3D* cursol) override;
 
 	std::vector<Vector2_3D> Move(CEnemyAI* pEnemy, Vector2_3D pos, int Move);
 	EnemyMove Select(CEnemyAI* pEnemy, Vector2_3D pos, Weapontype Atk);
+
+	Vector2_3D NearLocation(std::vector<Vector2_3D> max, Vector2_3D pos);
 };
 
 

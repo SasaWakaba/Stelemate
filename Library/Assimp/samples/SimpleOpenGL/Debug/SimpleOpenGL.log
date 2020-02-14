@@ -1,0 +1,11 @@
+﻿cl : コマンド ライン warning D9035: オプション 'Gm' の使用は現在推奨されていません。今後のバージョンからは削除されます。
+  Sample_SimpleOpenGL.c
+c:\program files\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\program files\assimp\samples\simpleopengl\sample_simpleopengl.c(370): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdlib.h(1183): note: 'getenv' の宣言を確認してください
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(1216,5): warning MSB8012: TargetPath(C:\Program Files\Assimp\samples\SimpleOpenGL\Debug\SimpleOpenGL.exe) が Linker の OutputFile プロパティ値 (C:\Program Files\Assimp\samples\SimpleOpenGL\Debug\SimpleOpenGL_Debug.exe) と一致しません。このため、プロジェクトが正常にビルドされない可能性があります。この問題を解決するには、$(OutDir)、$(TargetName)、および $(TargetExt) の各プロパティ値が、%(Link.OutputFile) で指定されている値と一致することを確認してください。
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(1218,5): warning MSB8012: TargetName(SimpleOpenGL) が Linker の OutputFile プロパティ値 (SimpleOpenGL_Debug) と一致しません。このため、プロジェクトが正常にビルドされない可能性があります。この問題を解決するには、$(OutDir)、$(TargetName)、および $(TargetExt) の各プロパティ値が、%(Link.OutputFile) で指定されている値と一致することを確認してください。
+LINK : fatal error LNK1104: ファイル 'assimp.lib' を開くことができません。

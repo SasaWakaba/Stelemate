@@ -7,12 +7,13 @@ class CResult :public CScene
 {
 private:
 	static bool bChange;
+	static int Select;
 public:
 	void Init();
 	void UnInit();
 	void Update();
 
-	static void Change() { bChange = true; CFade::StartFade(); }
+	static void Change(int select);
 };
 
 

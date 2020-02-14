@@ -29,6 +29,11 @@ void CEnemyAI::ResetAttack() { m_AtkSearch->Reset(); }
 void CEnemyAI::SetMove(EnemyMove move) { m_EnemyMoving = move; }
 std::vector<Vector2_3D> CEnemyAI::GetMoveSearch(Vector2_3D pos, int move) { return m_MoveSearch->Search(pos, move); }
 std::vector<Vector2_3D> CEnemyAI::GetAttackSearch(Vector2_3D pos, Weapontype Atk) { return m_AtkSearch->Search(pos, Atk); }
+CCharcterBase* CEnemyAI::GetMoveEnemy() { return MoveEnemy; }
+Vector2_3D	   CEnemyAI::GetMoveEnemyPos() { return SelectEnemyPos; }
+
+void CEnemyAI::SetMoveEnemy(CCharcterBase* ene) { MoveEnemy = ene; }
+void CEnemyAI::SetMoveEnemyPos(Vector2_3D pos) { SelectEnemyPos = pos; }
 
 
 void CEnemyAI::ChangeEnemyPattern(CEnemyPattern* pattern)

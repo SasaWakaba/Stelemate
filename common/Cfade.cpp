@@ -73,11 +73,14 @@ void CFade::Draw()
 }
 
 void CFade::StartFade() {
-	bFadeStart = true;
-	m_pos[0] = -SCREEN_WIDTH;
-	m_pos[1] = 0.0f;
-	frame = 0;
-	startfin = false;
+	if (bFadeStart == false)
+	{
+		bFadeStart = true;
+		m_pos[0] = -SCREEN_WIDTH;
+		m_pos[1] = 0.0f;
+		frame = 0;
+		startfin = false;
+	}
 }
 
 void CFade::EndFade() {

@@ -112,6 +112,12 @@
     <Filter Include="ヘッダー ファイル\Game\Charcter\EnemyState">
       <UniqueIdentifier>{6faa3119-57f1-4e2a-8c61-7995a393b8d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Result\UI">
+      <UniqueIdentifier>{3b4771da-3964-4643-8c46-1f549371b1e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Result\UI">
+      <UniqueIdentifier>{a943a6d3-ee5d-4abc-9347-4cc247e847bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DebugUi\DebugUi.cpp">
@@ -306,8 +312,23 @@
     <ClCompile Include="Charcter\CCharacterBase.cpp">
       <Filter>ソース ファイル\Game\Charcter</Filter>
     </ClCompile>
+    <ClCompile Include="UI\Result_UI.cpp">
+      <Filter>ソース ファイル\Result\UI</Filter>
+    </ClCompile>
     <ClCompile Include="Charcter\EnemyStatePattern\EnemyPatternNormal.cpp">
-      <Filter>ヘッダー ファイル\Game\Charcter\EnemyState</Filter>
+      <Filter>ソース ファイル\Game\Charcter\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Charcter\EnemyStatePattern\EnemyPatternMove.cpp">
+      <Filter>ソース ファイル\Game\Charcter\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Charcter\EnemyStatePattern\EnemyPattenAttack.cpp">
+      <Filter>ソース ファイル\Game\Charcter\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Charcter\EnemyStatePattern\EnemyPatternEnd.cpp">
+      <Filter>ソース ファイル\Game\Charcter\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Charcter\EnemyStatePattern\EnemyPatternWait.cpp">
+      <Filter>ソース ファイル\Game\Charcter\EnemyState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -536,30 +557,42 @@
     <ClInclude Include="Charcter\EnemyStatePattern\EnemyPatternNormal.h">
       <Filter>ヘッダー ファイル\Game\Charcter\EnemyState</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="pixelShader.hlsl">
-      <Filter>リソース ファイル</Filter>
-    </FxCompile>
-    <FxCompile Include="vertexShader.hlsl">
-      <Filter>リソース ファイル</Filter>
-    </FxCompile>
-    <FxCompile Include="Particle_GShader.hlsl">
-      <Filter>リソース ファイル</Filter>
-    </FxCompile>
-    <FxCompile Include="Particle_PShader.hlsl">
-      <Filter>リソース ファイル</Filter>
-    </FxCompile>
-    <FxCompile Include="Particle_VShader.hlsl">
-      <Filter>リソース ファイル</Filter>
-    </FxCompile>
-    <FxCompile Include="common\Instance_VS.hlsl">
-      <Filter>リソース ファイル</Filter>
-    </FxCompile>
+    <ClInclude Include="UI\Result_UI.h">
+      <Filter>ヘッダー ファイル\Result\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Charcter\EnemyStatePattern\EnemyPatternMove.h">
+      <Filter>ヘッダー ファイル\Game\Charcter\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Charcter\EnemyStatePattern\EnemyPatternWait.h">
+      <Filter>ヘッダー ファイル\Game\Charcter\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Charcter\EnemyStatePattern\EnemyPatternAttack.h">
+      <Filter>ヘッダー ファイル\Game\Charcter\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Charcter\EnemyStatePattern\EnemyPatternEnd.h">
+      <Filter>ヘッダー ファイル\Game\Charcter\EnemyState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="imgui\imgui.natvis">
       <Filter>ソース ファイル\common\Debug\imgui</Filter>
     </Natvis>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="HLSL\Particle_PShader.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="HLSL\Particle_VShader.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="HLSL\pixelShader.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="HLSL\vertexShader.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="HLSL\Particle_GShader.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

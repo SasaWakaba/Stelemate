@@ -85,7 +85,7 @@ void CSystemMain::Initialize(int x, int z, PanelState* Map)
 	CCharcterBase* SelectEnemy = nullptr;
 	Vector2_3D SelectEnemyPos = {0, 0};
 
-
+	WorldManager::StageStart();
 	//===============
 	//m_StageMap[0].Charcter->GetStatus()->HP = 20;
 	//m_StageMap[0].Charcter->nowHP = 20;
@@ -590,7 +590,7 @@ void CSystemMain::TurnPlayer()
 				case 0:
 					for (Vector2_3D pos : m_AtkArea)
 					{
-						if (m_StageMap[pos.z * m_X + pos.x].bChar)
+						if (m_StageMap[pos.z * m_X + pos.x].bChar && m_StageMap[pos.z * m_X + pos.x].Charcter->GetAlly() == false)
 						{
 							m_CursorLocation = pos;
 							break;
@@ -643,7 +643,7 @@ void CSystemMain::TurnPlayer()
 			{
 				for (Vector2_3D pos : m_AtkArea)
 				{
-					if (m_StageMap[pos.z * m_X + pos.x].bChar)
+					if (m_StageMap[pos.z * m_X + pos.x].bChar  && m_StageMap[pos.z * m_X + pos.x].Charcter->GetAlly() == false)
 					{
 						if (m_CursorLocation.z < pos.z)
 						{
@@ -661,7 +661,7 @@ void CSystemMain::TurnPlayer()
 			{
 				for (Vector2_3D pos : m_AtkArea)
 				{
-					if (m_StageMap[pos.z * m_X + pos.x].bChar)
+					if (m_StageMap[pos.z * m_X + pos.x].bChar && m_StageMap[pos.z * m_X + pos.x].Charcter->GetAlly() == false)
 					{
 						if (m_CursorLocation.z > pos.z)
 						{
@@ -679,7 +679,7 @@ void CSystemMain::TurnPlayer()
 			{
 				for (Vector2_3D pos : m_AtkArea)
 				{
-					if (m_StageMap[pos.z * m_X + pos.x].bChar)
+					if (m_StageMap[pos.z * m_X + pos.x].bChar && m_StageMap[pos.z * m_X + pos.x].Charcter->GetAlly() == false)
 					{
 						if (m_CursorLocation.x > pos.x)
 						{
@@ -697,7 +697,7 @@ void CSystemMain::TurnPlayer()
 			{
 				for (Vector2_3D pos : m_AtkArea)
 				{
-					if (m_StageMap[pos.z * m_X + pos.x].bChar)
+					if (m_StageMap[pos.z * m_X + pos.x].bChar && m_StageMap[pos.z * m_X + pos.x].Charcter->GetAlly() == false)
 					{
 						if (m_CursorLocation.x < pos.x)
 						{
@@ -724,18 +724,11 @@ void CSystemMain::TurnPlayer()
 		CGameMenu_UI* UI;
 		if (!m_bBattle)
 		{
-			for (Vector2_3D pos : m_AtkArea)
-			{
-				if (m_StageMap[pos.z * m_X + pos.x].bChar)
-				{
-					CSystemBattle::Battle(m_SelectPanel, &m_StageMap[pos.z * m_X + pos.x]);
-					m_bBattle = true;
-					m_AttackSearch->Reset();
-					CBattleSimu* simu = CManager::GetScene()->GetGameObject<CBattleSimu>(4);
-					simu->SetDraw(false);
-					break;
-				}
-			}
+			CSystemBattle::Battle(m_SelectPanel, &m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x]);
+			m_bBattle = true;
+			m_AttackSearch->Reset();
+			CBattleSimu* simu = CManager::GetScene()->GetGameObject<CBattleSimu>(4);
+			simu->SetDraw(false);
 		}
 	}
 

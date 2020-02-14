@@ -18,6 +18,12 @@ enum GameMode
 	Classic,
 };
 
+typedef struct ResultScore_tag
+{
+	int		SubjugationCount;
+	int		DeadCount;
+}ResultScore;
+
 class CMoveSearch;
 
 class WorldManager
@@ -47,6 +53,9 @@ private:
 	//現在のターン：プレイヤーorエネミー
 	static int turn;
 
+	//リザルトスコア
+	static ResultScore Result;
+
 	//エネミーの行動
 	static EnemyMove enemyAction;
 
@@ -60,7 +69,7 @@ public:
 	static void SetGameMode(GameMode mode);
 
 	//ステージ開始
-	static void StageStart(int stageNum);
+	static void StageStart();
 
 	//ステージ情報格納
 	static void SetStageState(StageInfo* stage);
@@ -74,12 +83,24 @@ public:
 	//ターン経過
 	static void AddTurn();
 
+	//エネミー討伐
+	static void AddSubjugation();
+
+	//パーティキャラ死亡
+	static void AddDeadCount();
+
+	//リザルトスコア取得
+	static ResultScore* GetResult();
+
 	//SP加算
 	static void AddSoldierPoint(int add);
 	//SP使用
 	static void UseSoldierPoint(int use);
 	//SP取得
 	static int GetSoldierPoint();
+
+	//ステージ番号セット
+	static void SetNowStageNum(int num) { NowStage = num; }
 
 	//雇用
 	static STATUS* PlayerAdd(const char* characterName, PlayerData* menber);

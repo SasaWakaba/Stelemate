@@ -1,6 +1,15 @@
-﻿  EnemyPatternNormal.cpp
-  CEnemyAI.cpp
-  CSystemMain.cpp
-c:\users\nayup\documents\stelemate\gamesystem\csystemmain.cpp(724): warning C4101: 'UI': ローカル変数は 1 度も使われていません。
-  コードを生成中...
+﻿C:\Users\nayup\Documents\Stelemate\HLSL\Particle_GShader.hlsl(38,9-44): warning X3206: implicit truncation of vector type
+C:\Users\nayup\Documents\Stelemate\HLSL\Particle_GShader.hlsl(39,23-43): warning X3206: implicit truncation of vector type
+C:\Users\nayup\Documents\Stelemate\HLSL\Particle_GShader.hlsl(46,12-42): warning X3206: implicit truncation of vector type
+C:\Users\nayup\Documents\Stelemate\HLSL\Particle_GShader.hlsl(47,12-42): warning X3206: implicit truncation of vector type
+C:\Users\nayup\Documents\Stelemate\HLSL\Particle_GShader.hlsl(48,12-42): warning X3206: implicit truncation of vector type
+C:\Users\nayup\Documents\Stelemate\HLSL\Particle_GShader.hlsl(49,12-42): warning X3206: implicit truncation of vector type
+FXC : warning X4715: emitting a system-interpreted value which may not be written in every execution path of the shader
+FXC : warning X4715: emitting a system-interpreted value which may not be written in every execution path of the shader
+FXC : warning X4715: emitting a system-interpreted value which may not be written in every execution path of the shader
+FXC : warning X4715: emitting a system-interpreted value which may not be written in every execution path of the shader
+  
+  compilation object save succeeded; see C:\Users\nayup\Documents\Stelemate\Particle_GShader.cso
+  compilation object save succeeded; see C:\Users\nayup\Documents\Stelemate\Particle_PShader.cso
+  compilation object save succeeded; see C:\Users\nayup\Documents\Stelemate\Particle_VShader.cso
   Stalemate.vcxproj -> C:\Users\nayup\Documents\Stelemate\Debug\Stalemate.exe

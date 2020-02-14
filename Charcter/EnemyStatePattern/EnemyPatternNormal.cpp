@@ -260,6 +260,7 @@ EnemyMove CEnemyPatternNormal::Select(CEnemyAI* pEnemy, Vector2_3D pos, Weaponty
 				}
 			}
 		}
+		break;
 	case Wand:
 		for (Vector2_3D pl : pEnemy->GetAttackSearch(pos, Atk))
 		{
