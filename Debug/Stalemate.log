@@ -1,15 +1,15 @@
-﻿C:\Users\nayup\Documents\Stelemate\HLSL\Particle_GShader.hlsl(38,9-44): warning X3206: implicit truncation of vector type
-C:\Users\nayup\Documents\Stelemate\HLSL\Particle_GShader.hlsl(39,23-43): warning X3206: implicit truncation of vector type
-C:\Users\nayup\Documents\Stelemate\HLSL\Particle_GShader.hlsl(46,12-42): warning X3206: implicit truncation of vector type
-C:\Users\nayup\Documents\Stelemate\HLSL\Particle_GShader.hlsl(47,12-42): warning X3206: implicit truncation of vector type
-C:\Users\nayup\Documents\Stelemate\HLSL\Particle_GShader.hlsl(48,12-42): warning X3206: implicit truncation of vector type
-C:\Users\nayup\Documents\Stelemate\HLSL\Particle_GShader.hlsl(49,12-42): warning X3206: implicit truncation of vector type
-FXC : warning X4715: emitting a system-interpreted value which may not be written in every execution path of the shader
-FXC : warning X4715: emitting a system-interpreted value which may not be written in every execution path of the shader
-FXC : warning X4715: emitting a system-interpreted value which may not be written in every execution path of the shader
-FXC : warning X4715: emitting a system-interpreted value which may not be written in every execution path of the shader
-  
-  compilation object save succeeded; see C:\Users\nayup\Documents\Stelemate\Particle_GShader.cso
-  compilation object save succeeded; see C:\Users\nayup\Documents\Stelemate\Particle_PShader.cso
-  compilation object save succeeded; see C:\Users\nayup\Documents\Stelemate\Particle_VShader.cso
+﻿  model.cpp
+c:\users\nayup\documents\stelemate\library\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\users\nayup\documents\stelemate\library\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\users\nayup\documents\stelemate\library\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\users\nayup\documents\stelemate\library\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+c:\users\nayup\documents\stelemate\common\model.cpp(501): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\common\model.cpp(504): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\common\model.cpp(568): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\common\model.cpp(578): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\common\model.cpp(586): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\common\model.cpp(589): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\nayup\documents\stelemate\common\model.cpp(618): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  polygon.cpp
+  コードを生成中...
   Stalemate.vcxproj -> C:\Users\nayup\Documents\Stelemate\Debug\Stalemate.exe

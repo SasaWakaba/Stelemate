@@ -48,29 +48,33 @@ void CEnemyPatternWait::Update(CEnemyAI* pEnemy, Vector2_3D* cursol)
 		Vector2_3D pos = { Pl.second->PosX, Pl.second->PosZ };
 		AllPL.push_back(pos);
 	}
-	Vector2_3D NearEne;
-	float Near = -1.0f;
-	for (int i = 0; i < AllEnePos.size(); i++)
+
+	if (AllEnePos.size() != 0)
 	{
-		if (Near != -1.0f)
+		Vector2_3D NearEne;
+		float Near = -1.0f;
+		for (int i = 0; i < AllEnePos.size(); i++)
 		{
-			if (Near > NearLength(AllPL, AllEnePos[i]))
+			if (Near != -1.0f)
+			{
+				if (Near > NearLength(AllPL, AllEnePos[i]))
+				{
+					NearEne = AllEnePos[i];
+					Near = NearLength(AllPL, AllEnePos[i]);
+				}
+			}
+			else
 			{
 				NearEne = AllEnePos[i];
 				Near = NearLength(AllPL, AllEnePos[i]);
 			}
 		}
-		else
-		{
-			NearEne = AllEnePos[i];
-			Near = NearLength(AllPL, AllEnePos[i]);
-		}
-	}
 
-	pEnemy->SetMoveEnemy(stage->stage[NearEne.z * stage->StageXnum + NearEne.x].Charcter);
-	pEnemy->SetMoveEnemyPos(NearEne);
-	pEnemy->SetMove(move);
-	*cursol = NearEne;
+		pEnemy->SetMoveEnemy(stage->stage[NearEne.z * stage->StageXnum + NearEne.x].Charcter);
+		pEnemy->SetMoveEnemyPos(NearEne);
+		pEnemy->SetMove(move);
+		*cursol = NearEne;
+	}
 }
 
 float CEnemyPatternWait::NearLength(std::vector<Vector2_3D> max, Vector2_3D pos)

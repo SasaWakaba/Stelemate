@@ -1,6 +1,7 @@
 #include "../common/main.h"
 #include "../common/renderer.h"
 #include "../common/texture.h"
+#include "../common/TextureManager.h"
 #include "CCube.h"
 #include "CStagePanel.h"
 
@@ -12,12 +13,10 @@ void CStagePanel::Initialize()
 	switch (m_PanelPattarn)
 	{
 	case 1:
-		m_Texture = new CTexture();
-		m_Texture->LoadTex("asset/texture/grass01.jpg");
+		m_Texture = CTextureManager::LoadTexture("asset/texture/grass01.jpg");
 		break;
 	case 2:
-		m_Texture = new CTexture();
-		m_Texture->LoadTex("asset/texture/forest.jpg");
+		m_Texture = CTextureManager::LoadTexture("asset/texture/forest.jpg");
 
 		m_Model = new CModelAnimation();
 		m_Model->Load("asset/model/forest/treeplan1.fbx");
@@ -30,8 +29,6 @@ void CStagePanel::Initialize()
 
 void CStagePanel::Finalize()
 {
-	m_Texture->Unload();
-	delete m_Texture;
 	cube->Finalize();
 	delete cube;
 

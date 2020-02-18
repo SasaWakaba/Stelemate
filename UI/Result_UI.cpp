@@ -1,5 +1,6 @@
 #include "../common/main.h"
 #include "../common/input.h"
+#include "../common/inputController.h"
 #include "../common/Game_Object.h"
 #include "../common/texture.h"
 #include "../common/polygon.h"
@@ -30,7 +31,8 @@ void CResultUI::Initialize()
 		m_Texture[i] = new CPolygon();
 		m_Texture[i]->Initialize();
 	}
-
+	float color[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	CRenderer::SetClearColor(color);
 	m_Texture[0]->Load("asset/texture/ResultUI000.png");
 	m_Texture[1]->Load("asset/texture/ResultUI001.png");
 	m_Texture[2]->Load("asset/texture/ResultUI002.png");
@@ -147,7 +149,7 @@ void CResultUI::Update()
 			if (NumScale[3] == 1.0f)
 			{
 				//決定キー入力
-				if (CInput::GetKeyTrigger(VK_SPACE))
+				if (CInput::GetKeyTrigger(VK_SPACE) || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_A))
 				{
 					Phase++;
 					StartFrame = frame;
@@ -172,7 +174,7 @@ void CResultUI::Update()
 				if (age < 0) age = 0;
 			}
 			//決定キー入力
-			if (CInput::GetKeyTrigger(VK_SPACE))
+			if (CInput::GetKeyTrigger(VK_SPACE) || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_A))
 			{
 				Phase = end;
 				CResult::Change(selectEnd);
@@ -183,13 +185,13 @@ void CResultUI::Update()
 				}
 			}
 
-			if (WorldManager::GetParty().size() != 0 || WorldManager::GetParty().size() - WorldManager::GetResult()->DeadCount != 0)
+			if (WorldManager::GetParty().size() - WorldManager::GetResult()->DeadCount != 0)
 			{
-				if (CInput::GetKeyTrigger('W'))
+				if (CInput::GetKeyTrigger('W') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_UP))
 				{
 					selectEnd = 0;
 				}
-				if (CInput::GetKeyTrigger('S'))
+				if (CInput::GetKeyTrigger('S') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_DOWN))
 				{
 					selectEnd = 1;
 				}
@@ -222,7 +224,7 @@ void CResultUI::Draw()
 	m_Texture[2]->Draw(UIbasePos.x - BaseW / 2 + BaseW * 0.244f,					UIbasePos.y - 20.0f,					0, 0, BaseH / 7 * 3, BaseH / 7, BaseH / 7 * 3, BaseH / 7, color);//0.244
 	m_Texture[3]->Draw(UIbasePos.x - BaseW / 2 + BaseW * 0.244f + BaseH / 7,		UIbasePos.y + BaseH / 7 - 10.0f,		0, 0, BaseH / 7 * 5, BaseH / 7, BaseH / 7 * 5, BaseH / 7, color);
 
-	if (WorldManager::GetParty().size() != 0)
+	if (WorldManager::GetParty().size() - WorldManager::GetResult()->DeadCount != 0)
 	{
 		m_Texture[4]->Draw(UIbasePos.x - BaseW / 2 + BaseW * 0.244f + BaseH / 7 / 2,	UIbasePos.y + BaseH / 7 * 2,	0, 0, BaseH / 7 * 4, BaseH / 7, BaseH / 7 * 4, BaseH / 7, color);
 		m_Text[0]->DrawEng(UIbasePos.x + BaseW / 5 + NUMBER_SIZE / 2, UIbasePos.y + BaseH / 7 * 2, NUMBER_SIZE * 0.5f, NUMBER_SIZE * 0.5f / 3 * 2, "SP", color);
@@ -244,9 +246,9 @@ void CResultUI::Draw()
 	}
 
 	color.setAll(XMFLOAT4(0.0f, 1.0f, 0.0f, 0.9f));
-	if (WorldManager::GetParty().size() > 9)
+	if (WorldManager::GetParty().size() - WorldManager::GetResult()->DeadCount > 9)
 	{
-		int num = WorldManager::GetParty().size();
+		int num = WorldManager::GetParty().size() - WorldManager::GetResult()->DeadCount;
 		for(int i = 0;num % 10 != 0; i++)
 		{
 			number->Draw(UIbasePos.x + BaseW / 5 + (NUMBER_SIZE / 3 * 2) * i, UIbasePos.y + BaseH / 7 - 10.0f, NUMBER_SIZE * NumScale[1], NUMBER_SIZE * NumScale[1], num % 10, color);
@@ -255,10 +257,10 @@ void CResultUI::Draw()
 	}
 	else
 	{
-		number->Draw(UIbasePos.x + BaseW / 5, UIbasePos.y + BaseH / 7 - 10.0f, NUMBER_SIZE * NumScale[1], NUMBER_SIZE * NumScale[1], WorldManager::GetParty().size() % 10, color);
+		number->Draw(UIbasePos.x + BaseW / 5, UIbasePos.y + BaseH / 7 - 10.0f, NUMBER_SIZE * NumScale[1], NUMBER_SIZE * NumScale[1], WorldManager::GetParty().size() - WorldManager::GetResult()->DeadCount, color);
 	}
 
-	if (WorldManager::GetParty().size() != 0)
+	if (WorldManager::GetParty().size() - WorldManager::GetResult()->DeadCount != 0)
 	{
 		color.setAll(XMFLOAT4(0.0f, 0.0f, 1.0f, 0.9f));
 		int Score = WorldManager::GetResult()->SubjugationCount - WorldManager::GetResult()->DeadCount;

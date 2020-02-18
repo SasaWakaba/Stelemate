@@ -10,6 +10,7 @@
 #define TITLELOGO_HEIGHT (512.0f)
 
 class CGameModeSelect;
+class CAudioClip;
 
 class CTitleMenu:public CGameObject
 {
@@ -32,7 +33,8 @@ private:
 		Mode,
 	};
 
-	CPolygon*		m_Polygon[6];
+	CPolygon*		m_Polygon[7];
+	CAudioClip*		m_Ok;
 
 	//PRESS========
 	float PressAlpha;

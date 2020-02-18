@@ -3,6 +3,7 @@
 #include "texture.h"
 #include "Game_Object.h"
 #include "polygon.h"
+#include "TextureManager.h"
 
 
 void CPolygon::Initialize()
@@ -10,7 +11,6 @@ void CPolygon::Initialize()
 	//=======================================================
 	//テクスチャ読み込み
 	//=======================================================
-	m_Texture = new CTexture();
 
 	VERTEX_3D vertex[4];
 	vertex[0].Position = XMFLOAT3(0.0f, 0.0f, 0.0f);
@@ -53,7 +53,7 @@ void CPolygon::Initialize()
 
 void CPolygon::Load(const char* filename)
 {
-	m_Texture->LoadTex(filename);
+	m_Texture = CTextureManager::LoadTexture(filename);
 }
 
 void CPolygon::Finalize()
@@ -62,8 +62,6 @@ void CPolygon::Finalize()
 	{
 	m_VertexBuffer->Release();
 	}
-	m_Texture->Unload();
-	delete m_Texture;
 }
 
 void CPolygon::Update()

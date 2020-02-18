@@ -55,6 +55,7 @@ private:
 	static int Frame;
 
 	static XMFLOAT3 charaPos[2];
+	static float	charaRot[2];
 
 	CSkyBox* sky;
 
@@ -62,7 +63,7 @@ private:
 
 	int Damage_A = 0;
 	int Damage_B = 0;
-	int DamageCount = 0;
+	float DamageCount = 0;
 	CDrawText* text;
 	CCircleShadow* shadow;
 

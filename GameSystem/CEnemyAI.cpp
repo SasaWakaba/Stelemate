@@ -14,6 +14,10 @@
 
 #include "../Charcter/EnemyStatePattern/EnemyPttern.h"
 #include "../Charcter/EnemyStatePattern/EnemyPatternNormal.h"
+#include "../Charcter/EnemyStatePattern/EnemyPatternWait.h"
+#include "../Charcter/EnemyStatePattern/EnemyPatternMove.h"
+#include "../Charcter/EnemyStatePattern/EnemyPatternAttack.h"
+#include "../Charcter/EnemyStatePattern/EnemyPatternEnd.h"
 
 #include "../common/math.h"
 #include "CEnemyAI.h"
@@ -26,7 +30,6 @@ void CEnemyAI::SetBattle(bool bEneble) { bBattle = bEneble; }
 std::vector<Vector2_3D> CEnemyAI::GetSerchArea() { return m_SearchArea; }
 void CEnemyAI::ResetMove() { m_MoveSearch->Reset(); }
 void CEnemyAI::ResetAttack() { m_AtkSearch->Reset(); }
-void CEnemyAI::SetMove(EnemyMove move) { m_EnemyMoving = move; }
 std::vector<Vector2_3D> CEnemyAI::GetMoveSearch(Vector2_3D pos, int move) { return m_MoveSearch->Search(pos, move); }
 std::vector<Vector2_3D> CEnemyAI::GetAttackSearch(Vector2_3D pos, Weapontype Atk) { return m_AtkSearch->Search(pos, Atk); }
 CCharcterBase* CEnemyAI::GetMoveEnemy() { return MoveEnemy; }
@@ -36,10 +39,9 @@ void CEnemyAI::SetMoveEnemy(CCharcterBase* ene) { MoveEnemy = ene; }
 void CEnemyAI::SetMoveEnemyPos(Vector2_3D pos) { SelectEnemyPos = pos; }
 
 
-void CEnemyAI::ChangeEnemyPattern(CEnemyPattern* pattern)
-{
-	delete m_pEnemyPattern;
-	m_pEnemyPattern = pattern;
+void CEnemyAI::SetMove(EnemyMove move) { 
+	m_EnemyMoving = move;
+	m_pEnemyPattern = Pattern[m_EnemyMoving];
 }
 
 bool CEnemyAI::Add(Vector2_3D pos)
@@ -74,7 +76,6 @@ bool CEnemyAI::Add(Vector2_3D pos)
 	}
 }
 
-
 Vector2_3D CEnemyAI::NearLocation(std::vector<Vector2_3D> max, Vector2_3D pos)
 {
 	Vector2_3D Near;
@@ -103,7 +104,15 @@ Vector2_3D CEnemyAI::NearLocation(std::vector<Vector2_3D> max, Vector2_3D pos)
 
 void CEnemyAI::Initialize(int numX, int numZ, PanelState* Map)
 {
-	m_pEnemyPattern = new CEnemyPatternNormal();
+	/*m_pEnemyPattern = new CEnemyPatternNormal();*/
+
+	Pattern[0] = new CEnemyPatternWait();
+	Pattern[1] = new CEnemyPatternMove();
+	Pattern[2] = new CEnemyPatternAttack();
+	Pattern[3] = new CEnemyPatternNone();
+	Pattern[4] = new CEnemyPatternEnd();
+	m_pEnemyPattern = Pattern[0];
+
 	m_StageMap = new StageInfo();
 	m_StageMap->stage = Map;
 	m_StageMap->StageXnum = numX;
@@ -120,7 +129,12 @@ void CEnemyAI::Initialize(int numX, int numZ, PanelState* Map)
 
 void CEnemyAI::Finalize()
 {
-	delete m_pEnemyPattern;
+	/*delete m_pEnemyPattern;*/
+	for (int i = 0; i < PATTERN_NUM; i++)
+	{
+		delete Pattern[i];
+	}
+
 	m_StageMap->stage = nullptr;
 	delete m_StageMap;
 	m_AtkSearch->Finalize();

@@ -1,5 +1,6 @@
 #include "../common/main.h"
 #include "../common/input.h"
+#include "../common/inputController.h"
 #include "../common/texture.h"
 #include "../common/polygon.h"
 #include "../common/CDrawText.h"
@@ -61,17 +62,17 @@ CGameModeSelect::~CGameModeSelect()
 
 void CGameModeSelect::Update()
 {
-	if (CInput::GetKeyTrigger('W'))
+	if (CInput::GetKeyTrigger('W') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_UP))
 	{
 		m_select = Casual;
 	}
 
-	if (CInput::GetKeyTrigger('S'))
+	if (CInput::GetKeyTrigger('S') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_DOWN))
 	{
 		m_select = Classic;
 	}
 
-	if (CInput::GetKeyTrigger(VK_SPACE))
+	if (CInput::GetKeyTrigger(VK_SPACE) || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_A))
 	{
 		WorldManager::SetGameMode(m_select);
 		CTitle::Change();

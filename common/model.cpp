@@ -122,11 +122,11 @@ void CModel::Unload()
 	m_VertexBuffer->Release();
 	m_IndexBuffer->Release();
 
-	for (unsigned int i = 0; i < m_SubsetNum; i++)
-	{
-		m_SubsetArray[i].Material.Texture->Unload();
-		delete m_SubsetArray[i].Material.Texture;
-	}
+	//for (unsigned int i = 0; i < m_SubsetNum; i++)
+	//{
+	//	m_SubsetArray[i].Material.Texture->Unload();
+	//	delete m_SubsetArray[i].Material.Texture;
+	//}
 
 	delete[] m_SubsetArray;
 

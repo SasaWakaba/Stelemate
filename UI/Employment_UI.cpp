@@ -3,6 +3,7 @@
 #include "../common/renderer.h"
 #include "../GameSystem/WorldManager.h"
 #include "../common/input.h"
+#include "../common/inputController.h"
 #include "../common/polygon.h"
 #include "../common/CDrawText.h"
 #include "../common/Game_Object.h"
@@ -127,14 +128,14 @@ void CEmploymentUI::Update(int frame)
 	case notDraw:
 		break;
 	case moveSelect:
-		m_TexPos[0] = ease_out((age * (1.0f / 50)), SCREEN_HEIGHT + SCREEN_HEIGHT / 2, -SCREEN_HEIGHT, 1);
-		if (age == 50)
+		m_TexPos[0] = ease_out((age * (1.0f / 30)), SCREEN_HEIGHT + SCREEN_HEIGHT / 2, -SCREEN_HEIGHT, 1);
+		if (age == 30)
 		{
 			Phase++;
 		}
 		break;
 	case Select:
-		if (CInput::GetKeyTrigger('W'))
+		if (CInput::GetKeyTrigger('W') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_UP))
 		{
 			if (selectJob > 0)
 			{
@@ -142,7 +143,7 @@ void CEmploymentUI::Update(int frame)
 			}
 		}
 
-		if (CInput::GetKeyTrigger('S'))
+		if (CInput::GetKeyTrigger('S') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_DOWN))
 		{
 			if (selectJob < 5)
 			{
@@ -150,7 +151,7 @@ void CEmploymentUI::Update(int frame)
 			}
 		}
 
-		if (CInput::GetKeyTrigger(VK_SPACE))
+		if (CInput::GetKeyTrigger(VK_SPACE) || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_A))
 		{
 			switch (selectJob)
 			{
@@ -198,12 +199,176 @@ void CEmploymentUI::Update(int frame)
 				}
 				break;
 			case Archer:
+				if (2 < WorldManager::GetSoldierPoint())
+				{
+					PlayerData* member;
+					member = new PlayerData();
+					member->m_Character = new CArcher();
+					member->m_Character->Initialize();
+					member->m_Character->SetAlly(true);
+					member->m_Exp = 0;
+					member->m_NextExp = FIRST_LEVELUP;
+					member->m_Character->SetName(std::string("‹|Žg‚¢"));
+
+
+					member->PosX = 0;
+					member->PosZ = 0;
+					while (1)
+					{
+						if (m_stage->stage[member->PosZ * m_stage->StageZnum + member->PosX].bChar != true)
+						{
+							break;
+						}
+						else
+						{
+							if (member->PosX > m_stage->StageXnum - 1)
+							{
+								member->PosX = 0;
+								member->PosZ++;
+							}
+							else
+							{
+								member->PosX++;
+							}
+						}
+					}
+					member->m_Character->SetLocation(XMFLOAT3((member->PosX * SPACE_SIZE) - (SPACE_SIZE * m_stage->StageXnum / 2), 0.0f, (member->PosZ * SPACE_SIZE) - (SPACE_SIZE * m_stage->StageZnum / 2)));
+
+					m_AddStatus = WorldManager::PlayerAdd(member->m_Character->GetName().c_str(), member);
+					WorldManager::UseSoldierPoint(2);
+					Phase = moveEmp;
+					StartFrame = Frame;
+					m_AddData = member;
+				}
 				break;
 			case Sorcerer:
+				if (2 < WorldManager::GetSoldierPoint())
+				{
+					PlayerData* member;
+					member = new PlayerData();
+					member->m_Character = new CSorcerer();
+					member->m_Character->Initialize();
+					member->m_Character->SetAlly(true);
+					member->m_Exp = 0;
+					member->m_NextExp = FIRST_LEVELUP;
+					member->m_Character->SetName(std::string("–‚pŽt"));
+
+
+					member->PosX = 0;
+					member->PosZ = 0;
+					while (1)
+					{
+						if (m_stage->stage[member->PosZ * m_stage->StageZnum + member->PosX].bChar != true)
+						{
+							break;
+						}
+						else
+						{
+							if (member->PosX > m_stage->StageXnum - 1)
+							{
+								member->PosX = 0;
+								member->PosZ++;
+							}
+							else
+							{
+								member->PosX++;
+							}
+						}
+					}
+					member->m_Character->SetLocation(XMFLOAT3((member->PosX * SPACE_SIZE) - (SPACE_SIZE * m_stage->StageXnum / 2), 0.0f, (member->PosZ * SPACE_SIZE) - (SPACE_SIZE * m_stage->StageZnum / 2)));
+
+					m_AddStatus = WorldManager::PlayerAdd(member->m_Character->GetName().c_str(), member);
+					WorldManager::UseSoldierPoint(2);
+					Phase = moveEmp;
+					StartFrame = Frame;
+					m_AddData = member;
+				}
 				break;
 			case Healer:
+				if (2 < WorldManager::GetSoldierPoint())
+				{
+					PlayerData* member;
+					member = new PlayerData();
+					member->m_Character = new CHealer();
+					member->m_Character->Initialize();
+					member->m_Character->SetAlly(true);
+					member->m_Exp = 0;
+					member->m_NextExp = FIRST_LEVELUP;
+					member->m_Character->SetName(std::string("C“¹Žm"));
+
+
+					member->PosX = 0;
+					member->PosZ = 0;
+					while (1)
+					{
+						if (m_stage->stage[member->PosZ * m_stage->StageZnum + member->PosX].bChar != true)
+						{
+							break;
+						}
+						else
+						{
+							if (member->PosX > m_stage->StageXnum - 1)
+							{
+								member->PosX = 0;
+								member->PosZ++;
+							}
+							else
+							{
+								member->PosX++;
+							}
+						}
+					}
+					member->m_Character->SetLocation(XMFLOAT3((member->PosX * SPACE_SIZE) - (SPACE_SIZE * m_stage->StageXnum / 2), 0.0f, (member->PosZ * SPACE_SIZE) - (SPACE_SIZE * m_stage->StageZnum / 2)));
+
+					m_AddStatus = WorldManager::PlayerAdd(member->m_Character->GetName().c_str(), member);
+					WorldManager::UseSoldierPoint(2);
+					Phase = moveEmp;
+					StartFrame = Frame;
+					m_AddData = member;
+				}
 				break;
 			case Lancer:
+				if (3 < WorldManager::GetSoldierPoint())
+				{
+					PlayerData* member;
+					member = new PlayerData();
+					member->m_Character = new CLancer();
+					member->m_Character->Initialize();
+					member->m_Character->SetAlly(true);
+					member->m_Exp = 0;
+					member->m_NextExp = FIRST_LEVELUP;
+					member->m_Character->SetName(std::string("‘„•º"));
+
+
+					member->PosX = 0;
+					member->PosZ = 0;
+					while (1)
+					{
+						if (m_stage->stage[member->PosZ * m_stage->StageZnum + member->PosX].bChar != true)
+						{
+							break;
+						}
+						else
+						{
+							if (member->PosX > m_stage->StageXnum - 1)
+							{
+								member->PosX = 0;
+								member->PosZ++;
+							}
+							else
+							{
+								member->PosX++;
+							}
+						}
+					}
+					member->m_Character->SetLocation(XMFLOAT3((member->PosX * SPACE_SIZE) - (SPACE_SIZE * m_stage->StageXnum / 2), 0.0f, (member->PosZ * SPACE_SIZE) - (SPACE_SIZE * m_stage->StageZnum / 2)));
+
+					m_AddStatus = WorldManager::PlayerAdd(member->m_Character->GetName().c_str(), member);
+					WorldManager::UseSoldierPoint(3);
+					Phase = moveEmp;
+					StartFrame = Frame;
+					m_AddData = member;
+				}
 				break;
 			case 5:
 				Phase = backSelect;
@@ -211,18 +376,23 @@ void CEmploymentUI::Update(int frame)
 				break;
 			}
 		}
+		if (CInput::GetKeyTrigger('Q') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_B))
+		{
+			Phase = backSelect;
+			StartFrame = Frame;
+		}
 		break;
 	case backSelect:
-		m_TexPos[0] = ease_out((age * (1.0f / 60)), SCREEN_HEIGHT / 2, SCREEN_HEIGHT, 1);
-		if (age == 60)
+		m_TexPos[0] = ease_out((age * (1.0f / 30)), SCREEN_HEIGHT / 2, SCREEN_HEIGHT, 1);
+		if (age == 30)
 		{
 			Phase = end;
 		}
 		break;
 	case moveEmp:
-		m_TexPos[0] = ease_out((age * (1.0f / 60)), SCREEN_HEIGHT / 2, -SCREEN_HEIGHT, 1);
-		m_TexPos[2] = ease_out((age * (1.0f / 60)), SCREEN_HEIGHT + SCREEN_HEIGHT / 2, -SCREEN_HEIGHT, 1);
-		if (age == 60)
+		m_TexPos[0] = ease_out((age * (1.0f / 30)), SCREEN_HEIGHT / 2, -SCREEN_HEIGHT, 1);
+		m_TexPos[2] = ease_out((age * (1.0f / 30)), SCREEN_HEIGHT + SCREEN_HEIGHT / 2, -SCREEN_HEIGHT, 1);
+		if (age == 30)
 		{
 			Phase++;
 			StartFrame = Frame;
@@ -232,12 +402,12 @@ void CEmploymentUI::Update(int frame)
 
 		for (int i = 0; i < 7; i++)
 		{
-			m_JudgeScale[i] = elastic_out(age * (1.0f / 60), 0.0f, 1.0f, 1);
+			m_JudgeScale[i] = elastic_out(age * (1.0f / 40), 0.0f, 1.0f, 1);
 			age -= 10;
 			if (age < 0) age = 0;
 		}
 
-		if (CInput::GetKeyTrigger(VK_SPACE))
+		if (CInput::GetKeyTrigger(VK_SPACE) || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_A))
 		{
 			Phase = backEmp;
 			StartFrame = Frame;
@@ -248,8 +418,8 @@ void CEmploymentUI::Update(int frame)
 		}
 		break;
 	case backEmp:
-		m_TexPos[2] = ease_out((age * (1.0f / 60)), SCREEN_HEIGHT / 2, -SCREEN_HEIGHT, 1);
-		if (age == 60)
+		m_TexPos[2] = ease_out((age * (1.0f / 30)), SCREEN_HEIGHT / 2, -SCREEN_HEIGHT, 1);
+		if (age == 30)
 		{
 			Phase = end;
 		}

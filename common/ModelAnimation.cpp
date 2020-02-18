@@ -9,6 +9,7 @@
 #include "shader.h"
 
 #include "ModelAnimation.h"
+#include "TextureManager.h"
 
 void CModelAnimation::Update(int Animation1, int Animation2, float blend, int Frame)
 {
@@ -157,8 +158,7 @@ void CModelAnimation::Load(const char* Filename)
 				{
 					std::string fileloc = basePath + path.data;
 					CTexture* tex;
-					tex = new CTexture();
-					tex->LoadTex(fileloc.c_str());
+					tex = CTextureManager::LoadTexture(fileloc.c_str());
 					m_TextureIdMap[path.data] = tex;
 					//m_TextureIdMap[path.data]->LoadTex(fileloc.c_str());
 					//m_Texture = m_TextureIdMap[path.data];
@@ -286,14 +286,6 @@ void CModelAnimation::UnLoad()
 	for (int i = 0; i < m_SceneNum; i++)
 	{
 		aiReleaseImport(m_Scene[i]);
-	}
-	for (std::pair<std::string, CTexture*> pair : m_TextureIdMap)
-	{
-		if (pair.second != nullptr)
-		{
-			pair.second->Unload();
-			delete pair.second;
-		}
 	}
 	m_TextureIdMap.clear();
 }

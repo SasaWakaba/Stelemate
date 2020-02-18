@@ -3,7 +3,7 @@
 #include "../common/texture.h"
 #include "../common/polygon.h"
 #include "../common/input.h"
-
+#include "../common/inputController.h"
 #include "GameMenu_UI.h"
 
 
@@ -102,7 +102,7 @@ void CGameMenu_UI::Update()
 		}
 		else
 		{
-			if (CInput::GetKeyTrigger('S'))
+			if (CInput::GetKeyTrigger('S') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_DOWN))
 			{
 				switch (m_MenuPos)
 				{
@@ -123,7 +123,7 @@ void CGameMenu_UI::Update()
 					break;
 				}
 			}
-			if (CInput::GetKeyTrigger('W'))
+			if (CInput::GetKeyTrigger('W') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_UP))
 			{
 				switch (m_MenuPos)
 				{

@@ -2,6 +2,7 @@
 #include "../common/renderer.h"
 #include "../GameSystem/WorldManager.h"
 #include "../common/input.h"
+#include "../common/inputController.h"
 #include "../common/polygon.h"
 #include "../common/CDrawText.h"
 #include "../common/Game_Object.h"
@@ -31,6 +32,8 @@
 
 static float pos = 1.0f;
 static float star = 0;
+
+int CountJob(JOBCLASS job);
 
 CPreparationUI::CPreparationUI()
 {
@@ -110,7 +113,7 @@ void CPreparationUI::Update()
 {
 	if (m_Emp->GetPhase() == 0 && m_Arrangement->GetEdit() == false)
 	{
-		if (CInput::GetKeyTrigger('W'))
+		if (CInput::GetKeyTrigger('W') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_UP))
 		{
 			if (m_Cursol > 0)
 			{
@@ -118,7 +121,7 @@ void CPreparationUI::Update()
 			}
 		}
 
-		if (CInput::GetKeyTrigger('S'))
+		if (CInput::GetKeyTrigger('S') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_DOWN))
 		{
 			if (m_Cursol < 3)
 			{
@@ -126,7 +129,7 @@ void CPreparationUI::Update()
 			}
 		}
 
-		if (CInput::GetKeyTrigger(VK_SPACE))
+		if (CInput::GetKeyTrigger(VK_SPACE) || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_A))
 		{
 			switch (m_Cursol)
 			{
@@ -253,10 +256,32 @@ void CPreparationUI::Draw()
 
 	text = "“GŒRî•ñ";
 	m_Text[1]->DrawJpn((int)(SCREEN_WIDTH / 2 - (TEXT_SIZE_SMALL / 3 * 2) * 2), (int)(SCREEN_HEIGHT / 6 - (SCREEN_WIDTH / 4 / 3 * 2) / 7 * 3 - (TEXT_SIZE_SMALL / 5 * 3) / 2), (int)TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+
+	text = "ƒŒƒxƒ‹F";
+	m_Text[1]->DrawJpn((int)(SCREEN_WIDTH / 2 - (TEXT_SIZE_SMALL / 3 * 2) * 3), (int)(SCREEN_HEIGHT / 6 - (TEXT_SIZE_SMALL / 5 * 3) / 2), (int)TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+	m_Number->Draw((int)(SCREEN_WIDTH / 2 + (TEXT_SIZE_SMALL / 3 * 2) * 2), (int)(SCREEN_HEIGHT / 6 + (TEXT_SIZE_SMALL / 5 * 3) / 2), TEXT_SIZE_SMALL / 5 * 3, TEXT_SIZE_SMALL / 5 * 3, WorldManager::GetNowStageNum() + 1, color);
+	text = "•ºŽm”F";
+	m_Text[1]->DrawJpn((int)(SCREEN_WIDTH / 2 - (TEXT_SIZE_SMALL / 3 * 2) * 3), (int)(SCREEN_HEIGHT / 6 + (SCREEN_WIDTH / 4 / 3 * 2) / 4 - (TEXT_SIZE_SMALL / 5 * 3) / 2), (int)TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+	m_Number->Draw((int)(SCREEN_WIDTH / 2 + (TEXT_SIZE_SMALL / 3 * 2) * 2), (int)(SCREEN_HEIGHT / 6 + (SCREEN_WIDTH / 4 / 3 * 2) / 4 + (TEXT_SIZE_SMALL / 5 * 3) / 2), TEXT_SIZE_SMALL / 5 * 3, TEXT_SIZE_SMALL / 5 * 3, m_Arrangement->GetStageEnemy(WorldManager::GetNowStageNum() + 1).EnemyNum, color);
 	
 	text = "Ž©ŒRî•ñ";
 	m_Text[1]->DrawJpn((int)(SCREEN_WIDTH / 7 - (TEXT_SIZE_SMALL / 3 * 2) * 2), (int)(SCREEN_HEIGHT / 2 - (SCREEN_WIDTH / 4 * 1.33f) / 11 * 5 - (TEXT_SIZE_SMALL / 5 * 3) / 2), (int)TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
 
+	text = "Œ•ŽmF";
+	m_Text[1]->DrawJpn((int)(SCREEN_WIDTH / 7 - (TEXT_SIZE_SMALL / 3 * 2) * 3), (int)(SCREEN_HEIGHT / 2 - (SCREEN_WIDTH / 4 * 1.33f) / 8 * 2 - (TEXT_SIZE_SMALL / 5 * 3) / 2), (int)TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+	m_Number->Draw((int)(SCREEN_WIDTH / 7 + (TEXT_SIZE_SMALL / 3 * 2) * 2), (int)(SCREEN_HEIGHT / 2 - (SCREEN_WIDTH / 4 * 1.33f) / 4 + (TEXT_SIZE_SMALL / 5 * 3) / 2), TEXT_SIZE_SMALL / 5 * 3, TEXT_SIZE_SMALL / 5 * 3, CountJob(Swordman), color);
+	text = "‹|Žg‚¢F";
+	m_Text[1]->DrawJpn((int)(SCREEN_WIDTH / 7 - (TEXT_SIZE_SMALL / 3 * 2) * 3), (int)(SCREEN_HEIGHT / 2 - (SCREEN_WIDTH / 4 * 1.33f) / 8 - (TEXT_SIZE_SMALL / 5 * 3) / 2), (int)TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+	m_Number->Draw((int)(SCREEN_WIDTH / 7 + (TEXT_SIZE_SMALL / 3 * 2) * 2), (int)(SCREEN_HEIGHT / 2 - (SCREEN_WIDTH / 4 * 1.33f) / 8 + (TEXT_SIZE_SMALL / 5 * 3) / 2), TEXT_SIZE_SMALL / 5 * 3, TEXT_SIZE_SMALL / 5 * 3, CountJob(Archer), color);
+	text = "–‚pŽtF";
+	m_Text[1]->DrawJpn((int)(SCREEN_WIDTH / 7 - (TEXT_SIZE_SMALL / 3 * 2) * 3), (int)(SCREEN_HEIGHT / 2 - (TEXT_SIZE_SMALL / 5 * 3) / 2), (int)TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+	m_Number->Draw((int)(SCREEN_WIDTH / 7 + (TEXT_SIZE_SMALL / 3 * 2) * 2), (int)(SCREEN_HEIGHT / 2 + (TEXT_SIZE_SMALL / 5 * 3) / 2), TEXT_SIZE_SMALL / 5 * 3, TEXT_SIZE_SMALL / 5 * 3, CountJob(Sorcerer), color);
+	text = "C“¹ŽmF";
+	m_Text[1]->DrawJpn((int)(SCREEN_WIDTH / 7 - (TEXT_SIZE_SMALL / 3 * 2) * 3), (int)(SCREEN_HEIGHT / 2 + (SCREEN_WIDTH / 4 * 1.33f) / 8 - (TEXT_SIZE_SMALL / 5 * 3) / 2), (int)TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+	m_Number->Draw((int)(SCREEN_WIDTH / 7 + (TEXT_SIZE_SMALL / 3 * 2) * 2), (int)(SCREEN_HEIGHT / 2 + (SCREEN_WIDTH / 4 * 1.33f) / 8 + (TEXT_SIZE_SMALL / 5 * 3) / 2), TEXT_SIZE_SMALL / 5 * 3, TEXT_SIZE_SMALL / 5 * 3, CountJob(Healer), color);
+	text = "‘„•ºF";
+	m_Text[1]->DrawJpn((int)(SCREEN_WIDTH / 7 - (TEXT_SIZE_SMALL / 3 * 2) * 3), (int)(SCREEN_HEIGHT / 2 + (SCREEN_WIDTH / 4 * 1.33f) / 4 - (TEXT_SIZE_SMALL / 5 * 3) / 2), (int)TEXT_SIZE_SMALL, (int)TEXT_SIZE_SMALL / 3 * 2, text, color);
+	m_Number->Draw((int)(SCREEN_WIDTH / 7 + (TEXT_SIZE_SMALL / 3 * 2) * 2), (int)(SCREEN_HEIGHT / 2 + (SCREEN_WIDTH / 4 * 1.33f) / 4 + (TEXT_SIZE_SMALL / 5 * 3) / 2), TEXT_SIZE_SMALL / 5 * 3, TEXT_SIZE_SMALL / 5 * 3, CountJob(Lancer), color);
 
 	color.setAll(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 	float cursor = 125.0f;
@@ -292,4 +317,24 @@ void CPreparationUI::Draw()
 
 	m_Arrangement->Draw();
 	m_Emp->Draw();
+}
+
+int CountJob(JOBCLASS job)
+{
+	if (WorldManager::GetParty().size() != 0)
+	{
+		int countJob = 0;
+		for (auto pl : WorldManager::GetParty())
+		{
+			if (pl.second->m_Character->m_JobClass == job)
+			{
+				countJob++;
+			}
+		}
+		return countJob;
+	}
+	else
+	{
+		return 0;
+	}
 }

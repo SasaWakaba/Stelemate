@@ -1,6 +1,7 @@
 #include "ModelLoader.h"
 #include "../common/renderer.h"
 #include "../common/texture.h"
+#include "../common/TextureManager.h"
 
 bool CModelLoader::Load(std::string filename)
 {
@@ -28,9 +29,8 @@ bool CModelLoader::Load(std::string filename)
 			if (!m_TextureIdMap[path.data])
 			{
 				std::string fileloc = basePath + path.data;
-				m_TextureIdMap[path.data] = new CTexture;
 
-				m_TextureIdMap[path.data]->LoadTex(fileloc.c_str());
+				m_TextureIdMap[path.data] = CTextureManager::LoadTexture(fileloc.c_str());
 			}
 		}
 	}

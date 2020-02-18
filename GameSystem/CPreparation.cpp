@@ -26,8 +26,8 @@ void CPreparation::Init()
 
 	bChange = false;
 	m_BGM = new CAudioClip();
-	m_BGM->Load("asset/audio/tw040.wav");
-	//m_BGM->Play(true);
+	m_BGM->Load("asset/audio/preBGM.wav");
+	m_BGM->Play(true);
 
 	AddGameObject<CPreparationUI>(1);
 

@@ -3,6 +3,7 @@
 #include "texture.h"
 #include "Game_Object.h"
 #include "MeshField.h"
+#include "TextureManager.h"
 
 
 
@@ -64,8 +65,7 @@ void CMeshField::Initialize(float gridSizeX, float gridSizeZ, float gridX, float
 	//=======================================================
 	//テクスチャ読み込み
 	//=======================================================
-	m_Texture = new CTexture();
-	m_Texture->LoadTex("asset/texture/forest.jpg");
+	m_Texture = CTextureManager::LoadTexture("asset/texture/forest.jpg");
 
 
 	//=======================================================
@@ -164,8 +164,6 @@ void CMeshField::Finalize()
 	delete[] Index;
 	m_VertexBuffer->Release();
 	m_IndexBuffer->Release();
-	m_Texture->Unload();
-	delete m_Texture;
 }
 
 void CMeshField::Update()

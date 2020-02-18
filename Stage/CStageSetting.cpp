@@ -3,6 +3,7 @@
 #include "../common/texture.h"
 #include "../common/Billboard.h"
 #include "../common/input.h"
+#include "../common/inputController.h"
 #include "../GameSystem/WorldManager.h"
 #include "../common/Scene.h"
 #include "../common/manager.h"
@@ -10,6 +11,7 @@
 #include "CStageManager.h"
 #include "CStageSetting.h"
 #include "../GameSystem/C3DPolygon.h"
+#include "../common/TextureManager.h"
 #include <map>
 
 #include "../Charcter/CJob.h"
@@ -29,6 +31,7 @@ void CStageSetting::Initialize(int stageNum)
 			CCharcterBase* enemy;
 			enemy = new CSwordsman();
 			enemy->Initialize();
+			enemy->SetAlly(false);
 
 			int z = pStage->StageZnum - 1;
 			int x = pStage->StageXnum - 1;
@@ -83,11 +86,8 @@ void CStageSetting::Initialize(int stageNum)
 	m_StagePanel[1] = new CStagePanel(2, XMFLOAT3(0.0f, 0.0f, 0.0f));
 	m_StagePanel[1]->Initialize();
 
-	m_Texture[0] = new CTexture();
-	m_Texture[1] = new CTexture();
-
-	m_Texture[0]->LoadTex("asset/texture/Move.png");
-	m_Texture[1]->LoadTex("asset/texture/Atk.png");
+	m_Texture[0] = CTextureManager::LoadTexture("asset/texture/Move.png");
+	m_Texture[1] = CTextureManager::LoadTexture("asset/texture/Atk.png");
 
 	m_CursorLocation.x = 0;
 	m_CursorLocation.z = 0;
@@ -106,11 +106,6 @@ void CStageSetting::Finalize()
 
 	m_3DPolygon->Finalize();
 	delete m_3DPolygon;
-
-	m_Texture[0]->Unload();
-	m_Texture[1]->Unload();
-	delete m_Texture[0];
-	delete m_Texture[1];
 
 	m_Yazirushi->Finalize();
 	delete m_Yazirushi;
@@ -146,7 +141,7 @@ void CStageSetting::Update()
 	if (edit)
 	{
 		//è„ì¸óÕ
-		if (CInput::GetKeyTrigger('W'))
+		if (CInput::GetKeyTrigger('W') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_UP))
 		{
 			if ((m_CursorLocation.z + 1) < 2)
 			{
@@ -155,7 +150,7 @@ void CStageSetting::Update()
 
 		}
 		//â∫ì¸óÕ
-		if (CInput::GetKeyTrigger('S'))
+		if (CInput::GetKeyTrigger('S') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_DOWN))
 		{
 			if ((m_CursorLocation.z - 1) >= 0)
 			{
@@ -163,7 +158,7 @@ void CStageSetting::Update()
 			}
 		}
 		//ç∂ì¸óÕ
-		if (CInput::GetKeyTrigger('A'))
+		if (CInput::GetKeyTrigger('A') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_LEFT))
 		{
 			if ((m_CursorLocation.x - 1) >= 0)
 			{
@@ -171,7 +166,7 @@ void CStageSetting::Update()
 			}
 		}
 		//âEì¸óÕ
-		if (CInput::GetKeyTrigger('D'))
+		if (CInput::GetKeyTrigger('D') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_RIGHT))
 		{
 			if ((m_CursorLocation.x + 1) < pStage->StageXnum)
 			{
@@ -179,7 +174,7 @@ void CStageSetting::Update()
 			}
 		}
 
-		if (CInput::GetKeyTrigger('Q'))
+		if (CInput::GetKeyTrigger('Q') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_B))
 		{
 			if (select != true)
 			{
@@ -191,7 +186,7 @@ void CStageSetting::Update()
 			}
 		}
 
-		if (CInput::GetKeyTrigger(VK_SPACE))
+		if (CInput::GetKeyTrigger(VK_SPACE) || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_A))
 		{
 			if (frame > 10)
 			{
@@ -234,6 +229,22 @@ void CStageSetting::Update()
 		{
 			pStage->stage[pl.second->PosZ * pStage->StageXnum + pl.second->PosX].bChar = true;
 			pStage->stage[pl.second->PosZ * pStage->StageXnum + pl.second->PosX].Charcter = pl.second->m_Character;
+		}
+	}
+
+
+	for (int z = 0; z < pStage->StageZnum; z++)
+	{
+		for (int x = 0; x < pStage->StageXnum; x++)
+		{
+			if (pStage->stage[z * pStage->StageXnum + x].bChar)
+			{
+				pStage->stage[z * pStage->StageXnum + x].Charcter->Update();
+				if (pStage->stage[z * pStage->StageXnum + x].Charcter->Destroy())
+				{
+					pStage->stage[z * pStage->StageXnum + x].bChar = false;
+				}
+			}
 		}
 	}
 }

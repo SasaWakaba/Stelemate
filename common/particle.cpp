@@ -6,6 +6,7 @@
 #include "camera.h"
 #include "Scene.h"
 #include "manager.h"
+#include "TextureManager.h"
 void CParticle::Initialize()
 {
 	m_Position = XMFLOAT3(0.0f, 8.0f, 0.0f);
@@ -13,8 +14,7 @@ void CParticle::Initialize()
 	m_Scale = XMFLOAT3(0.5f, 0.5f, 0.5f);
 
 	//テクスチャ管理システム（自作）
-	m_Texture = new CTexture();
-	m_Texture->LoadTex("asset/texture/snow.png");
+	m_Texture = CTextureManager::LoadTexture("asset/texture/snow.png");
 
 	//バファー設定と初期化
 	D3D11_BUFFER_DESC bd;
@@ -156,6 +156,4 @@ void CParticle::Draw()
 void CParticle::Finalize()
 {
 	if (m_PositionBuffer) m_PositionBuffer->Release();
-	m_Texture->Unload();
-	delete m_Texture;
 }

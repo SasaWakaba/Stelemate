@@ -2,6 +2,7 @@
 
 #include "../common/main.h"
 #include "../common/input.h"
+#include "../common/inputController.h"
 #include "../common/texture.h"
 #include "../common/Billboard.h"
 #include "../Stage/CStage.h"
@@ -320,7 +321,7 @@ void CSystemMain::TurnPlayer()
 	//選択カーソル移動
 	{
 		//上入力
-		if (CInput::GetKeyTrigger('W'))
+		if (CInput::GetKeyTrigger('W') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_UP))
 		{
 			if ((m_CursorLocation.z + 1) < m_Z)
 			{
@@ -329,7 +330,7 @@ void CSystemMain::TurnPlayer()
 
 		}
 		//下入力
-		if (CInput::GetKeyTrigger('S'))
+		if (CInput::GetKeyTrigger('S') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_DOWN))
 		{
 			if ((m_CursorLocation.z - 1) >= 0)
 			{
@@ -337,7 +338,7 @@ void CSystemMain::TurnPlayer()
 			}
 		}
 		//左入力
-		if (CInput::GetKeyTrigger('A'))
+		if (CInput::GetKeyTrigger('A') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_LEFT))
 		{
 			if ((m_CursorLocation.x - 1) >= 0)
 			{
@@ -345,7 +346,7 @@ void CSystemMain::TurnPlayer()
 			}
 		}
 		//右入力
-		if (CInput::GetKeyTrigger('D'))
+		if (CInput::GetKeyTrigger('D') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_RIGHT))
 		{
 			if ((m_CursorLocation.x + 1) < m_X)
 			{
@@ -386,7 +387,7 @@ void CSystemMain::TurnPlayer()
 	}
 
 	//決定キー入力
-	if (CInput::GetKeyTrigger(VK_SPACE))
+	if (CInput::GetKeyTrigger(VK_SPACE) || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_A))
 	{
 		m_Ok->Play(false);
 		if (m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar 
@@ -406,7 +407,7 @@ void CSystemMain::TurnPlayer()
 	//選択カーソル移動
 	{
 		//上入力
-		if (CInput::GetKeyTrigger('W'))
+		if (CInput::GetKeyTrigger('W') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_UP))
 		{
 			if ((m_CursorLocation.z + 1) < m_Z)
 			{
@@ -426,7 +427,7 @@ void CSystemMain::TurnPlayer()
 			}
 		}
 		//下入力
-		if (CInput::GetKeyTrigger('S'))
+		if (CInput::GetKeyTrigger('S') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_DOWN))
 		{
 			if ((m_CursorLocation.z - 1) >= 0)
 			{
@@ -446,7 +447,7 @@ void CSystemMain::TurnPlayer()
 			}
 		}
 		//左入力
-		if (CInput::GetKeyTrigger('A'))
+		if (CInput::GetKeyTrigger('A') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_LEFT))
 		{
 			if ((m_CursorLocation.x - 1) >= 0)
 			{
@@ -466,7 +467,7 @@ void CSystemMain::TurnPlayer()
 			}
 		}
 		//右入力
-		if (CInput::GetKeyTrigger('D'))
+		if (CInput::GetKeyTrigger('D') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_RIGHT))
 		{
 			if ((m_CursorLocation.x + 1) >= 0)
 			{
@@ -500,7 +501,7 @@ void CSystemMain::TurnPlayer()
 	}
 
 	//決定キー入力
-	if (CInput::GetKeyTrigger(VK_SPACE))
+	if (CInput::GetKeyTrigger(VK_SPACE) || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_A))
 	{
 		m_Ok->Play(false);
 		CGameMenu_UI* UI;
@@ -558,7 +559,7 @@ void CSystemMain::TurnPlayer()
 	}
 
 	//キャンセルキー入力
-	if (CInput::GetKeyTrigger('Q'))
+	if (CInput::GetKeyTrigger('Q') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_B))
 	{
 		m_MoveSerch->SetDraw(false, true);
 		m_MoveSerch->Reset();
@@ -577,7 +578,7 @@ void CSystemMain::TurnPlayer()
 		m_MoveSerch->Reset();
 
 		//決定キー入力
-		if (CInput::GetKeyTrigger(VK_SPACE))
+		if (CInput::GetKeyTrigger(VK_SPACE) || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_A))
 		{
 			m_Ok->Play(false);
 			CGameMenu_UI* UI;
@@ -607,7 +608,7 @@ void CSystemMain::TurnPlayer()
 		}
 
 		//キャンセルキー入力
-		if (CInput::GetKeyTrigger('Q'))
+		if (CInput::GetKeyTrigger('Q') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_B))
 		{
 			CGameMenu_UI* UI;
 			m_StageMap[m_SelectLocation.z * m_X + m_SelectLocation.x].bChar = true;
@@ -637,7 +638,7 @@ void CSystemMain::TurnPlayer()
 	//選択カーソル移動
 	{
 		//上入力
-		if (CInput::GetKeyTrigger('W'))
+		if (CInput::GetKeyTrigger('W') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_UP))
 		{
 			if (m_AtkArea.size() > 1)
 			{
@@ -655,7 +656,7 @@ void CSystemMain::TurnPlayer()
 			}
 		}
 		//下入力
-		if (CInput::GetKeyTrigger('S'))
+		if (CInput::GetKeyTrigger('S') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_DOWN))
 		{
 			if (m_AtkArea.size() > 1)
 			{
@@ -673,7 +674,7 @@ void CSystemMain::TurnPlayer()
 			}
 		}
 		//左入力
-		if (CInput::GetKeyTrigger('A'))
+		if (CInput::GetKeyTrigger('A') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_LEFT))
 		{
 			if (m_AtkArea.size() > 1)
 			{
@@ -691,7 +692,7 @@ void CSystemMain::TurnPlayer()
 			}
 		}
 		//右入力
-		if (CInput::GetKeyTrigger('D'))
+		if (CInput::GetKeyTrigger('D') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_DPAD_RIGHT))
 		{
 			if (m_AtkArea.size() > 1)
 			{
@@ -718,7 +719,7 @@ void CSystemMain::TurnPlayer()
 	}
 
 	//決定キー入力
-	if (CInput::GetKeyTrigger(VK_SPACE))
+	if (CInput::GetKeyTrigger(VK_SPACE) || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_A))
 	{
 		m_Ok->Play(false);
 		CGameMenu_UI* UI;
@@ -733,36 +734,39 @@ void CSystemMain::TurnPlayer()
 	}
 
 	//キャンセルキー入力
-	if (CInput::GetKeyTrigger('Q'))
+	if (CInput::GetKeyTrigger('Q') || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_B))
 	{
-		m_AtkArea = m_AttackSearch->Search(m_SelectMovedLocation, m_SelectChar->GetStatus()->type);
-		CGameMenu_UI* UI;
-		UI = CManager::GetScene()->GetGameObject<CGameMenu_UI>(4);
-		bool attack = false;
-		for (Vector2_3D pos : m_AtkArea)
+		if (!m_bBattle)
 		{
-			if (m_StageMap[pos.z * m_X + pos.x].bChar)
+			m_AtkArea = m_AttackSearch->Search(m_SelectMovedLocation, m_SelectChar->GetStatus()->type);
+			CGameMenu_UI* UI;
+			UI = CManager::GetScene()->GetGameObject<CGameMenu_UI>(4);
+			bool attack = false;
+			for (Vector2_3D pos : m_AtkArea)
 			{
-				attack = true;
-				break;
+				if (m_StageMap[pos.z * m_X + pos.x].bChar)
+				{
+					attack = true;
+					break;
+				}
 			}
-		}
 
-		if (attack)
-		{
-			m_AttackSearch->SetDraw(true);
-		}
-		else
-		{
-			m_AttackSearch->SetDraw(false);
-			m_AttackSearch->Reset();
-		}
+			if (attack)
+			{
+				m_AttackSearch->SetDraw(true);
+			}
+			else
+			{
+				m_AttackSearch->SetDraw(false);
+				m_AttackSearch->Reset();
+			}
 
-		UI->Set(attack, false, true);
-		m_CursorLocation = m_SelectMovedLocation;
-		CBattleSimu* simu = CManager::GetScene()->GetGameObject<CBattleSimu>(4);
-		simu->SetDraw(false);
-		PlayerSelection = Manu;
+			UI->Set(attack, false, true);
+			m_CursorLocation = m_SelectMovedLocation;
+			CBattleSimu* simu = CManager::GetScene()->GetGameObject<CBattleSimu>(4);
+			simu->SetDraw(false);
+			PlayerSelection = Manu;
+		}
 	}
 		break;
 	case HealSelect:
@@ -861,6 +865,12 @@ void CSystemMain::TurnEnemy()
 				cnt++;
 			}
 		}
+
+		int age = m_Frame - m_FrameEnemy;
+		if (age % 15 == 0)
+		{
+			m_Enemy->Update(&m_CursorLocation);
+		}
 	}
 
 	//移動できる範囲の計算
@@ -888,11 +898,7 @@ void CSystemMain::TurnEnemy()
 		}
 	}
 
-	int age = m_Frame - m_FrameEnemy;
-	if (age % 15 == 0)
-	{
-		m_Enemy->Update(&m_CursorLocation);
-	}
+
 
 
 }

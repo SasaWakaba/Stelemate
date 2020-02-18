@@ -3,6 +3,7 @@
 #include "texture.h"
 #include "Game_Object.h"
 #include "Field.h"
+#include "TextureManager.h"
 
 
 
@@ -49,15 +50,12 @@ void CField::Initialize()
 	//=======================================================
 	//テクスチャ読み込み
 	//=======================================================
-	m_Texture = new CTexture();
-	m_Texture->LoadTex("asset/grass01.jpg");
+	m_Texture = CTextureManager::LoadTexture("asset/grass01.jpg");
 }
 
 void CField::Finalize()
 {
 	m_VertexBuffer->Release();
-	m_Texture->Unload();
-	delete m_Texture;
 }
 
 void CField::Update()

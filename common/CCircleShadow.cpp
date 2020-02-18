@@ -3,7 +3,7 @@
 #include "texture.h"
 #include "Game_Object.h"
 #include "CCircleShadow.h"
-
+#include "TextureManager.h"
 
 void CCircleShadow::Initialize()
 {
@@ -48,14 +48,13 @@ void CCircleShadow::Initialize()
 	//=======================================================
 	//テクスチャ読み込み
 	//=======================================================
-	m_Texture = new CTexture();
-	m_Texture->LoadTex("asset/texture/shadow.png");
+	m_Texture = CTextureManager::LoadTexture("asset/texture/shadow.png");
 }
 
 void CCircleShadow::Finalize()
 {
 	m_VertexBuffer->Release();
-	m_Texture->Unload();
+	//m_Texture->Unload();
 	delete m_Texture;
 }
 

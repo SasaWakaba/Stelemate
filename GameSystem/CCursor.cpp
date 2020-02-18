@@ -1,5 +1,6 @@
 #include "../common/main.h"
 #include "../common/renderer.h"
+#include "../common/TextureManager.h"
 #include "CCursor.h"
 
 #define BOXPOS (0.5f)
@@ -148,8 +149,7 @@ void CCursor::Initialize()
 
 	delete[] Index;
 
-	m_Texture = new CTexture();
-	m_Texture->LoadTex("asset/texture/Green.png");
+	m_Texture = CTextureManager::LoadTexture("asset/texture/Green.png");
 }
 
 void CCursor::Finalize()
@@ -157,8 +157,6 @@ void CCursor::Finalize()
 	m_VertexBuffer->Release();
 	m_IndexBuffer->Release();
 
-	m_Texture->Unload();
-	delete m_Texture;
 }
 
 void CCursor::Draw(XMMATRIX* world)

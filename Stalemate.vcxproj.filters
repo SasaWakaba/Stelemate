@@ -330,6 +330,18 @@
     <ClCompile Include="Charcter\EnemyStatePattern\EnemyPatternWait.cpp">
       <Filter>ソース ファイル\Game\Charcter\EnemyState</Filter>
     </ClCompile>
+    <ClCompile Include="Charcter\CJob.cpp">
+      <Filter>ソース ファイル\Game\Charcter</Filter>
+    </ClCompile>
+    <ClCompile Include="common\inputController.cpp">
+      <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\TitleBackground.cpp">
+      <Filter>ソース ファイル\Title\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="common\TextureManager.cpp">
+      <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugUi\DebugUI.h">
@@ -571,6 +583,15 @@
     </ClInclude>
     <ClInclude Include="Charcter\EnemyStatePattern\EnemyPatternEnd.h">
       <Filter>ヘッダー ファイル\Game\Charcter\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="common\inputController.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\TitleBackground.h">
+      <Filter>ヘッダー ファイル\Title\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="common\TextureManager.h">
+      <Filter>ヘッダー ファイル\common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

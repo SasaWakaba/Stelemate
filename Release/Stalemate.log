@@ -1,2 +1,7 @@
-﻿  CMoveSearch.cpp
-c:\users\nayup\documents\stelemate\gamesystem\cmovesearch.cpp : fatal error C1041: プログラム データベース 'C:\Users\nayup\Documents\Stelemate\Release\vc141.pdb' を開けません。複数の CL.EXE が同じ .PDB ファイルに書き込む場合、/FS を使用してください。
+﻿  inputController.cpp
+  コード生成しています。
+  0 of 4074 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  コード生成が終了しました。
+  Stalemate.vcxproj -> C:\Users\nayup\Documents\Stelemate\Release\Stalemate.exe

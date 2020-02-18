@@ -10,7 +10,7 @@
 #include "manager.h"
 
 
-
+#include "../Audio/audio_clip.h"
 #include "CTitle.h"
 #include "CGame.h"
 #include "CResult.h"
@@ -33,11 +33,18 @@ void CResult::Init()
 {
 	AddGameObject<CResultUI>(0);
 	bChange = false;
+
+	m_BGM = new CAudioClip();
+	m_BGM->Load("asset/audio/resultBGM.wav");
+	m_BGM->Play(true);
 	CFade::EndFade();
 }
 
 void CResult::UnInit()
 {
+	m_BGM->Stop();
+	m_BGM->Unload();
+	delete m_BGM;
 	CScene::UnInit();
 }
 
@@ -51,10 +58,6 @@ void CResult::Change(int select)
 void CResult::Update()
 {
 	CScene::Update();
-	//if (CInput::GetKeyTrigger(VK_SPACE))
-	//{
-	//	Change();
-	//}
 
 	if (bChange)
 	{

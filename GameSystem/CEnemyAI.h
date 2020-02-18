@@ -3,6 +3,8 @@
 
 #include "../common/math.h"
 
+#define PATTERN_NUM (5)
+
 class CMoveSearch;
 class CAttackSearch;
 class CEnemyPattern;
@@ -14,7 +16,7 @@ private:
 	StageInfo* m_StageMap;
 
 	CEnemyPattern* m_pEnemyPattern;
-	
+	CEnemyPattern* Pattern[PATTERN_NUM];
 
 	std::vector<Vector2_3D> m_SearchArea;
 
@@ -40,8 +42,6 @@ public:
 
 	void Reset() { m_SearchArea.clear(); }
 
-
-	void ChangeEnemyPattern(CEnemyPattern* pattern);
 
 	//エネミーステートパターン用取得関数
 	StageInfo* GetStageInfo();

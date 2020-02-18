@@ -7,7 +7,7 @@
 #include "input.h"
 
 #include "camera.h"
-
+#include "../common/TextureManager.h"
 
 #include "Scene.h"
 #include "manager.h"
@@ -49,11 +49,9 @@
 
 void CSkyBox::Initialize()
 {
-	m_Texture[0] = new CTexture();
-	m_Texture[0]->LoadTex("asset/texture/SkyBox.png");
+	m_Texture[0] = CTextureManager::LoadTexture("asset/texture/SkyBox.png");
 
-	m_Texture[1] = new CTexture();
-	m_Texture[1]->LoadTex("asset/texture/SkyBox001.png");
+	m_Texture[1] = CTextureManager::LoadTexture("asset/texture/SkyBox001.png");
 
 	bNight = false;
 	
@@ -179,10 +177,6 @@ void CSkyBox::Finalize()
 {
 	m_VertexBuffer->Release();
 	m_IndexBuffer->Release();
-	m_Texture[0]->Unload();
-	delete m_Texture[0];
-	m_Texture[1]->Unload();
-	delete m_Texture[1];
 }
 
 void CSkyBox::Update()

@@ -16,7 +16,7 @@ void CCharcterBase::SetTurnMove(bool bEnable) { bTurnMove = bEnable; }
 
 bool CCharcterBase::GetTurnMove() { return bTurnMove; }
 
-void CCharcterBase::SetAlly(bool bEnable) { bAlly = bEnable; }
+void CCharcterBase::SetAlly(bool bEnable) { bAlly = bEnable; if(!bAlly)m_Rotation.y = 180.0f; }
 
 bool CCharcterBase::GetAlly() { return bAlly; }
 
@@ -63,6 +63,14 @@ void CCharcterBase::Update()
 void CCharcterBase::MoveLocation(XMFLOAT3 pos)
 {
 	m_MoveLocation = XMFLOAT3(pos.x - m_Location.x, pos.y - m_Location.y, pos.z - m_Location.z);
+	m_Rotation.y = atan2f(pos.z - m_Location.z, pos.x - m_Location.x);
+	if (m_Rotation.y < 0)
+	{
+		m_Rotation.y = m_Rotation.y + 2 * PI;
+	}
+	m_Rotation.y = m_Rotation.y * 360 / (2 * PI);
+	m_Rotation.y -= 90.0f;
+	m_Rotation.y *= -1.0f;
 	bMoveLocation = true;
 	cnt = 0;
 }

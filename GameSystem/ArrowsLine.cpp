@@ -2,6 +2,7 @@
 #include <iterator>
 #include "../common/main.h"
 #include "../common/texture.h"
+#include "../common/TextureManager.h"
 
 #include "C3DPolygon.h"
 
@@ -43,14 +44,15 @@ void CArrowsLine::Add(Vector2_3D pos)
 
 void CArrowsLine::Initialize()
 {
-	m_Arrows = new CTexture();
-	m_Arrows->LoadTex("asset/texture/line_a.png");
-
-	m_Line = new CTexture();
-	m_Line->LoadTex("asset/texture/line_b.png");
-
-	m_Curve = new CTexture();
-	m_Curve->LoadTex("asset/texture/line_c.png");
+	m_Arrows = CTextureManager::LoadTexture("asset/texture/line_a.png");
+	m_Line = CTextureManager::LoadTexture("asset/texture/line_b.png");
+	m_Curve = CTextureManager::LoadTexture("asset/texture/line_c.png");
+	//m_Arrows = new CTexture();
+	//m_Arrows->LoadTex("asset/texture/line_a.png");
+	//m_Line = new CTexture();
+	//m_Line->LoadTex("asset/texture/line_b.png");
+	//m_Curve = new CTexture();
+	//m_Curve->LoadTex("asset/texture/line_c.png");
 
 	m_Polygon = new C3DPolygon();
 	m_Polygon->Initialize();
@@ -59,12 +61,12 @@ void CArrowsLine::Initialize()
 void CArrowsLine::Finalize()
 {
 	Reset();
-	m_Arrows->Unload();
-	delete m_Arrows;
-	m_Line->Unload();
-	delete m_Line;
-	m_Curve->Unload();
-	delete m_Curve;
+	//m_Arrows->Unload();
+	//delete m_Arrows;
+	//m_Line->Unload();
+	//delete m_Line;
+	//m_Curve->Unload();
+	//delete m_Curve;
 
 	delete m_Polygon;
 }

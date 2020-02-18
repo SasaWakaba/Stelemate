@@ -13,12 +13,16 @@
 #include "../common/ModelAnimation.h"
 #include "../common/CDrawText.h"
 #include "../common/CCircleShadow.h"
+#include "../common/TextureManager.h"
 #include "WorldManager.h"
 
 #include "CSystemBattle.h"
 
 #define DATA_WIDTH (SCREEN_WIDTH / 3)
 #define DATA_HEIGHT (SCREEN_HEIGHT / 10)
+
+#define Quarticout(t, b, c, d) ((c) * (1 - powf((1.0f - (t) / (d)), 4.0f)) + (b))
+#define ease_out(t, b, c, d) ((c) * (-(powf(2.0f, (-10.0f * (t) / (d)))) + 1) + (b))
 
 #define TEXT_SIZE (65)
 
@@ -32,6 +36,63 @@ int CSystemBattle::CreateFrame;
 int CSystemBattle::Frame;
 XMFLOAT4 CSystemBattle::view;
 XMFLOAT3 CSystemBattle::charaPos[2];
+float	CSystemBattle::charaRot[2];
+
+int decideJob(CCharcterBase* chara)
+{
+	switch (chara->m_JobClass)
+	{
+	case Swordman:
+		if (chara->GetAlly())
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+		break;
+	case Lancer:
+		if (chara->GetAlly())
+		{
+			return 2;
+		}
+		else
+		{
+			return 3;
+		}
+	case Archer:
+		if (chara->GetAlly())
+		{
+			return 4;
+		}
+		else
+		{
+			return 5;
+		}
+	case Sorcerer:
+		if (chara->GetAlly())
+		{
+			return 6;
+		}
+		else
+		{
+			return 7;
+		}
+		break;
+	case Healer:
+		if (chara->GetAlly())
+		{
+			return 8;
+		}
+		else
+		{
+			return 9;
+		}
+		break;
+	}
+	return -1;
+}
 
 bool CSystemBattle::Battle(PanelState* pA, PanelState* pB)
 {
@@ -47,6 +108,8 @@ bool CSystemBattle::Battle(PanelState* pA, PanelState* pB)
 
 		charaPos[0] = XMFLOAT3(-5.0f, 92.5f, 0.0f);
 		charaPos[1] = XMFLOAT3(5.0f, 92.5f, 0.0f);
+		charaRot[0] = 90.0f;
+		charaRot[1] = -90.0f;
 		return true;
 	}
 	else
@@ -84,19 +147,21 @@ void CSystemBattle::Initialize()
 	camera->SetViewPos(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	camera->SetAt(XMFLOAT3(0.0f, 95.0f, 0.0f));
 
-	for (int i = 0; i < 2; i++)
-	{
-		tex[i] = new CTexture();
-	}
-	tex[0]->LoadTex("asset/texture/grass01.jpg");
-	tex[1]->LoadTex("asset/texture/forest.jpg");
+	tex[0] = CTextureManager::LoadTexture("asset/texture/grass01.jpg");
+	tex[1] = CTextureManager::LoadTexture("asset/texture/forest.jpg");
 
 	for (int i = 0; i < CHARACTER_MAX; i++)
 	{
 		Model[i] = new CModelAnimation();
 	}
-	Model[0]->Load("asset/model/Rook_A/Rook.obj");
-	Model[1]->Load("asset/model/Rook_B/RookB.obj");
+	Model[0]->Load("asset/model/Character/Swordman/swordman_Idle.fbx");
+	Model[0]->LoadAnim("asset/model/Character/Swordman/swordman_run.fbx");
+	Model[0]->LoadAnim("asset/model/Character/Swordman/swordman_Attack.fbx");
+
+	Model[1]->Load("asset/model/Character/Enemy/swordman_Idle.fbx");
+	Model[1]->LoadAnim("asset/model/Character/Enemy/swordman_run.fbx");
+	Model[1]->LoadAnim("asset/model/Character/Enemy/swordman_Attack.fbx");
+
 
 	Rand = new CBattleRand();
 	Rand->Initialize();
@@ -122,12 +187,6 @@ void CSystemBattle::Finalize()
 	}
 	delete camera;
 
-	for (int i = 0; i < 2; i++)
-	{
-		tex[i]->Unload();
-		delete tex[i];
-	}
-
 	sky->Finalize();
 	for (int i = 0; i < CHARACTER_MAX; i++)
 	{
@@ -148,12 +207,13 @@ void CSystemBattle::Update()
 		switch (Fase)
 		{
 			case BackSet:
+			{
 				if (X < SCREEN_WIDTH)
 				{
 					int age = (int)((Frame - CreateFrame) * 2.0f);
 					X = (sin(-PI / 2 + PI / 120 * age) + 1) / 2 * SCREEN_WIDTH;
 				}
-				else if(view.x > SCREEN_WIDTH / 6)
+				else if (view.x > SCREEN_WIDTH / 6)
 				{
 					view.x += ((SCREEN_WIDTH / 6) - (SCREEN_WIDTH / 2)) / 15;
 					view.y += ((SCREEN_HEIGHT / 6) - (SCREEN_HEIGHT / 2)) / 15;
@@ -166,7 +226,10 @@ void CSystemBattle::Update()
 					CreateFrame = Frame;
 				}
 				camera->SetViewPos((int)view.x, (int)view.y, (int)view.z, (int)view.w);
+				Model[decideJob(m_Char_A->Charcter)]->Update(0, Frame);
+				Model[decideJob(m_Char_B->Charcter)]->Update(0, Frame);
 				break;
+			}
 			case MoveCamera:
 				//if (AnimFrame > 10)
 				//{
@@ -177,11 +240,11 @@ void CSystemBattle::Update()
 				break;
 
 			case MoveCharA:
-				if (charaPos[0].x < 3.0f)
+			{
+				if (charaPos[0].x < 2.0f)
 				{
-					int r = (Frame - CreateFrame) * 4;
-					charaPos[0].x = (int)(-1.0f + cosf(XMConvertToRadians(180 - r)) * 4.0f);
-					charaPos[0].y = (int)(92.5f + sinf(XMConvertToRadians(180 - r)) * 4.0f);
+					int age = (Frame - CreateFrame);
+					charaPos[0].x = Quarticout(1.0f / 30.0f * age, -5.0f,7.0f, 1);
 				}
 				else if (m_Char_B->Charcter->nowHP > 0)
 				{
@@ -209,71 +272,101 @@ void CSystemBattle::Update()
 					}
 					DamageCount = 0;
 					Fase = AttackA;
+					CreateFrame = Frame;
 				}
 				else
 				{
 					Fase = End;
 				}
+				Model[decideJob(m_Char_A->Charcter)]->Update(1, Frame);
+				Model[decideJob(m_Char_B->Charcter)]->Update(0, Frame);
 				break;
-
+			}
 			case AttackA:
-				if (charaPos[0].x > -5.0f)
+			{
+				int age = Frame - CreateFrame;
+				if (age < 60)
 				{
-					charaPos[0].x -= 0.5f;
+					Model[decideJob(m_Char_A->Charcter)]->Update(2, age);
+					Model[decideJob(m_Char_B->Charcter)]->Update(0, Frame);
 				}
-
-				if (Frame % 5 == 0)
+				else if (charaPos[0].x > -5.0f)
 				{
+					age = age - 60;
+					charaPos[0].x = Quarticout(1.0f / 30.0f * age, 2.0f, -7.0f, 1);
+					charaRot[0] = -90.0f;
+					Model[decideJob(m_Char_A->Charcter)]->Update(1, Frame);
+					Model[decideJob(m_Char_B->Charcter)]->Update(0, Frame);
 					if (DamageCount < Damage_A)
 					{
-						DamageCount++;
-						m_Char_B->Charcter->nowHP--;
+						DamageCount += 0.2f;
 					}
 					else
 					{
-						if (m_Char_B->Charcter->nowHP > 0)
-						{
-							Fase = MoveCharB;
-							CreateFrame = Frame;
-						}
-						else
-						{
-							if (m_Char_A->Charcter->GetAlly())
-							{
-								WorldManager::LevelUpMember(m_Char_A->Charcter->GetName().c_str(), m_Char_B->Charcter->Level);
-							}
+						DamageCount = Damage_A;
+					}
+				}
+				else
+				{
+					charaRot[0] = 90.0f;
+					Model[decideJob(m_Char_A->Charcter)]->Update(0, Frame);
+					Model[decideJob(m_Char_B->Charcter)]->Update(0, Frame);
+					if (DamageCount < Damage_A)
+					{
+						DamageCount += 0.2f;
+					}
+					else
+					{
+						DamageCount = Damage_A;
+					}
+				}
 
-							if (m_Char_B->Charcter->GetAlly())
+
+				if (DamageCount == Damage_A)
+				{
+					m_Char_B->Charcter->nowHP -= Damage_A;
+					if (m_Char_B->Charcter->nowHP > 0)
+					{
+						Fase = MoveCharB;
+						CreateFrame = Frame;
+					}
+					else
+					{
+						if (m_Char_A->Charcter->GetAlly())
+						{
+							WorldManager::LevelUpMember(m_Char_A->Charcter->GetName().c_str(), m_Char_B->Charcter->Level);
+						}
+
+						if (m_Char_B->Charcter->GetAlly())
+						{
+							if (WorldManager::GetGameMode() == Classic)
 							{
-								if (WorldManager::GetGameMode() == Classic)
-								{
-									WorldManager::GetParty()[m_Char_B->Charcter->GetName()] = nullptr;
-									m_Char_B->Charcter->SetDestroy();
-								}
-								else
-								{
-									m_Char_B->bChar = false;
-									//m_Char_B->Charcter = nullptr;
-								}
-								WorldManager::AddDeadCount();
+								WorldManager::GetParty()[m_Char_B->Charcter->GetName()] = nullptr;
+								m_Char_B->Charcter->SetDestroy();
 							}
 							else
 							{
-								m_Char_B->Charcter->SetDestroy();
-								WorldManager::AddSubjugation();
+								m_Char_B->bChar = false;
+								//m_Char_B->Charcter = nullptr;
 							}
-							Fase = End;
+							WorldManager::AddDeadCount();
 						}
+						else
+						{
+							m_Char_B->Charcter->SetDestroy();
+							WorldManager::AddSubjugation();
+						}
+						Fase = End;
 					}
 				}
 				break;
-
+			}
 			case MoveCharB:
-				if (charaPos[1].x > -3.0f)
+			{
+				if (charaPos[1].x > -2.0f)
 				{
-					int r = (Frame - CreateFrame) * 4;
-					charaPos[1].x = (int)(1.0f + cosf(XMConvertToRadians(0 + r)) * 4.0f);
-					charaPos[1].y = (int)(92.5f + sinf(XMConvertToRadians(0 + r)) * 4.0f);
+					int age = (Frame - CreateFrame);
+					charaPos[1].x = Quarticout(1.0f / 30.0f * age, 5.0f, -7.0f, 1);
 				}
 				else if (m_Char_A->Charcter->nowHP > 0)
 				{
@@ -302,60 +395,95 @@ void CSystemBattle::Update()
 
 					DamageCount = 0;
 					Fase = AttackB;
+					CreateFrame = Frame;
 				}
+
+				Model[decideJob(m_Char_A->Charcter)]->Update(0, Frame);
+				Model[decideJob(m_Char_B->Charcter)]->Update(1, Frame);
 				break;
+			}
 			case AttackB:
-				if (charaPos[1].x < 5.0f)
+			{
+				int age = Frame - CreateFrame;
+				if (age < 60)
 				{
-					charaPos[1].x += 0.5f;
+					Model[decideJob(m_Char_A->Charcter)]->Update(0, age);
+					Model[decideJob(m_Char_B->Charcter)]->Update(2, Frame);
 				}
-				if (Frame % 5 == 0)
+				else if (charaPos[1].x < 5.0f)
 				{
+					age = age - 60;
+					charaPos[1].x = Quarticout(1.0f / 30.0f * age, -2.0f, 7.0f, 1);
+					charaRot[1] = 90.0f;
+					Model[decideJob(m_Char_A->Charcter)]->Update(0, Frame);
+					Model[decideJob(m_Char_B->Charcter)]->Update(1, Frame);
 					if (DamageCount < Damage_B)
 					{
-						DamageCount++;
-						m_Char_A->Charcter->nowHP--;
+						DamageCount += 0.2f;
 					}
 					else
 					{
-						if (m_Char_A->Charcter->nowHP <= 0)
-						{
-							if (m_Char_B->Charcter->GetAlly())
-							{
-								WorldManager::LevelUpMember(m_Char_B->Charcter->GetName().c_str(), m_Char_A->Charcter->Level);
-							}
-							
+						DamageCount = Damage_B;
+					}
+				}
+				else
+				{
+					charaRot[1] = -90.0f;
+					Model[decideJob(m_Char_A->Charcter)]->Update(0, Frame);
+					Model[decideJob(m_Char_B->Charcter)]->Update(0, Frame);
+					if (DamageCount < Damage_B)
+					{
+						DamageCount += 0.2f;
+					}
+					else
+					{
+						DamageCount = Damage_B;
+					}
+				}
 
-							if (m_Char_A->Charcter->GetAlly())
+
+				if (DamageCount == Damage_B)
+				{
+					m_Char_A->Charcter->nowHP -= Damage_B;
+					if (m_Char_A->Charcter->nowHP <= 0)
+					{
+						if (m_Char_B->Charcter->GetAlly())
+						{
+							WorldManager::LevelUpMember(m_Char_B->Charcter->GetName().c_str(), m_Char_A->Charcter->Level);
+						}
+
+
+						if (m_Char_A->Charcter->GetAlly())
+						{
+							if (WorldManager::GetGameMode() == Classic)
 							{
-								if (WorldManager::GetGameMode() == Classic)
-								{
-									WorldManager::GetParty()[m_Char_A->Charcter->GetName()] = nullptr;
-									m_Char_A->Charcter->SetDestroy();
-								}
-								else
-								{
-									m_Char_A->bChar = false;
-									//m_Char_A->Charcter = nullptr;
-								}
-								WorldManager::AddDeadCount();
+								WorldManager::GetParty()[m_Char_A->Charcter->GetName()] = nullptr;
+								m_Char_A->Charcter->SetDestroy();
 							}
 							else
 							{
-								m_Char_A->Charcter->SetDestroy();
-								WorldManager::AddSubjugation();
+								m_Char_A->bChar = false;
+								//m_Char_A->Charcter = nullptr;
 							}
-
-							Fase = End;
+							WorldManager::AddDeadCount();
 						}
 						else
 						{
-							Fase = End;
+							m_Char_A->Charcter->SetDestroy();
+							WorldManager::AddSubjugation();
 						}
+
+						Fase = End;
+					}
+					else
+					{
+						Fase = End;
 					}
 				}
 				break;
+			}
 			case End:
+			{
 				if (view.x < SCREEN_WIDTH / 2)
 				{
 					view.x += ((SCREEN_WIDTH / 2) - (SCREEN_WIDTH / 6)) / 15;
@@ -378,14 +506,15 @@ void CSystemBattle::Update()
 				}
 				camera->SetViewPos((int)view.x, (int)view.y, (int)view.z, (int)view.w);
 				break;
+			}
 		}
-		Frame++;
 		sky->Update();
 	}
 	else
 	{
 		bMove = false;
 	}
+	Frame++;
 }
 
 void CSystemBattle::Draw()
@@ -436,21 +565,18 @@ void CSystemBattle::Draw()
 		}
 		//キャラクター
 		{
+			world = XMMatrixScaling(0.5f, 0.5f, 0.5f);
+			world *= XMMatrixRotationRollPitchYaw(0.0f, XMConvertToRadians(charaRot[0]), 0.0f);
+			world *= XMMatrixTranslation(charaPos[0].x, charaPos[0].y, charaPos[0].z);
 			switch (m_Char_A->Charcter->m_JobClass)
 			{
 			case Swordman:
 				if (m_Char_A->Charcter->GetAlly())
 				{
-					world = XMMatrixScaling(0.5f, 0.5f, 0.5f);
-					world *= XMMatrixRotationRollPitchYaw(0.0f, XMConvertToRadians(90.0f), 0.0f);
-					world *= XMMatrixTranslation(charaPos[0].x, charaPos[0].y, charaPos[0].z);
 					Model[0]->Draw(world);
 				}
 				else
 				{
-					world = XMMatrixScaling(0.5f, 0.5f, 0.5f);
-					world *= XMMatrixRotationRollPitchYaw(0.0f, XMConvertToRadians(-90.0f), 0.0f);
-					world *= XMMatrixTranslation(charaPos[0].x, charaPos[0].y, charaPos[0].z);
 					Model[1]->Draw(world);
 				}
 				break;
@@ -463,21 +589,18 @@ void CSystemBattle::Draw()
 			world *= XMMatrixTranslation(charaPos[0].x, 92.5f + 0.01f, charaPos[0].z);
 			shadow->Draw(world);
 
+			world = XMMatrixScaling(0.5f, 0.5f, 0.5f);
+			world *= XMMatrixRotationRollPitchYaw(0.0f, XMConvertToRadians(charaRot[1]), 0.0f);
+			world *= XMMatrixTranslation(charaPos[1].x, charaPos[1].y, charaPos[1].z);
 			switch (m_Char_B->Charcter->m_JobClass)
 			{
 			case Swordman:
 				if (m_Char_B->Charcter->GetAlly())
 				{
-					world = XMMatrixScaling(0.5f, 0.5f, 0.5f);
-					world *= XMMatrixRotationRollPitchYaw(0.0f, XMConvertToRadians(-90.0f), 0.0f);
-					world *= XMMatrixTranslation(charaPos[1].x, charaPos[1].y, charaPos[1].z);
 					Model[0]->Draw(world);
 				}
 				else
 				{
-					world = XMMatrixScaling(0.5f, 0.5f, 0.5f);
-					world *= XMMatrixRotationRollPitchYaw(0.0f, XMConvertToRadians(90.0f), 0.0f);
-					world *= XMMatrixTranslation(charaPos[1].x, charaPos[1].y, charaPos[1].z);
 					Model[1]->Draw(world);
 				}
 				break;
@@ -512,7 +635,14 @@ void CSystemBattle::Draw()
 				color.b = color.d = { 0.8f, 0.0f, 0.0f, 1.0f };
 			}
 			float Bar;
-			Bar = DATA_WIDTH * 0.84f / m_Char_A->Charcter->GetStatus()->HP * m_Char_A->Charcter->nowHP;
+			if (Fase == AttackB)
+			{
+				Bar = DATA_WIDTH * 0.84f / m_Char_A->Charcter->GetStatus()->HP * m_Char_A->Charcter->nowHP - (DATA_WIDTH * 0.84f / m_Char_A->Charcter->GetStatus()->HP) * DamageCount;
+			}
+			else
+			{
+				Bar = DATA_WIDTH * 0.84f / m_Char_A->Charcter->GetStatus()->HP * m_Char_A->Charcter->nowHP;
+			}
 			m_Polygon[3]->Draw((BasePos.x - DATA_WIDTH * 0.06f) - (DATA_WIDTH * 0.84f - Bar) / 2, BasePos.y, 0, 0, Bar, DATA_HEIGHT / 2, DATA_WIDTH * 0.84f, DATA_HEIGHT / 2, color);
 
 			m_Polygon[4]->Draw(BasePos.x, BasePos.y, 0, 0, DATA_WIDTH, DATA_HEIGHT, DATA_WIDTH, DATA_HEIGHT);
@@ -546,7 +676,15 @@ void CSystemBattle::Draw()
 				color.a = color.c = { 0.1f, 0.0f, 0.0f, 1.0f };
 				color.b = color.d = { 0.8f, 0.0f, 0.0f, 1.0f };
 			}
-			Bar = DATA_WIDTH * 0.84f / m_Char_B->Charcter->GetStatus()->HP * m_Char_B->Charcter->nowHP;
+
+			if (Fase == AttackA)
+			{
+				Bar = DATA_WIDTH * 0.84f / m_Char_B->Charcter->GetStatus()->HP * m_Char_B->Charcter->nowHP - (DATA_WIDTH * 0.84f / m_Char_B->Charcter->GetStatus()->HP) * DamageCount;
+			}
+			else
+			{
+				Bar = DATA_WIDTH * 0.84f / m_Char_B->Charcter->GetStatus()->HP * m_Char_B->Charcter->nowHP;
+			}
 			m_Polygon[3]->Draw((BasePos.x - DATA_WIDTH * 0.06f) - (DATA_WIDTH * 0.84f - Bar) / 2, BasePos.y, 0, 0, Bar, DATA_HEIGHT / 2, DATA_WIDTH * 0.84f, DATA_HEIGHT / 2, color);
 
 			m_Polygon[4]->Draw(BasePos.x, BasePos.y, 0, 0, DATA_WIDTH, DATA_HEIGHT, DATA_WIDTH, DATA_HEIGHT);

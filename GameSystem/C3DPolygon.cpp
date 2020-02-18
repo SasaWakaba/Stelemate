@@ -1,6 +1,7 @@
 #include "../common/main.h"
 #include "../common/renderer.h"
 #include "../common/texture.h"
+#include "../common/TextureManager.h"
 #include "C3DPolygon.h"
 
 
@@ -49,15 +50,14 @@ void C3DPolygon::Initialize()
 	//=======================================================
 	//テクスチャ読み込み
 	//=======================================================
-	m_Texture = new CTexture();
-	m_Texture->LoadTex("asset/texture/cursor.png");
+	m_Texture = CTextureManager::LoadTexture("asset/texture/cursor.png");
 }
 
 void C3DPolygon::Finalize()
 {
 	m_VertexBuffer->Release();
-	m_Texture->Unload();
-	delete m_Texture;
+	//m_Texture->Unload();
+	//delete m_Texture;
 }
 
 void C3DPolygon::Update()

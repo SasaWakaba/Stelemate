@@ -3,7 +3,7 @@
 #include "../Stage/CStage.h"
 #include "../common/texture.h"
 #include "C3DPolygon.h"
-
+#include "../common/TextureManager.h"
 #include "CMoveSearch.h"
 
 
@@ -38,11 +38,9 @@ void CMoveSearch::Initialize(int numX, int numZ, PanelState* Map)
 	m_Z = numZ;
 	m_StageMap = Map;
 
-	m_Move[0] = new CTexture();
-	m_Move[0]->LoadTex("asset/texture/Move.png");
+	m_Move[0] = CTextureManager::LoadTexture("asset/texture/Move.png");
 
-	m_Move[1] = new CTexture();
-	m_Move[1]->LoadTex("asset/texture/MoveEne.png");
+	m_Move[1] = CTextureManager::LoadTexture("asset/texture/MoveEne.png");
 
 	m_Polygon = new C3DPolygon();
 	m_Polygon->Initialize();
@@ -53,10 +51,6 @@ void CMoveSearch::Initialize(int numX, int numZ, PanelState* Map)
 
 void CMoveSearch::Finalize()
 {
-	m_Move[0]->Unload();
-	delete m_Move[0];
-	m_Move[1]->Unload();
-	delete m_Move[1];
 	m_Polygon->Finalize();
 	delete m_Polygon;
 }

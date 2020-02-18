@@ -2,6 +2,7 @@
 #include "../common/main.h"
 #include "../Stage/CStage.h"
 #include "../common/texture.h"
+#include "../common/TextureManager.h"
 #include "C3DPolygon.h"
 #include "../Charcter/CCharcterBase.h"
 
@@ -38,8 +39,7 @@ void CAttackSearch::Initialize(int numX, int numZ, PanelState* Map)
 	m_Z = numZ;
 	m_StageMap = Map;
 
-	m_Atk = new CTexture();
-	m_Atk->LoadTex("asset/texture/Atk.png");
+	m_Atk = CTextureManager::LoadTexture("asset/texture/Atk.png");
 
 	m_Polygon = new C3DPolygon();
 	m_Polygon->Initialize();
@@ -49,8 +49,8 @@ void CAttackSearch::Initialize(int numX, int numZ, PanelState* Map)
 
 void CAttackSearch::Finalize()
 {
-	m_Atk->Unload();
-	delete m_Atk;
+	//m_Atk->Unload();
+	//delete m_Atk;
 	
 	m_Polygon->Finalize();
 	delete m_Polygon;

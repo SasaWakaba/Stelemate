@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "manager.h"
 #include "camera.h"
+#include "TextureManager.h"
 
 XMMATRIX ExtractOffset(const XMMATRIX& mWorld);
 XMMATRIX ExtractScaling(const XMMATRIX& mWorld);
@@ -14,7 +15,7 @@ XMMATRIX ExtractScaling(const XMMATRIX& mWorld);
 
 void CBillboard::Initialize()
 {
-	m_Texture = new CTexture();
+	//m_Texture = new CTexture();
 
 	VERTEX_3D vertex[4];
 	vertex[0].Position =	XMFLOAT3(-0.5f, 0.5f, 0.0f);
@@ -57,7 +58,7 @@ void CBillboard::Initialize()
 void CBillboard::Finalize()
 {
 	m_VertexBuffer->Release();
-	m_Texture->Unload();
+	//m_Texture->Unload();
 	delete m_Texture;
 }
 
@@ -140,7 +141,7 @@ void CBillboard::Draw(XMMATRIX world, VertexColor_4 color)
 
 void CBillboard::Load(const char* filename)
 {
-	m_Texture->LoadTex(filename);
+	m_Texture = CTextureManager::LoadTexture(filename);
 }
 
 XMMATRIX ExtractOffset(const XMMATRIX& mWorld) {

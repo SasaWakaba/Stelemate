@@ -1,58 +1,78 @@
 #ifndef CJOB_H_
 #define CJOB_H_
 
-#include "../common/main.h"
-#include "CCharcterBase.h"
-#include "../common/model.h"
-#include "../common/ModelAnimation.h"
-#include "CCharacterData.h"
-#include "CWeaponData.h"
+
 
 class CSwordsman :public CCharcterBase
 {
 private:
 	XMFLOAT3 m_LocationOld;
 	CModelAnimation* m_Model[2];
+	int frame;
 public:
 	CSwordsman():CCharcterBase(Swordman){}
 	~CSwordsman(){}
-	void Initialize()
-	{
-		m_Model[0] = new CModelAnimation();
-		m_Model[0]->Load("asset/model/Rook_A/Rook.obj");
-		m_Model[1] = new CModelAnimation();
-		m_Model[1]->Load("asset/model/Rook_B/RookB.obj");
-
-		m_Status = CCharacterData::m_CharData["Œ•Žm"];
-		nowHP = m_Status.HP;
-		Level = 1;
-		m_Weapon = &CWeaponData::m_WeaponData["“S‚ÌŒ•"];
-	}
-	void Finalize() 
-	{
-		m_Model[0]->UnLoad();
-		delete m_Model[0];
-		m_Model[1]->UnLoad();
-		delete m_Model[1];
-	}
-
-	void Draw() 
-	{
-		XMMATRIX world;
-		world = XMMatrixScaling(0.25f, 0.25f, 0.25f);
-		world *= XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f);
-		world *= XMMatrixTranslation(m_Location.x, m_Location.y, m_Location.z);
-		if (bAlly)
-		{
-			m_Model[0]->Draw(world);
-		}
-		else
-		{
-			m_Model[1]->Draw(world);
-		}
-	}
+	void Initialize();
+	void Finalize();
+	void Update();
+	void Draw();
 
 };
 
+class CLancer :public CCharcterBase
+{
+private:
+	XMFLOAT3 m_LocationOld;
+	CModelAnimation* m_Model[2];
+public:
+	CLancer() :CCharcterBase(Lancer) {}
+	~CLancer() {}
+	void Initialize();
+	void Finalize();
+	//void Update(){}
+	void Draw();
+};
+
+class CArcher :public CCharcterBase
+{
+private:
+	XMFLOAT3 m_LocationOld;
+	CModelAnimation* m_Model[2];
+public:
+	CArcher() :CCharcterBase(Archer) {}
+	~CArcher() {}
+	void Initialize() {}
+	void Finalize() {}
+	void Update() {}
+	void Draw() {}
+};
+
+class CSorcerer :public CCharcterBase
+{
+private:
+	XMFLOAT3 m_LocationOld;
+	CModelAnimation* m_Model[2];
+public:
+	CSorcerer() :CCharcterBase(Sorcerer) {}
+	~CSorcerer() {}
+	void Initialize(){}
+	void Finalize(){}
+	void Update(){}
+	void Draw(){}
+};
+
+class CHealer :public CCharcterBase
+{
+private:
+	XMFLOAT3 m_LocationOld;
+	CModelAnimation* m_Model[2];
+public:
+	CHealer() :CCharcterBase(Healer) {}
+	~CHealer() {}
+	void Initialize() {}
+	void Finalize() {}
+	void Update() {}
+	void Draw() {}
+};
 
 #endif // !CJOB_H_

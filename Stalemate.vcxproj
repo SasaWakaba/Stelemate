@@ -22,6 +22,7 @@
     <ClCompile Include="Audio\audio_clip.cpp" />
     <ClCompile Include="Charcter\CCharacterBase.cpp" />
     <ClCompile Include="Charcter\CCharacterData.cpp" />
+    <ClCompile Include="Charcter\CJob.cpp" />
     <ClCompile Include="Charcter\CPlayerManager.cpp" />
     <ClCompile Include="Charcter\CWeaponData.cpp" />
     <ClCompile Include="Charcter\EnemyStatePattern\EnemyPatternWait.cpp" />
@@ -41,6 +42,7 @@
     <ClCompile Include="common\CTitle.cpp" />
     <ClCompile Include="common\Field.cpp" />
     <ClCompile Include="common\input.cpp" />
+    <ClCompile Include="common\inputController.cpp" />
     <ClCompile Include="common\main.cpp" />
     <ClCompile Include="common\manager.cpp" />
     <ClCompile Include="common\MeshField.cpp" />
@@ -52,6 +54,7 @@
     <ClCompile Include="common\renderer.cpp" />
     <ClCompile Include="common\shader.cpp" />
     <ClCompile Include="common\texture.cpp" />
+    <ClCompile Include="common\TextureManager.cpp" />
     <ClCompile Include="common\Wall.cpp" />
     <ClCompile Include="DebugUi\DebugUi.cpp" />
     <ClCompile Include="GameSystem\ArrowsLine.cpp" />
@@ -87,6 +90,7 @@
     <ClCompile Include="UI\PanelState_UI.cpp" />
     <ClCompile Include="UI\Preparation_UI.cpp" />
     <ClCompile Include="UI\Result_UI.cpp" />
+    <ClCompile Include="UI\TitleBackground.cpp" />
     <ClCompile Include="UI\TitleMenu_UI.cpp" />
     <ClCompile Include="UI\TurnChange_UI.cpp" />
   </ItemGroup>
@@ -117,6 +121,7 @@
     <ClInclude Include="common\Field.h" />
     <ClInclude Include="common\Game_Object.h" />
     <ClInclude Include="common\input.h" />
+    <ClInclude Include="common\inputController.h" />
     <ClInclude Include="common\main.h" />
     <ClInclude Include="common\manager.h" />
     <ClInclude Include="common\math.h" />
@@ -130,6 +135,7 @@
     <ClInclude Include="common\Scene.h" />
     <ClInclude Include="common\shader.h" />
     <ClInclude Include="common\texture.h" />
+    <ClInclude Include="common\TextureManager.h" />
     <ClInclude Include="common\Wall.h" />
     <ClInclude Include="DebugUi\DebugUI.h" />
     <ClInclude Include="GameSystem\ArrowsLine.h" />
@@ -169,6 +175,7 @@
     <ClInclude Include="UI\PanelState_UI.h" />
     <ClInclude Include="UI\Preparation_UI.h" />
     <ClInclude Include="UI\Result_UI.h" />
+    <ClInclude Include="UI\TitleBackground.h" />
     <ClInclude Include="UI\TitleMenu_UI.h" />
     <ClInclude Include="UI\TurnChange_UI.h" />
   </ItemGroup>
