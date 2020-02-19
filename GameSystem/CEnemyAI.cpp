@@ -30,7 +30,7 @@ void CEnemyAI::SetBattle(bool bEneble) { bBattle = bEneble; }
 std::vector<Vector2_3D> CEnemyAI::GetSerchArea() { return m_SearchArea; }
 void CEnemyAI::ResetMove() { m_MoveSearch->Reset(); }
 void CEnemyAI::ResetAttack() { m_AtkSearch->Reset(); }
-std::vector<Vector2_3D> CEnemyAI::GetMoveSearch(Vector2_3D pos, int move) { return m_MoveSearch->Search(pos, move); }
+std::vector<Vector2_3D> CEnemyAI::GetMoveSearch(Vector2_3D pos, CCharcterBase* move) { return m_MoveSearch->Search(pos, move); }
 std::vector<Vector2_3D> CEnemyAI::GetAttackSearch(Vector2_3D pos, Weapontype Atk) { return m_AtkSearch->Search(pos, Atk); }
 CCharcterBase* CEnemyAI::GetMoveEnemy() { return MoveEnemy; }
 Vector2_3D	   CEnemyAI::GetMoveEnemyPos() { return SelectEnemyPos; }

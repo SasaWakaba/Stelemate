@@ -14,6 +14,7 @@
 #include "../common/CDrawText.h"
 #include "../common/CCircleShadow.h"
 #include "../common/TextureManager.h"
+#include "../common/ModelManager.h"
 #include "WorldManager.h"
 
 #include "CSystemBattle.h"
@@ -154,13 +155,21 @@ void CSystemBattle::Initialize()
 	{
 		Model[i] = new CModelAnimation();
 	}
-	Model[0]->Load("asset/model/Character/Swordman/swordman_Idle.fbx");
-	Model[0]->LoadAnim("asset/model/Character/Swordman/swordman_run.fbx");
-	Model[0]->LoadAnim("asset/model/Character/Swordman/swordman_Attack.fbx");
+	Model[0] = CModelManager::LoadModel("asset/model/Character/Swordman/swordman_Idle.fbx");
+	CModelManager::LoadAnim(Model[0], "asset/model/Character/Swordman/swordman_run.fbx");
+	CModelManager::LoadAnim(Model[0], "asset/model/Character/Swordman/swordman_Attack.fbx");
 
-	Model[1]->Load("asset/model/Character/Enemy/swordman_Idle.fbx");
-	Model[1]->LoadAnim("asset/model/Character/Enemy/swordman_run.fbx");
-	Model[1]->LoadAnim("asset/model/Character/Enemy/swordman_Attack.fbx");
+	Model[1] = CModelManager::LoadModel("asset/model/Character/Enemy/swordman_Idle.fbx");
+	CModelManager::LoadAnim(Model[1], "asset/model/Character/Enemy/swordman_run.fbx");
+	CModelManager::LoadAnim(Model[1], "asset/model/Character/Enemy/swordman_Attack.fbx");
+
+	Model[2] = CModelManager::LoadModel("asset/model/Character/Lancer/Lancer_Idle.fbx");
+	CModelManager::LoadAnim(Model[2], "asset/model/Character/Lancer/Lancer_run.fbx");
+	CModelManager::LoadAnim(Model[2], "asset/model/Character/Lancer/Lancer_Attack.fbx");
+
+	Model[3] = CModelManager::LoadModel("asset/model/Character/Enemy/Lancer_Idle.fbx");
+	CModelManager::LoadAnim(Model[3], "asset/model/Character/Enemy/Lancer_run.fbx");
+	CModelManager::LoadAnim(Model[3], "asset/model/Character/Enemy/Lancer_Attack.fbx");
 
 
 	Rand = new CBattleRand();
@@ -188,11 +197,6 @@ void CSystemBattle::Finalize()
 	delete camera;
 
 	sky->Finalize();
-	for (int i = 0; i < CHARACTER_MAX; i++)
-	{
-		Model[i]->UnLoad();
-		delete Model[i];
-	}
 	delete sky;
 	text->UnSet();
 	delete text;
@@ -322,7 +326,7 @@ void CSystemBattle::Update()
 				}
 
 
-				if (DamageCount == Damage_A)
+				if (DamageCount == Damage_A && charaRot[0] == 90.0f)
 				{
 					m_Char_B->Charcter->nowHP -= Damage_A;
 					if (m_Char_B->Charcter->nowHP > 0)
@@ -407,8 +411,8 @@ void CSystemBattle::Update()
 				int age = Frame - CreateFrame;
 				if (age < 60)
 				{
-					Model[decideJob(m_Char_A->Charcter)]->Update(0, age);
-					Model[decideJob(m_Char_B->Charcter)]->Update(2, Frame);
+					Model[decideJob(m_Char_A->Charcter)]->Update(0, Frame);
+					Model[decideJob(m_Char_B->Charcter)]->Update(2, age);
 				}
 				else if (charaPos[1].x < 5.0f)
 				{
@@ -442,7 +446,7 @@ void CSystemBattle::Update()
 				}
 
 
-				if (DamageCount == Damage_B)
+				if (DamageCount == Damage_B && charaRot[1] == -90.0f)
 				{
 					m_Char_A->Charcter->nowHP -= Damage_B;
 					if (m_Char_A->Charcter->nowHP <= 0)
@@ -581,6 +585,14 @@ void CSystemBattle::Draw()
 				}
 				break;
 			case Lancer:
+				if (m_Char_A->Charcter->GetAlly())
+				{
+					Model[2]->Draw(world);
+				}
+				else
+				{
+					Model[3]->Draw(world);
+				}
 			case Archer:
 			case Sorcerer:
 				break;
@@ -605,6 +617,14 @@ void CSystemBattle::Draw()
 				}
 				break;
 			case Lancer:
+				if (m_Char_B->Charcter->GetAlly())
+				{
+					Model[2]->Draw(world);
+				}
+				else
+				{
+					Model[3]->Draw(world);
+				}
 			case Archer:
 			case Sorcerer:
 				break;

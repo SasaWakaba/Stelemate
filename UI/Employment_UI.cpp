@@ -199,7 +199,8 @@ void CEmploymentUI::Update(int frame)
 				}
 				break;
 			case Archer:
-				if (2 < WorldManager::GetSoldierPoint())
+				//ƒ‚ƒfƒ‹–¢Š®¬‚Ì‚½‚ß–¢ŽÀ‘•
+				/*if (2 < WorldManager::GetSoldierPoint())
 				{
 					PlayerData* member;
 					member = new PlayerData();
@@ -239,10 +240,11 @@ void CEmploymentUI::Update(int frame)
 					Phase = moveEmp;
 					StartFrame = Frame;
 					m_AddData = member;
-				}
+				}*/
 				break;
 			case Sorcerer:
-				if (2 < WorldManager::GetSoldierPoint())
+				//ƒ‚ƒfƒ‹–¢Š®¬‚Ì‚½‚ß–¢ŽÀ‘•
+				/*if (2 < WorldManager::GetSoldierPoint())
 				{
 					PlayerData* member;
 					member = new PlayerData();
@@ -282,10 +284,11 @@ void CEmploymentUI::Update(int frame)
 					Phase = moveEmp;
 					StartFrame = Frame;
 					m_AddData = member;
-				}
+				}*/
 				break;
 			case Healer:
-				if (2 < WorldManager::GetSoldierPoint())
+				//ƒ‚ƒfƒ‹–¢Š®¬‚Ì‚½‚ß–¢ŽÀ‘•
+				/*if (2 < WorldManager::GetSoldierPoint())
 				{
 					PlayerData* member;
 					member = new PlayerData();
@@ -325,10 +328,10 @@ void CEmploymentUI::Update(int frame)
 					Phase = moveEmp;
 					StartFrame = Frame;
 					m_AddData = member;
-				}
+				}*/
 				break;
 			case Lancer:
-				if (3 < WorldManager::GetSoldierPoint())
+				if (3 <= WorldManager::GetSoldierPoint())
 				{
 					PlayerData* member;
 					member = new PlayerData();

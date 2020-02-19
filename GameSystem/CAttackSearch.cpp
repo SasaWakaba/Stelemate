@@ -84,6 +84,7 @@ std::vector<Vector2_3D> CAttackSearch::Search(Vector2_3D pos, Weapontype Atk)
 	switch (Atk)
 	{
 	case Sword:
+	case Lance:
 		if (pos.x + 1 < m_X)
 		{
 			add = { pos.x + 1, pos.z };
@@ -106,6 +107,7 @@ std::vector<Vector2_3D> CAttackSearch::Search(Vector2_3D pos, Weapontype Atk)
 		}
 		break;
 	case Magic:
+	case Bow:
 		if (pos.x + 2 < m_X)
 		{
 			add = { pos.x + 2, pos.z };

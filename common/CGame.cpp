@@ -66,7 +66,7 @@ void CGame::Init()
 	//AddGameObject<CPolygon>(4);
 
 	AddGameObject<CSkyBox>(0);
-	AddGameObject<CStageManager>(0)->SetStageNum(0);
+	AddGameObject<CStageManager>(0);
 
 
 

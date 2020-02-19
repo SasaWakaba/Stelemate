@@ -45,7 +45,7 @@ public:
 
 	//エネミーステートパターン用取得関数
 	StageInfo* GetStageInfo();
-	std::vector<Vector2_3D> GetMoveSearch(Vector2_3D pos, int move);
+	std::vector<Vector2_3D> GetMoveSearch(Vector2_3D pos, CCharcterBase* move);
 	std::vector<Vector2_3D> GetAttackSearch(Vector2_3D pos, Weapontype Atk);
 	std::vector<Vector2_3D> GetSerchArea();
 	CCharcterBase* GetMoveEnemy();

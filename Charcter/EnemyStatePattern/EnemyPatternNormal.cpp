@@ -54,7 +54,7 @@ void CEnemyPatternNormal::Update(CEnemyAI* pEnemy, Vector2_3D* cursol)
 	case move:
 		if (MoveEnemy != nullptr)
 		{
-			*cursol = Move(pEnemy, SelectEnemyPos, MoveEnemy->GetStatus()->MovePoint).back();
+			*cursol = Move(pEnemy, SelectEnemyPos, MoveEnemy).back();
 			stage->stage[cursol->z * stage->StageXnum + cursol->x].bChar = true;
 			stage->stage[cursol->z * stage->StageXnum + cursol->x].Charcter = MoveEnemy;
 			MoveEnemy->MoveLocation(XMFLOAT3((cursol->x * SPACE_SIZE) - (SPACE_SIZE * stage->StageXnum / 2), 0.0f, (cursol->z * SPACE_SIZE) - (SPACE_SIZE * stage->StageZnum / 2)));
@@ -129,7 +129,7 @@ void CEnemyPatternNormal::Update(CEnemyAI* pEnemy, Vector2_3D* cursol)
 	}
 }
 
-std::vector<Vector2_3D> CEnemyPatternNormal::Move(CEnemyAI* pEnemy, Vector2_3D pos, int Move)
+std::vector<Vector2_3D> CEnemyPatternNormal::Move(CEnemyAI* pEnemy, Vector2_3D pos, CCharcterBase* Move)
 {
 	pEnemy->Reset();
 	pEnemy->ResetMove();
@@ -163,7 +163,7 @@ std::vector<Vector2_3D> CEnemyPatternNormal::Move(CEnemyAI* pEnemy, Vector2_3D p
 	if (length_near != 1)
 	{
 		Vector2_3D Moving = pos;
-		for (int i = Move; i > 0;)
+		for (int i = Move->GetStatus()->MovePoint; i > 0;)
 		{
 			for (Vector2_3D movePos : Area)
 			{

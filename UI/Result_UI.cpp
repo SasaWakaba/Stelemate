@@ -295,6 +295,7 @@ void CResultUI::Draw()
 		{
 			m_Texture[8]->Draw(SelectPos[0].x, SelectPos[0].y, 0, 0, SCREEN_WIDTH / 2, SCREEN_WIDTH / 2 / 5, SCREEN_WIDTH / 2, SCREEN_WIDTH / 2 / 5);
 			m_Texture[9]->Draw(SelectPos[1].x, SelectPos[1].y, 0, 0, SCREEN_WIDTH / 2, SCREEN_WIDTH / 2 / 5, SCREEN_WIDTH / 2, SCREEN_WIDTH / 2 / 5);
+			color.setAll(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 			std::string text = "次のステージへ進む";
 			m_Text[1]->DrawJpn(SelectPos[0].x - (TEXT_SIZE / 3 * 2) * text.size() / 4, SelectPos[0].y - TEXT_SIZE / 3 * 2, TEXT_SIZE, TEXT_SIZE / 3 * 2, text, color);
 			text = "ゲームを終了してタイトルへ戻る";

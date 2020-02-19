@@ -364,13 +364,13 @@ void CSystemMain::TurnPlayer()
 				&& m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetTurnMove() == false)
 			{
 				move = m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetStatus()->MovePoint;
-				m_MoveSerch->Search(m_CursorLocation, move);
+				m_MoveSerch->Search(m_CursorLocation, m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter);
 				m_MoveSerch->SetDraw(true, true);
 			}
 			else if (!m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetAlly())
 			{
 				move = m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetStatus()->MovePoint;
-				m_MoveSerch->Search(m_CursorLocation, move);
+				m_MoveSerch->Search(m_CursorLocation, m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter);
 				m_MoveSerch->SetDraw(true, false);
 			}
 			else
@@ -496,7 +496,7 @@ void CSystemMain::TurnPlayer()
 	{
 		int move;
 		move = m_SelectChar->GetStatus()->MovePoint;
-		m_MoveArea = m_MoveSerch->Search(m_SelectLocation, move);
+		m_MoveArea = m_MoveSerch->Search(m_SelectLocation, m_SelectChar);
 		m_MoveSerch->SetDraw(true, true);
 	}
 
@@ -509,7 +509,12 @@ void CSystemMain::TurnPlayer()
 		{
 			m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar = true;
 			m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter = m_SelectChar;
-			m_SelectChar->MoveLocation(XMFLOAT3((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 0.0f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
+			if (m_SelectLocation != m_CursorLocation)
+			{
+				m_SelectPanel->bChar = false;
+				m_SelectPanel->Charcter = nullptr;
+				m_SelectChar->MoveLocation(XMFLOAT3((m_CursorLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 0.0f, (m_CursorLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
+			}
 
 			WorldManager::GetParty()[m_SelectChar->GetName()]->PosX = m_CursorLocation.x;
 			WorldManager::GetParty()[m_SelectChar->GetName()]->PosZ = m_CursorLocation.z;
@@ -521,11 +526,7 @@ void CSystemMain::TurnPlayer()
 
 			m_AtkArea = m_AttackSearch->Search(m_CursorLocation, m_SelectChar->GetStatus()->type);
 
-			if (m_SelectLocation != m_CursorLocation)
-			{
-				m_SelectPanel->bChar = false;
-				m_SelectPanel->Charcter = nullptr;
-			}
+
 			m_SelectPanel = &m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x];
 
 			bool attack = false;
@@ -613,7 +614,6 @@ void CSystemMain::TurnPlayer()
 			CGameMenu_UI* UI;
 			m_StageMap[m_SelectLocation.z * m_X + m_SelectLocation.x].bChar = true;
 			m_StageMap[m_SelectLocation.z * m_X + m_SelectLocation.x].Charcter = m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter;
-			m_StageMap[m_SelectLocation.z * m_X + m_SelectLocation.x].Charcter->MoveLocation(XMFLOAT3((m_SelectLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 0.0f, (m_SelectLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
 
 			WorldManager::GetParty()[m_SelectChar->GetName()]->PosX = m_SelectLocation.x;
 			WorldManager::GetParty()[m_SelectChar->GetName()]->PosZ = m_SelectLocation.z;
@@ -621,6 +621,7 @@ void CSystemMain::TurnPlayer()
 			{
 				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].bChar = false;
 				m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter = nullptr;
+				m_StageMap[m_SelectLocation.z * m_X + m_SelectLocation.x].Charcter->MoveLocation(XMFLOAT3((m_SelectLocation.x * SPACE_SIZE) - (SPACE_SIZE * m_X / 2), 0.0f, (m_SelectLocation.z * SPACE_SIZE) - (SPACE_SIZE * m_Z / 2)));
 			}
 
 			CScene* scene;
@@ -882,7 +883,7 @@ void CSystemMain::TurnEnemy()
 				&& m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetTurnMove() == false)
 			{
 				move = m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter->GetStatus()->MovePoint;
-				m_MoveSerch->Search(m_CursorLocation, move);
+				m_MoveSerch->Search(m_CursorLocation, m_StageMap[m_CursorLocation.z * m_X + m_CursorLocation.x].Charcter);
 				m_MoveSerch->SetDraw(true, false);
 			}
 			else

@@ -51,6 +51,8 @@ public:
 	//•`‰æêŠİ’è
 	void SetLocation(XMFLOAT3 pos);
 
+	void SetRotation(XMFLOAT3 rot);
+
 	//•`‰æêŠˆÚ“®ŠJn
 	void MoveLocation(XMFLOAT3 pos);
 

@@ -26,13 +26,13 @@ void CEnemyPatternMove::Update(CEnemyAI* pEnemy, Vector2_3D* cursol)
 	CCharcterBase* ene = pEnemy->GetMoveEnemy();
 	if (ene != nullptr)
 	{
-		*cursol = Move(pEnemy, pEnemy->GetMoveEnemyPos(), ene->GetStatus()->MovePoint).back();
+		*cursol = Move(pEnemy, pEnemy->GetMoveEnemyPos(), ene).back();
 		stage->stage[cursol->z * stage->StageXnum + cursol->x].bChar = true;
 		stage->stage[cursol->z * stage->StageXnum + cursol->x].Charcter = ene;
-		ene->MoveLocation(XMFLOAT3((cursol->x * SPACE_SIZE) - (SPACE_SIZE * stage->StageXnum / 2), 0.0f, (cursol->z * SPACE_SIZE) - (SPACE_SIZE * stage->StageZnum / 2)));
 
 		if (*cursol != pEnemy->GetMoveEnemyPos())
 		{
+			ene->MoveLocation(XMFLOAT3((cursol->x * SPACE_SIZE) - (SPACE_SIZE * stage->StageXnum / 2), 0.0f, (cursol->z * SPACE_SIZE) - (SPACE_SIZE * stage->StageZnum / 2)));
 			stage->stage[pEnemy->GetMoveEnemyPos().z * stage->StageXnum + pEnemy->GetMoveEnemyPos().x].bChar = false;
 			stage->stage[pEnemy->GetMoveEnemyPos().z * stage->StageXnum + pEnemy->GetMoveEnemyPos().x].Charcter = nullptr;
 		}
@@ -42,7 +42,7 @@ void CEnemyPatternMove::Update(CEnemyAI* pEnemy, Vector2_3D* cursol)
 	pEnemy->SetMove(Select(pEnemy, *cursol, ene->GetWeapon()->WeaponType));
 }
 
-std::vector<Vector2_3D> CEnemyPatternMove::Move(CEnemyAI* pEnemy, Vector2_3D pos, int Move)
+std::vector<Vector2_3D> CEnemyPatternMove::Move(CEnemyAI* pEnemy, Vector2_3D pos, CCharcterBase* Move)
 {
 	pEnemy->Reset();
 	pEnemy->ResetMove();
@@ -76,7 +76,7 @@ std::vector<Vector2_3D> CEnemyPatternMove::Move(CEnemyAI* pEnemy, Vector2_3D pos
 	if (length_near != 1)
 	{
 		Vector2_3D Moving = pos;
-		for (int i = Move; i > 0;)
+		for (int i = Move->GetStatus()->MovePoint; i > 0;)
 		{
 			for (Vector2_3D movePos : Area)
 			{

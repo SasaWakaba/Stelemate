@@ -24,12 +24,13 @@ class CLancer :public CCharcterBase
 private:
 	XMFLOAT3 m_LocationOld;
 	CModelAnimation* m_Model[2];
+	int frame;
 public:
 	CLancer() :CCharcterBase(Lancer) {}
 	~CLancer() {}
 	void Initialize();
 	void Finalize();
-	//void Update(){}
+	void Update();
 	void Draw();
 };
 

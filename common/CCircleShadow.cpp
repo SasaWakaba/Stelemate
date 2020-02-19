@@ -54,8 +54,6 @@ void CCircleShadow::Initialize()
 void CCircleShadow::Finalize()
 {
 	m_VertexBuffer->Release();
-	//m_Texture->Unload();
-	delete m_Texture;
 }
 
 void CCircleShadow::Update()

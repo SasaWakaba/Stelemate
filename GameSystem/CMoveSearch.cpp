@@ -81,11 +81,18 @@ void CMoveSearch::Draw()
 	}
 }
 
-std::vector<Vector2_3D> CMoveSearch::Search(Vector2_3D pos, int Move)
+std::vector<Vector2_3D> CMoveSearch::Search(Vector2_3D pos, CCharcterBase* Move)
 {
 	Reset();
 	Add(pos);
-	ReSearch(pos, Move, pos);
+	if (Move->m_JobClass != Lancer)
+	{
+		ReSearch(pos, Move->GetStatus()->MovePoint, pos);
+	}
+	else
+	{
+		ReSearchLance(pos, Move->GetStatus()->MovePoint, pos);
+	}
 	return m_MoveArea;
 }
 
@@ -186,6 +193,101 @@ void CMoveSearch::ReSearch(Vector2_3D pos, int Move, Vector2_3D posOld)
 				Add(add);
 
 				ReSearch(add, Move - (int)m_StageMap[Down].PanelPattarn, pos);
+			}
+		}
+	}
+
+}
+
+void CMoveSearch::ReSearchLance(Vector2_3D pos, int Move, Vector2_3D posOld)
+{
+	int old = posOld.z * m_X + posOld.x;
+	int Right;
+	int Left;
+	int Up;
+	int Down;
+
+	if (pos.x + 1 >= m_X)
+	{
+		Right = old;
+	}
+	else
+	{
+		Right = pos.z * m_X + pos.x + 1;
+	}
+	if (pos.x - 1 < 0)
+	{
+		Left = old;
+	}
+	else
+	{
+		Left = pos.z * m_X + pos.x - 1;
+	}
+	if (pos.z + 1 >= m_Z)
+	{
+		Up = old;
+	}
+	else
+	{
+		Up = (pos.z + 1) * m_X + pos.x;
+	}
+	if (pos.z - 1 < 0)
+	{
+		Down = old;
+	}
+	else
+	{
+		Down = (pos.z - 1) * m_X + pos.x;
+	}
+
+	//‰E‚ð’Tõ
+	if (Right != old)
+	{
+		if (!m_StageMap[Right].bChar)
+		{
+			if (Move >= (int)m_StageMap[Right].PanelPattarn || (int)m_StageMap[Right].PanelPattarn == 2)
+			{
+				Vector2_3D add = { pos.x + 1, pos.z };
+				Add(add);
+			}
+		}
+	}
+
+	//¶‚ð’Tõ
+	if (Left != old)
+	{
+		if (!m_StageMap[Left].bChar)
+		{
+			if (Move >= (int)m_StageMap[Left].PanelPattarn || (int)m_StageMap[Left].PanelPattarn == 2)
+			{
+				Vector2_3D add = { pos.x - 1, pos.z };
+				Add(add);
+			}
+		}
+	}
+
+	//ã‚ð’Tõ
+	if (Up != old)
+	{
+		if (!m_StageMap[Up].bChar)
+		{
+			if (Move >= (int)m_StageMap[Up].PanelPattarn || (int)m_StageMap[Up].PanelPattarn == 2)
+			{
+				Vector2_3D add = { pos.x, pos.z + 1 };
+				Add(add);
+			}
+		}
+	}
+
+	//‰º‚ð’Tõ
+	if (Down != old)
+	{
+		if (!m_StageMap[Down].bChar)
+		{
+			if (Move >= (int)m_StageMap[Down].PanelPattarn || (int)m_StageMap[Down].PanelPattarn == 2)
+			{
+				Vector2_3D add = { pos.x, pos.z - 1 };
+				Add(add);
 			}
 		}
 	}

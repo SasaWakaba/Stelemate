@@ -2,6 +2,7 @@
 #include "../common/MeshField.h"
 #include "../common/ModelAnimation.h"
 #include "../common/CCircleShadow.h"
+#include "../common/ModelManager.h"
 
 #include "CStagePanel.h"
 #include "CStage.h"
@@ -25,7 +26,7 @@ void CStage::Initialize()
 			{
 				if (m_StageMap[z * m_Xnum + x].bChar)
 				{
-					m_StageMap[z * m_Xnum + x].Charcter->Initialize();
+					/*m_StageMap[z * m_Xnum + x].Charcter->Initialize();*/
 					m_StageMap[z * m_Xnum + x].Charcter->SetLocation(XMFLOAT3((x * SPACE_SIZE) - (SPACE_SIZE * m_Xnum / 2), 0.0f, (z * SPACE_SIZE) - (SPACE_SIZE * m_Znum / 2)));
 				}
 			}
@@ -34,11 +35,9 @@ void CStage::Initialize()
 	m_Meshfield = new CMeshField();
 	m_Meshfield->Initialize(m_Xnum * SPACE_SIZE * 3, m_Znum * SPACE_SIZE * 2, m_Xnum * 3, m_Znum * 2);
 
-	m_Model[0] = new CModelAnimation();
-	m_Model[0]->Load("asset/model/wooden watch tower2.fbx");
+	m_Model[0] = CModelManager::LoadModel("asset/model/wooden watch tower2.fbx");
 
-	m_Model[1] = new CModelAnimation();
-	m_Model[1]->Load("asset/model/forest/treeplan1.fbx");
+	m_Model[1] = CModelManager::LoadModel("asset/model/forest/treeplan1.fbx");
 
 	m_Model[2] = new CModelAnimation();
 	m_Model[2]->InstanceEnable(true, XMFLOAT4(5, 5, 40, 0.0f));
@@ -109,11 +108,8 @@ void CStage::Finalize()
 	m_Meshfield->Finalize();
 	delete m_Meshfield;
 
-	for (int i = 0; i < MODEL_MAX; i++)
-	{
-		m_Model[i]->UnLoad();
-		delete m_Model[i];
-	}
+	m_Model[2]->UnLoad();
+	delete m_Model[2];
 
 	m_Shadow->Finalize();
 	delete m_Shadow;

@@ -18,6 +18,8 @@ bool CCharcterBase::GetTurnMove() { return bTurnMove; }
 
 void CCharcterBase::SetAlly(bool bEnable) { bAlly = bEnable; if(!bAlly)m_Rotation.y = 180.0f; }
 
+void CCharcterBase::SetRotation(XMFLOAT3 rot) { m_Rotation = rot; }
+
 bool CCharcterBase::GetAlly() { return bAlly; }
 
 void CCharcterBase::SetWeapon(WeaponStatus* weapon) { m_Weapon = weapon; }

@@ -4,6 +4,7 @@
 #include "CCharcterBase.h"
 #include "../common/model.h"
 #include "../common/ModelAnimation.h"
+#include "../common/ModelManager.h"
 #include "CCharacterData.h"
 #include "CWeaponData.h"
 
@@ -14,6 +15,7 @@ void CSwordsman::Initialize()
 	m_Model[0] = new CModelAnimation();
 	m_Model[0]->Load("asset/model/Character/Swordman/swordman_Idle.fbx");
 	m_Model[0]->LoadAnim("asset/model/Character/Swordman/swordman_run.fbx");
+
 	m_Model[1] = new CModelAnimation();
 	m_Model[1]->Load("asset/model/Character/Enemy/swordman_Idle.fbx");
 	m_Model[1]->LoadAnim("asset/model/Character/Enemy/swordman_run.fbx");
@@ -81,22 +83,53 @@ void CSwordsman::Draw()
 void CLancer::Initialize()
 {
 	m_Model[0] = new CModelAnimation();
-	m_Model[0]->Load("asset/model/Character/Lancer/Lancer.fbx");
-	//m_Model[1] = new CModelAnimation();
-	//m_Model[1]->Load("asset/model/Rook_B/RookB.obj");
+	m_Model[0]->Load("asset/model/Character/Lancer/Lancer_idle.fbx");
+	m_Model[0]->LoadAnim("asset/model/Character/Lancer/Lancer_run.fbx");
+
+	m_Model[1] = new CModelAnimation();
+	m_Model[1]->Load("asset/model/Character/Enemy/Lancer_idle.fbx");
+	m_Model[1]->Load("asset/model/Character/Enemy/Lancer_run.fbx");
 
 	m_Status = CCharacterData::m_CharData["‘„•º"];
 	nowHP = m_Status.HP;
 	Level = 1;
 	m_Weapon = &CWeaponData::m_WeaponData["“S‚Ì‘„"];
+	frame = 0;
 }
 
 void CLancer::Finalize()
 {
 	m_Model[0]->UnLoad();
 	delete m_Model[0];
-	//m_Model[1]->UnLoad();
-	//delete m_Model[1];
+	m_Model[1]->UnLoad();
+	delete m_Model[1];
+}
+void CLancer::Update()
+{
+	CCharcterBase::Update();
+	if (bMoveLocation)
+	{
+		if (bAlly)
+		{
+			m_Model[0]->Update(1, frame);
+		}
+		else
+		{
+			m_Model[1]->Update(1, frame);
+		}
+	}
+	else
+	{
+		if (bAlly)
+		{
+			m_Model[0]->Update(0, frame);
+		}
+		else
+		{
+			m_Model[1]->Update(0, frame);
+		}
+	}
+	frame++;
 }
 
 void CLancer::Draw()
@@ -109,8 +142,8 @@ void CLancer::Draw()
 	{
 		m_Model[0]->Draw(world);
 	}
-	//else
-	//{
-	//	m_Model[1]->Draw(world);
-	//}
+	else
+	{
+		m_Model[1]->Draw(world);
+	}
 }

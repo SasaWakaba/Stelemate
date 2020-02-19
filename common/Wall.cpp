@@ -3,7 +3,7 @@
 #include "texture.h"
 #include "Game_Object.h"
 #include "Wall.h"
-
+#include "TextureManager.h"
 
 
 
@@ -51,15 +51,12 @@ void CBattleRand::Initialize()
 	//=======================================================
 	//テクスチャ読み込み
 	//=======================================================
-	m_Texture = new CTexture();
-	m_Texture->LoadTex("asset/texture/Icon000.png");
+	m_Texture = CTextureManager::LoadTexture("asset/texture/Icon000.png");
 }
 
 void CBattleRand::Finalize()
 {
 	m_VertexBuffer->Release();
-	m_Texture->Unload();
-	delete m_Texture;
 }
 
 void CBattleRand::Update()

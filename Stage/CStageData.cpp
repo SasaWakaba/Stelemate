@@ -82,6 +82,10 @@ void CStageData::Load(const char* filename)
 void CStageData::Initialize()
 {
 	Load("Data/StageData1.csv");
+	Load("Data/StageData2.csv");
+	Load("Data/StageData3.csv");
+	Load("Data/StageData4.csv");
+	Load("Data/StageData5.csv");
 }
 
 void CStageData::Finalize()

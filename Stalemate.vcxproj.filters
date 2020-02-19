@@ -342,6 +342,9 @@
     <ClCompile Include="common\TextureManager.cpp">
       <Filter>ソース ファイル\common</Filter>
     </ClCompile>
+    <ClCompile Include="common\ModelManager.cpp">
+      <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugUi\DebugUI.h">
@@ -591,6 +594,9 @@
       <Filter>ヘッダー ファイル\Title\UI</Filter>
     </ClInclude>
     <ClInclude Include="common\TextureManager.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\ModelManager.h">
       <Filter>ヘッダー ファイル\common</Filter>
     </ClInclude>
   </ItemGroup>

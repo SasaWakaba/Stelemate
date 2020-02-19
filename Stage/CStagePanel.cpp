@@ -7,6 +7,7 @@
 
 #include "../common/model.h"
 #include "../common/ModelAnimation.h"
+#include "../common/ModelManager.h"
 
 void CStagePanel::Initialize()
 {
@@ -18,8 +19,7 @@ void CStagePanel::Initialize()
 	case 2:
 		m_Texture = CTextureManager::LoadTexture("asset/texture/forest.jpg");
 
-		m_Model = new CModelAnimation();
-		m_Model->Load("asset/model/forest/treeplan1.fbx");
+		m_Model = CModelManager::LoadModel("asset/model/forest/treeplan1.fbx");
 		break;
 	}
 	
@@ -31,12 +31,6 @@ void CStagePanel::Finalize()
 {
 	cube->Finalize();
 	delete cube;
-
-	if (m_Model != nullptr)
-	{
-		m_Model->UnLoad();
-		delete m_Model;
-	}
 }
 
 void CStagePanel::Draw()

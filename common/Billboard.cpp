@@ -59,7 +59,6 @@ void CBillboard::Finalize()
 {
 	m_VertexBuffer->Release();
 	//m_Texture->Unload();
-	delete m_Texture;
 }
 
 void CBillboard::Draw(XMMATRIX world)

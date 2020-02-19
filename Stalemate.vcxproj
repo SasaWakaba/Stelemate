@@ -48,6 +48,7 @@
     <ClCompile Include="common\MeshField.cpp" />
     <ClCompile Include="common\model.cpp" />
     <ClCompile Include="common\ModelAnimation.cpp" />
+    <ClCompile Include="common\ModelManager.cpp" />
     <ClCompile Include="common\number.cpp" />
     <ClCompile Include="common\particle.cpp" />
     <ClCompile Include="common\polygon.cpp" />
@@ -128,6 +129,7 @@
     <ClInclude Include="common\MeshField.h" />
     <ClInclude Include="common\model.h" />
     <ClInclude Include="common\ModelAnimation.h" />
+    <ClInclude Include="common\ModelManager.h" />
     <ClInclude Include="common\number.h" />
     <ClInclude Include="common\particle.h" />
     <ClInclude Include="common\polygon.h" />

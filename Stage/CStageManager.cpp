@@ -14,53 +14,10 @@
 
 #include "CStageManager.h"
 
-PanelState stage0[] = {
-	{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},
-	{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},
-	{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},
-};
 
-
-PanelState stage1[] = {
-	{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{2, nullptr, false},{2, nullptr, false},{2, nullptr, false},{2, nullptr, false},{2, nullptr, false},
-	{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{2, nullptr, false},{2, nullptr, false},{2, nullptr, false},
-	{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{2, nullptr, false},{2, nullptr, false},
-	{1, nullptr, false},{1, nullptr, false},{2, nullptr, false},{2, nullptr, false},{2, nullptr, false},{1, nullptr, false},{1, nullptr, false},{2, nullptr, false},
-	{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{2, nullptr, false},{1, nullptr, false},{1, nullptr, false},{2, nullptr, false},
-	{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{2, nullptr, false},{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{2, nullptr, false},
-	{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{2, nullptr, false},
-	{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{1, nullptr, false},{2, nullptr, false},
-};
 
 void CStageManager::Initialize()
 {
-	//PanelState* stage0 = CStageData::m_StageData["stage1"]->stage;
-
-
-	////CCharcterBase* man;
-	//CCharcterBase* cat;
-	//CCharcterBase* cat2;
-	////man = new CSwordsman();
-	////man->SetAlly(true);
-	//cat = new CSwordsman();
-	//cat->SetAlly(false);
-	//cat2 = new CSwordsman();
-	//cat2->SetAlly(false);
-
-	//if (WorldManager::GetParty().size() > 0)
-	//{
-	//	for (auto pl : WorldManager::GetParty())
-	//	{
-	//		stage0[pl.second->PosZ * CStageData::m_StageData["stage1"]->StageXnum + pl.second->PosX].bChar = true;
-	//		stage0[pl.second->PosZ * CStageData::m_StageData["stage1"]->StageXnum + pl.second->PosX].Charcter = pl.second->m_Character;
-	//	}
-	//}
-
-
-	//stage0[63].bChar = true;
-	//stage0[63].Charcter = cat;
-	//stage0[57].bChar = true;
-	//stage0[57].Charcter = cat2;
 
 	if (WorldManager::GetStageInfo().size() != 0)
 	{
@@ -70,7 +27,7 @@ void CStageManager::Initialize()
 			AddMainSystem(stage->stage, stage->StageXnum, stage->StageZnum);
 		}
 	}
-
+	SetStageNum(WorldManager::GetNowStageNum());
 
 	//WorldManager::SetStageState(CStageData::m_StageData["stage1"]);
 }

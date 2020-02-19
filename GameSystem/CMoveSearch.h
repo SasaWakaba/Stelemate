@@ -26,13 +26,14 @@ private:
 	bool PL;
 
 	void ReSearch(Vector2_3D pos, int Move, Vector2_3D posOld);
+	void ReSearchLance(Vector2_3D pos, int Move, Vector2_3D posOld);
 
 public:
 	void Initialize(int numX, int numZ, PanelState* Map);
 	void Finalize();
 	void Draw();
 
-	std::vector<Vector2_3D> Search(Vector2_3D pos, int Move);
+	std::vector<Vector2_3D> Search(Vector2_3D pos, CCharcterBase* Move);
 
 	void Reset() { m_MoveArea.clear(); }
 

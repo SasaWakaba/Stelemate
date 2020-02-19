@@ -56,13 +56,65 @@ void CStageSetting::Initialize(int stageNum)
 				}
 			}
 		}
+		for (int i = 0; i < ene.LancerNum; i++)
+		{
+			CCharcterBase* enemy;
+			enemy = new CLancer();
+			enemy->Initialize();
+			enemy->SetAlly(false);
+
+			int z = pStage->StageZnum - 1;
+			int x = pStage->StageXnum - 1;
+			while (1)
+			{
+				if (pStage->stage[z * pStage->StageZnum + x].bChar == false)
+				{
+					enemy->SetLocation(XMFLOAT3((x * SPACE_SIZE) - (SPACE_SIZE * pStage->StageXnum / 2), 0.0f, (z * SPACE_SIZE) - (SPACE_SIZE * pStage->StageZnum / 2)));
+
+					pStage->stage[z * pStage->StageZnum + x].Charcter = enemy;
+					pStage->stage[z * pStage->StageZnum + x].bChar = true;
+					break;
+				}
+				else
+				{
+					x--;
+					if (x < 0)
+					{
+						x = pStage->StageXnum - 1;
+						z--;
+					}
+				}
+			}
+		}
+
 
 		if (WorldManager::GetParty().size() > 0)
 		{
 			for (auto pl : WorldManager::GetParty())
 			{
-				pStage->stage[pl.second->PosZ * pStage->StageXnum + pl.second->PosX].bChar = true;
-				pStage->stage[pl.second->PosZ * pStage->StageXnum + pl.second->PosX].Charcter = pl.second->m_Character;
+				pl.second->PosZ = 0;
+				pl.second->PosX = 0;
+				while (1)
+				{
+					if (!pStage->stage[pl.second->PosZ * pStage->StageXnum + pl.second->PosX].bChar)
+					{
+						pStage->stage[pl.second->PosZ * pStage->StageXnum + pl.second->PosX].bChar = true;
+						pStage->stage[pl.second->PosZ * pStage->StageXnum + pl.second->PosX].Charcter = pl.second->m_Character;
+						pl.second->m_Character->SetLocation(XMFLOAT3((pl.second->PosX * SPACE_SIZE) - (SPACE_SIZE * pStage->StageXnum / 2), 0.0f, (pl.second->PosZ * SPACE_SIZE) - (SPACE_SIZE * pStage->StageZnum / 2)));
+						pl.second->m_Character->nowHP = pl.second->m_Character->GetStatus()->HP;
+						pl.second->m_Character->SetRotation(XMFLOAT3(0.0f, 0.0f, 0.0f));
+						break;
+					}
+					else
+					{
+						pl.second->PosX++;
+						if (pl.second->PosX > pStage->StageXnum - 1)
+						{
+							pl.second->PosX = 0;
+							pl.second->PosZ++;
+						}
+					}
+				}
 			}
 		}
 	}
