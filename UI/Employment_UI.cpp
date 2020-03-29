@@ -200,7 +200,7 @@ void CEmploymentUI::Update(int frame)
 				break;
 			case Archer:
 				//ƒ‚ƒfƒ‹–¢Š®¬‚Ì‚½‚ß–¢À‘•
-				/*if (2 < WorldManager::GetSoldierPoint())
+				if (2 <= WorldManager::GetSoldierPoint())
 				{
 					PlayerData* member;
 					member = new PlayerData();
@@ -240,7 +240,7 @@ void CEmploymentUI::Update(int frame)
 					Phase = moveEmp;
 					StartFrame = Frame;
 					m_AddData = member;
-				}*/
+				}
 				break;
 			case Sorcerer:
 				//ƒ‚ƒfƒ‹–¢Š®¬‚Ì‚½‚ß–¢À‘•

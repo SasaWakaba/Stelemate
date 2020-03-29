@@ -171,6 +171,14 @@ void CSystemBattle::Initialize()
 	CModelManager::LoadAnim(Model[3], "asset/model/Character/Enemy/Lancer_run.fbx");
 	CModelManager::LoadAnim(Model[3], "asset/model/Character/Enemy/Lancer_Attack.fbx");
 
+	Model[4] = CModelManager::LoadModel("asset/model/Character/Archer/Archer_Idle.fbx");
+	CModelManager::LoadAnim(Model[4], "asset/model/Character/Archer/Archer_run.fbx");
+	CModelManager::LoadAnim(Model[4], "asset/model/Character/Archer/Archer_Attack.fbx");
+
+	Model[5] = CModelManager::LoadModel("asset/model/Character/Enemy/Archer_Idle.fbx");
+	CModelManager::LoadAnim(Model[5], "asset/model/Character/Enemy/Archer_run.fbx");
+	CModelManager::LoadAnim(Model[5], "asset/model/Character/Enemy/Archer_Attack.fbx");
+
 
 	Rand = new CBattleRand();
 	Rand->Initialize();
@@ -245,7 +253,7 @@ void CSystemBattle::Update()
 
 			case MoveCharA:
 			{
-				if (charaPos[0].x < 2.0f)
+				if (charaPos[0].x < 2.0f && m_Char_A->Charcter->m_JobClass != Archer)
 				{
 					int age = (Frame - CreateFrame);
 					charaPos[0].x = Quarticout(1.0f / 30.0f * age, -5.0f,7.0f, 1);
@@ -294,7 +302,7 @@ void CSystemBattle::Update()
 					Model[decideJob(m_Char_A->Charcter)]->Update(2, age);
 					Model[decideJob(m_Char_B->Charcter)]->Update(0, Frame);
 				}
-				else if (charaPos[0].x > -5.0f)
+				else if (charaPos[0].x > -5.0f && m_Char_A->Charcter->m_JobClass != Archer)
 				{
 					age = age - 60;
 					charaPos[0].x = Quarticout(1.0f / 30.0f * age, 2.0f, -7.0f, 1);
@@ -329,12 +337,12 @@ void CSystemBattle::Update()
 				if (DamageCount == Damage_A && charaRot[0] == 90.0f)
 				{
 					m_Char_B->Charcter->nowHP -= Damage_A;
-					if (m_Char_B->Charcter->nowHP > 0)
+					if (m_Char_B->Charcter->nowHP > 0 && m_Char_A->Charcter->m_JobClass != Archer)
 					{
 						Fase = MoveCharB;
 						CreateFrame = Frame;
 					}
-					else
+					else if(m_Char_B->Charcter->nowHP <= 0)
 					{
 						if (m_Char_A->Charcter->GetAlly())
 						{
@@ -362,12 +370,16 @@ void CSystemBattle::Update()
 						}
 						Fase = End;
 					}
+					else
+					{
+						Fase = End;
+					}
 				}
 				break;
 			}
 			case MoveCharB:
 			{
-				if (charaPos[1].x > -2.0f)
+				if (charaPos[1].x > -2.0f && m_Char_B->Charcter->m_JobClass != Archer)
 				{
 					int age = (Frame - CreateFrame);
 					charaPos[1].x = Quarticout(1.0f / 30.0f * age, 5.0f, -7.0f, 1);
@@ -414,7 +426,7 @@ void CSystemBattle::Update()
 					Model[decideJob(m_Char_A->Charcter)]->Update(0, Frame);
 					Model[decideJob(m_Char_B->Charcter)]->Update(2, age);
 				}
-				else if (charaPos[1].x < 5.0f)
+				else if (charaPos[1].x < 5.0f  && m_Char_B->Charcter->m_JobClass != Archer)
 				{
 					age = age - 60;
 					charaPos[1].x = Quarticout(1.0f / 30.0f * age, -2.0f, 7.0f, 1);
@@ -593,7 +605,16 @@ void CSystemBattle::Draw()
 				{
 					Model[3]->Draw(world);
 				}
+				break;
 			case Archer:
+				if (m_Char_A->Charcter->GetAlly())
+				{
+					Model[4]->Draw(world);
+				}
+				else
+				{
+					Model[5]->Draw(world);
+				}
 			case Sorcerer:
 				break;
 			}
@@ -625,7 +646,16 @@ void CSystemBattle::Draw()
 				{
 					Model[3]->Draw(world);
 				}
+				break;
 			case Archer:
+				if (m_Char_B->Charcter->GetAlly())
+				{
+					Model[4]->Draw(world);
+				}
+				else
+				{
+					Model[5]->Draw(world);
+				}
 			case Sorcerer:
 				break;
 			}

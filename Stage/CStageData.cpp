@@ -86,6 +86,7 @@ void CStageData::Initialize()
 	Load("Data/StageData3.csv");
 	Load("Data/StageData4.csv");
 	Load("Data/StageData5.csv");
+	Load("Data/StageData6.csv");
 }
 
 void CStageData::Finalize()

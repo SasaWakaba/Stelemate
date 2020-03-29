@@ -88,7 +88,7 @@ void CLancer::Initialize()
 
 	m_Model[1] = new CModelAnimation();
 	m_Model[1]->Load("asset/model/Character/Enemy/Lancer_idle.fbx");
-	m_Model[1]->Load("asset/model/Character/Enemy/Lancer_run.fbx");
+	m_Model[1]->LoadAnim("asset/model/Character/Enemy/Lancer_run.fbx");
 
 	m_Status = CCharacterData::m_CharData["‘„•º"];
 	nowHP = m_Status.HP;
@@ -133,6 +133,75 @@ void CLancer::Update()
 }
 
 void CLancer::Draw()
+{
+	XMMATRIX world;
+	world = XMMatrixScaling(0.25f, 0.25f, 0.25f);
+	world *= XMMatrixRotationRollPitchYaw(0.0f, m_Rotation.y, 0.0f);
+	world *= XMMatrixTranslation(m_Location.x, m_Location.y, m_Location.z);
+	if (bAlly)
+	{
+		m_Model[0]->Draw(world);
+	}
+	else
+	{
+		m_Model[1]->Draw(world);
+	}
+}
+
+
+void CArcher::Initialize() 
+{
+	m_Model[0] = new CModelAnimation();
+	m_Model[0]->Load("asset/model/Character/Archer/Archer_idle.fbx");
+	m_Model[0]->LoadAnim("asset/model/Character/Archer/Archer_run.fbx");
+
+	m_Model[1] = new CModelAnimation();
+	m_Model[1]->Load("asset/model/Character/Enemy/Archer_idle.fbx");
+	m_Model[1]->LoadAnim("asset/model/Character/Enemy/Archer_run.fbx");
+	m_Status = CCharacterData::m_CharData["‹|Žg‚¢"];
+	nowHP = m_Status.HP;
+	Level = 1;
+	m_Weapon = &CWeaponData::m_WeaponData["“S‚Ì‹|"];
+	frame = 0;
+}
+
+void CArcher::Finalize() 
+{
+	m_Model[0]->UnLoad();
+	delete m_Model[0];
+	m_Model[1]->UnLoad();
+	delete m_Model[1];
+}
+
+void CArcher::Update() 
+{
+	CCharcterBase::Update();
+	if (bMoveLocation)
+	{
+		if (bAlly)
+		{
+			m_Model[0]->Update(1, frame);
+		}
+		else
+		{
+			m_Model[1]->Update(1, frame);
+		}
+	}
+	else
+	{
+		if (bAlly)
+		{
+			m_Model[0]->Update(0, frame);
+		}
+		else
+		{
+			m_Model[1]->Update(0, frame);
+		}
+	}
+	frame++;
+}
+
+void CArcher::Draw() 
 {
 	XMMATRIX world;
 	world = XMMatrixScaling(0.25f, 0.25f, 0.25f);

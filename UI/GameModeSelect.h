@@ -5,6 +5,7 @@
 
 class CPolygon;
 class CDrawText;
+class CAudioClip;
 
 class CGameModeSelect
 {
@@ -13,7 +14,7 @@ private:
 	CDrawText*	m_Text[2];
 
 	GameMode m_select;
-
+	CAudioClip*		m_Ok;
 	int frame;
 public:
 	CGameModeSelect();

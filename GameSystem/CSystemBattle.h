@@ -4,7 +4,7 @@
 
 #include "../Stage/CStage.h"
 
-#define CHARACTER_MAX (4)
+#define CHARACTER_MAX (6)
 #define UI_MAX (7)
 
 class CPolygon;

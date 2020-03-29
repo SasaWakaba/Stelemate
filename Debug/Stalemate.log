@@ -1,12 +1,6 @@
-﻿  CGame.cpp
+﻿  CJob.cpp
 c:\users\nayup\documents\stelemate\library\assimp\include\assimp\defs.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
 c:\users\nayup\documents\stelemate\library\assimp\include\assimp\matrix3x3.h : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
 c:\users\nayup\documents\stelemate\library\assimp\include\assimp\matrix3x3.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
 c:\users\nayup\documents\stelemate\library\assimp\include\assimp\matrix4x4.inl : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-c:\users\nayup\documents\stelemate\common\scene.h(70): warning C4316: 'CCamera': ヒープで割り当てられたオブジェクトが 16 にアラインメントされていない可能性があります
-  c:\users\nayup\documents\stelemate\common\cgame.cpp(62): note: コンパイル対象の関数 テンプレート インスタンス化 'T *CScene::AddGameObject<CCamera>(int)' のリファレンスを確認してください
-          with
-          [
-              T=CCamera
-          ]
   Stalemate.vcxproj -> C:\Users\nayup\Documents\Stelemate\Debug\Stalemate.exe

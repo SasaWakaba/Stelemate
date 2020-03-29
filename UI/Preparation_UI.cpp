@@ -14,6 +14,7 @@
 #include "../common/Scene.h"
 #include "../GameSystem/CPreparation.h"
 #include "Employment_UI.h"
+#include "../Audio/audio_clip.h"
 
 #include "Preparation_UI.h"
 
@@ -54,6 +55,8 @@ CPreparationUI::~CPreparationUI()
 	delete m_Text[1];
 	m_Text[2]->UnSet();
 	delete m_Text[2];
+	m_Ok->Unload();
+	delete m_Ok;
 }
 
 void CPreparationUI::Initialize()
@@ -86,6 +89,9 @@ void CPreparationUI::Initialize()
 	m_Texture[8]->Load("asset/texture/PreparationUI009.png");
 	m_Texture[9]->Load("asset/texture/PreparationUI010.png");
 
+
+	m_Ok = new CAudioClip();
+	m_Ok->Load("asset/audio/decision.wav");
 	m_Cursol = Arrangement;
 	frame = 0;
 	pos = 1.0f;
@@ -131,6 +137,7 @@ void CPreparationUI::Update()
 
 		if (CInput::GetKeyTrigger(VK_SPACE) || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_A))
 		{
+			m_Ok->Play(false);
 			switch (m_Cursol)
 			{
 			case CPreparationUI::Start:

@@ -39,13 +39,14 @@ class CArcher :public CCharcterBase
 private:
 	XMFLOAT3 m_LocationOld;
 	CModelAnimation* m_Model[2];
+	int frame;
 public:
 	CArcher() :CCharcterBase(Archer) {}
 	~CArcher() {}
-	void Initialize() {}
-	void Finalize() {}
-	void Update() {}
-	void Draw() {}
+	void Initialize();
+	void Finalize();
+	void Update();
+	void Draw();
 };
 
 class CSorcerer :public CCharcterBase

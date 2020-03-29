@@ -7,6 +7,7 @@
 #include "../GameSystem/WorldManager.h"
 #include "../common/Scene.h"
 #include "../common/CTitle.h"
+#include "../Audio/audio_clip.h"
 
 #include "GameModeSelect.h"
 
@@ -43,6 +44,8 @@ CGameModeSelect::CGameModeSelect()
 	m_select = Casual;
 	frame = 0;
 
+	m_Ok = new CAudioClip();
+	m_Ok->Load("asset/audio/decision.wav");
 	alpha = 1.0f;
 }
 
@@ -58,6 +61,9 @@ CGameModeSelect::~CGameModeSelect()
 	delete m_Text[0];
 	m_Text[1]->UnSet();
 	delete m_Text[1];
+
+	m_Ok->Unload();
+	delete m_Ok;
 }
 
 void CGameModeSelect::Update()
@@ -74,6 +80,7 @@ void CGameModeSelect::Update()
 
 	if (CInput::GetKeyTrigger(VK_SPACE) || CInputController::GetKeyTrigger(XINPUT_GAMEPAD_A))
 	{
+		m_Ok->Play(false);
 		WorldManager::SetGameMode(m_select);
 		CTitle::Change();
 	}

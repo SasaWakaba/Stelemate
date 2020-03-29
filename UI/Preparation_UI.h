@@ -5,6 +5,7 @@ class CDrawText;
 class CNumber;
 class CEmploymentUI;
 class CStageSetting;
+class CAudioClip;
 
 class CPreparationUI : public CGameObject
 {
@@ -26,7 +27,7 @@ private:
 	CStageSetting* m_Arrangement;
 
 	SelectPre  m_Cursol;
-
+	CAudioClip*		m_Ok;
 	int frame;
 
 public:

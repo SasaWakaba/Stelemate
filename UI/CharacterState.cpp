@@ -117,7 +117,7 @@ void CCharacterState::Draw()
 				m_CharacterState[7]->Draw(-STATUS_WINDOW_WIDTH / 3.0 + x, y + 10 + WEAPON_FONT_SIZE / 2, 0, 0, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE);
 				break;
 			case Archer:
-				m_Text[1]->DrawJpn(x - JOB_FONT_SIZE / 3 * 2, y - STATUS_WINDOW_HEIGHT / 3 * 2.7f - JOB_FONT_SIZE / 2, JOB_FONT_SIZE, JOB_FONT_SIZE / 3 * 2, "‹|Žm", textcolor);
+				m_Text[1]->DrawJpn(x - JOB_FONT_SIZE / 3 * 2, y - STATUS_WINDOW_HEIGHT / 3 * 2.7f - JOB_FONT_SIZE / 2, JOB_FONT_SIZE, JOB_FONT_SIZE / 3 * 2, "‹|Žg‚¢", textcolor);
 				m_CharacterState[4]->Draw(-STATUS_WINDOW_WIDTH / 3.0 + x, y + 10 + WEAPON_FONT_SIZE / 2, 0, 0, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE, WEAPON_FONT_SIZE);
 				break;
 			case Sorcerer:
